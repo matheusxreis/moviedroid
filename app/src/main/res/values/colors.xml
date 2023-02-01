@@ -7,4 +7,18 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="darker">#000000</color>
+    <color name="dark">#212121</color>
+    <color name="transparentDark">#02212121</color>
+
+    <color name="text">#D3D3D3</color>
+    <color name="title">#E1E1E1</color>
+
+    <color name="backgroundColor">#333333</color>
+
+
+    <color name="statusBar">@color/dark</color>
+    <color name="actionBar">@color/transparentDark</color>
+
 </resources>

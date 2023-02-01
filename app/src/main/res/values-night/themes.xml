@@ -10,7 +10,15 @@
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/statusBar</item>
         <!-- Customize your theme here. -->
+        <item name="actionBarStyle">@style/Custom.ActionBarStyle</item>
+        <item name="windowActionBarOverlay">true</item>
+
+    </style>
+
+
+    <style name="Custom.ActionBarStyle" parent="Widget.MaterialComponents.ActionBar.Primary">
+        <item name="background">@color/actionBar</item>
     </style>
 </resources>
