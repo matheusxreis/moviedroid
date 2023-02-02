@@ -1,21 +1,23 @@
 package com.matheusxreis.moviedroid
 
-import android.media.Image
+import MoviesAdapter
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.constraintlayout.helper.widget.Carousel
-import coil.load
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.matheusxreis.moviedroid.adapters.TopMoviesCarouselAdapter
+import com.matheusxreis.moviedroid.models.MoviePoster
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
 
     private lateinit var topMoviesCarouselAdapter: TopMoviesCarouselAdapter
+    private val moviesAdapter:MoviesAdapter by lazy {
+        MoviesAdapter()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +67,30 @@ class HomeFragment : Fragment() {
         topMoviesCarouselAdapter.setData(images)
         carousel.setAdapter(topMoviesCarouselAdapter)
 
+        populateRecyclerView()
+        setUpRecyclerView()
 
+
+
+    }
+
+    fun setUpRecyclerView(){
+        moviesRv.adapter = moviesAdapter
+        moviesRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+    }
+    fun populateRecyclerView(){
+        val mockData = listOf(
+            MoviePoster(imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg", imdbId = ""),
+            MoviePoster(imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg", imdbId = ""),
+            MoviePoster(imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg", imdbId = ""),
+            MoviePoster(imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg", imdbId = ""),
+            MoviePoster(imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg", imdbId = ""),
+            MoviePoster(imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg", imdbId = ""),
+            MoviePoster(imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg", imdbId = ""),
+            MoviePoster(imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg", imdbId = ""),
+            MoviePoster(imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg", imdbId = ""),
+        )
+        moviesAdapter.setData(mockData)
     }
 
 }
