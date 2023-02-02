@@ -14,6 +14,7 @@ class MoviesAdapter() : RecyclerView.Adapter<MoviesAdapter.MyViewHolder>() {
 
         fun bind(moviePoster: MoviePoster) {
             binding.moviePoster = moviePoster
+            binding.executePendingBindings()
         }
     }
 
@@ -30,8 +31,8 @@ class MoviesAdapter() : RecyclerView.Adapter<MoviesAdapter.MyViewHolder>() {
 
     override fun getItemCount(): Int = moviePosters.size
 
-    fun setData(newMoviePostes: List<MoviePoster>) {
-        moviePosters = newMoviePostes
+    fun setData(newMoviePosters: List<MoviePoster>) {
+        moviePosters = newMoviePosters
         notifyItemInserted(itemCount)
     }
 
