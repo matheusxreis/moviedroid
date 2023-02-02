@@ -18,6 +18,7 @@
     <color name="placeholder">#7A7A7A</color>
 
     <color name="backgroundColor">@color/darker</color>
+    <color name="rippleColor">#30212121</color>
 
 
     <color name="statusBar">@color/dark</color>

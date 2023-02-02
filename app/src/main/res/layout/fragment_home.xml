@@ -60,7 +60,7 @@
                 android:id="@+id/arrowRight"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
-                android:backgroundTint="@color/transparentDark"
+                android:backgroundTint="@color/rippleColor"
                 android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_right_arrow"
@@ -74,7 +74,7 @@
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:alpha="0"
-                android:backgroundTint="@color/transparentDark"
+                android:backgroundTint="@color/rippleColor"
                 android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_left_arrow"
@@ -229,6 +229,21 @@
                 app:layout_constraintTop_toBottomOf="@id/seriesTitleTv"
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/movies_row_layout" />
+
+            <TextView
+                android:id="@+id/byMe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/seriesRv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="2023 by @matheusxreis"
+                android:textColor="@color/text"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintHorizontal_bias="0.5"
+                />
 
 
         </androidx.constraintlayout.motion.widget.MotionLayout>
