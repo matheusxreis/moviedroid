@@ -29,7 +29,7 @@
             <ImageView
                 android:id="@+id/topMoviesImageView"
                 android:layout_width="0dp"
-                android:layout_height="450dp"
+                android:layout_height="600dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/breaking_bad"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +39,7 @@
             <ImageView
                 android:id="@+id/topMoviesImageView2"
                 android:layout_width="0dp"
-                android:layout_height="450dp"
+                android:layout_height="600dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/breaking_bad"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +49,7 @@
             <ImageView
                 android:id="@+id/topMoviesImageView3"
                 android:layout_width="0dp"
-                android:layout_height="450dp"
+                android:layout_height="600dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/breaking_bad"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +73,6 @@
                 android:id="@+id/arrowLeft"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
-                android:alpha="0"
                 android:backgroundTint="@color/rippleColor"
                 android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:scaleType="centerCrop"
@@ -242,6 +241,8 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
                 android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+
                 app:layout_constraintHorizontal_bias="0.5"
                 />
 

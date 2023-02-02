@@ -54,11 +54,7 @@ class HomeFragment : Fragment() {
             topMoviesTitleTv.setOnClickListener { }
             seeMoreTv.setOnClickListener { }
 
-            if(index != 0){
-                arrowLeft.alpha = 1f
-            }else {
-                arrowLeft.alpha = 0f
-            }
+
 
             if (index == 0) {
                 markTopMovies1.alpha = 1f
