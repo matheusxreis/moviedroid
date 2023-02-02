@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.matheusxreis.moviedroid.adapters.TopMoviesCarouselAdapter
 import com.matheusxreis.moviedroid.models.MoviePoster
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class HomeFragment : Fragment() {
 
@@ -52,10 +53,18 @@ class HomeFragment : Fragment() {
             topMoviesTitleTv.text = titles[index]
             topMoviesTitleTv.setOnClickListener { }
             seeMoreTv.setOnClickListener { }
+
+            if(index != 0){
+                arrowLeft.alpha = 1f
+            }else {
+                arrowLeft.alpha = 0f
+            }
+
             if (index == 0) {
                 markTopMovies1.alpha = 1f
                 markTopMovies2.alpha = 0.5f
                 markTopMovies3.alpha = 0.5f
+
             } else if (index == 1) {
                 markTopMovies2.alpha = 1f
                 markTopMovies1.alpha = 0.5f

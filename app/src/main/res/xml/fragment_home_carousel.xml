@@ -6,7 +6,8 @@
         motion:constraintSetEnd="@+id/next"
         motion:constraintSetStart="@id/start"
         motion:duration="1000">
-        <OnSwipe
+        <OnClick
+            motion:targetId="@+id/arrowRight"
             motion:dragDirection="dragLeft"
             motion:touchAnchorSide="left" />
     </Transition>
@@ -15,7 +16,8 @@
         android:id="@+id/backward"
         motion:constraintSetEnd="@+id/previous"
         motion:constraintSetStart="@+id/start">
-        <OnSwipe
+        <OnClick
+            motion:targetId="@+id/arrowLeft"
             motion:dragDirection="dragRight"
             motion:touchAnchorSide="right" />
     </Transition>

@@ -1,164 +1,237 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
-    app:layoutDescription="@xml/fragment_home_carousel"
     tools:context=".HomeFragment">
 
-
-    <ImageView
-        android:id="@+id/topMoviesImageView"
-        android:layout_width="0dp"
-        android:layout_height="450dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/breaking_bad"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/topMoviesImageView2"
-        android:layout_width="0dp"
-        android:layout_height="450dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/breaking_bad"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/topMoviesImageView3"
-        android:layout_width="0dp"
-        android:layout_height="450dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/breaking_bad"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <androidx.constraintlayout.helper.widget.Carousel
-        android:id="@+id/carousel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:carousel_backwardTransition="@+id/backward"
-        app:carousel_firstView="@+id/topMoviesImageView"
-        app:carousel_forwardTransition="@+id/forward"
-        app:carousel_infinite="true"
-        app:carousel_nextState="@+id/next"
-        app:carousel_previousState="@+id/previous"
-        app:constraint_referenced_ids="topMoviesImageView, topMoviesImageView2, topMoviesImageView3"
-        app:layout_constraintBottom_toBottomOf="@id/topMoviesImageView"
-        app:layout_constraintEnd_toEndOf="@id/topMoviesImageView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <View
-        android:id="@+id/blackGradient"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:background="@drawable/black_gradient"
-        app:layout_constraintBottom_toBottomOf="@id/topMoviesImageView"
-        app:layout_constraintEnd_toEndOf="@id/topMoviesImageView"
-        app:layout_constraintStart_toStartOf="@id/topMoviesImageView"
-        app:layout_constraintTop_toTopOf="@id/topMoviesImageView"
-        app:layout_constraintVertical_bias="1" />
-
-    <TextView
-        android:id="@+id/seeMoreTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:text="Veja mais"
-        android:textColor="@color/text"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/topMoviesTitleTv"
-        app:layout_constraintStart_toStartOf="@id/topMoviesTitleTv" />
-
-    <TextView
-        android:id="@+id/topMoviesTitleTv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="12dp"
-        android:text="Breaking Bad"
-        android:textColor="@color/text"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/topMoviesImageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/topMoviesImageView"
-        app:layout_constraintEnd_toEndOf="@id/topMoviesImageView"
-        app:layout_constraintStart_toStartOf="@id/topMoviesImageView">
-
-        <View
-            android:id="@+id/markTopMovies1"
-            android:layout_width="7dp"
-            android:layout_height="7dp"
-            android:alpha="0.5"
-            android:background="@drawable/circle"
-            android:backgroundTint="@color/text" />
-
-        <View
-            android:id="@+id/markTopMovies2"
-            android:layout_width="7dp"
-            android:layout_height="7dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:alpha="0.5"
-            android:background="@drawable/circle"
-            android:backgroundTint="@color/text" />
-
-        <View
-            android:id="@+id/markTopMovies3"
-            android:layout_width="7dp"
-            android:layout_height="7dp"
-            android:alpha="0.5"
-            android:background="@drawable/circle"
-            android:backgroundTint="@color/text" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/moviesTitleTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="12dp"
-        android:text="Movies"
-        android:textColor="@color/text"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topMoviesImageView" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/moviesRv"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollHomeView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
-        android:nestedScrollingEnabled="false"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="@id/moviesTitleTv"
-        app:layout_constraintTop_toBottomOf="@id/moviesTitleTv"
-        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/movies_row_layout" />
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/backgroundColor"
+            android:nestedScrollingEnabled="false"
+            app:layoutDescription="@xml/fragment_home_carousel"
+            tools:context=".HomeFragment">
+
+            <ImageView
+                android:id="@+id/topMoviesImageView"
+                android:layout_width="0dp"
+                android:layout_height="450dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/breaking_bad"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/topMoviesImageView2"
+                android:layout_width="0dp"
+                android:layout_height="450dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/breaking_bad"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/topMoviesImageView3"
+                android:layout_width="0dp"
+                android:layout_height="450dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/breaking_bad"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/arrowRight"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:backgroundTint="@color/transparentDark"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_right_arrow"
+                app:layout_constraintBottom_toBottomOf="@id/topMoviesImageView"
+                app:layout_constraintEnd_toEndOf="@id/topMoviesImageView"
+                app:layout_constraintTop_toTopOf="@id/topMoviesImageView"
+                app:tint="@color/title" />
+
+            <ImageButton
+                android:id="@+id/arrowLeft"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:alpha="0"
+                android:backgroundTint="@color/transparentDark"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_left_arrow"
+                app:layout_constraintBottom_toBottomOf="@id/topMoviesImageView"
+                app:layout_constraintStart_toStartOf="@id/topMoviesImageView"
+                app:layout_constraintTop_toTopOf="@id/topMoviesImageView"
+                app:tint="@color/title" />
+
+            <androidx.constraintlayout.helper.widget.Carousel
+                android:id="@+id/carousel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:carousel_backwardTransition="@+id/backward"
+                app:carousel_firstView="@+id/topMoviesImageView3"
+                app:carousel_forwardTransition="@+id/forward"
+                app:carousel_infinite="true"
+                app:carousel_nextState="@+id/next"
+                app:carousel_previousState="@+id/previous"
+                app:constraint_referenced_ids="topMoviesImageView, topMoviesImageView2, topMoviesImageView3"
+                app:layout_constraintBottom_toBottomOf="@id/topMoviesImageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-</androidx.constraintlayout.motion.widget.MotionLayout>
+            <View
+                android:id="@+id/blackGradient"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:background="@drawable/black_gradient"
+                app:layout_constraintBottom_toBottomOf="@id/topMoviesImageView"
+                app:layout_constraintEnd_toEndOf="@id/topMoviesImageView"
+                app:layout_constraintStart_toStartOf="@id/topMoviesImageView"
+                app:layout_constraintTop_toTopOf="@id/topMoviesImageView"
+                app:layout_constraintVertical_bias="1" />
+
+            <TextView
+                android:id="@+id/seeMoreTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="Veja mais"
+                android:textColor="@color/text"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@id/topMoviesTitleTv"
+                app:layout_constraintStart_toStartOf="@id/topMoviesTitleTv" />
+
+            <TextView
+                android:id="@+id/topMoviesTitleTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                android:text="Breaking Bad"
+                android:textColor="@color/text"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/topMoviesImageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/topMoviesImageView"
+                app:layout_constraintEnd_toEndOf="@id/topMoviesImageView"
+                app:layout_constraintStart_toStartOf="@id/topMoviesImageView">
+
+                <View
+                    android:id="@+id/markTopMovies1"
+                    android:layout_width="7dp"
+                    android:layout_height="7dp"
+                    android:alpha="0.5"
+                    android:background="@drawable/circle"
+                    android:backgroundTint="@color/text" />
+
+                <View
+                    android:id="@+id/markTopMovies2"
+                    android:layout_width="7dp"
+                    android:layout_height="7dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:alpha="0.5"
+                    android:background="@drawable/circle"
+                    android:backgroundTint="@color/text" />
+
+                <View
+                    android:id="@+id/markTopMovies3"
+                    android:layout_width="7dp"
+                    android:layout_height="7dp"
+                    android:alpha="0.5"
+                    android:background="@drawable/circle"
+                    android:backgroundTint="@color/text" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/moviesTitleTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                android:text="Movies"
+                android:textColor="@color/text"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/topMoviesImageView" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/moviesRv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:nestedScrollingEnabled="false"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@id/moviesTitleTv"
+                app:layout_constraintTop_toBottomOf="@id/moviesTitleTv"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/movies_row_layout" />
+
+            <TextView
+                android:id="@+id/seriesTitleTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                android:text="Series"
+                android:textColor="@color/text"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/moviesRv" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/seriesRv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:nestedScrollingEnabled="false"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@id/seriesTitleTv"
+                app:layout_constraintTop_toBottomOf="@id/seriesTitleTv"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/movies_row_layout" />
+
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
