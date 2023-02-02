@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.matheusxreis.moviedroid.adapters.TopMoviesCarouselAdapter
 import com.matheusxreis.moviedroid.models.MoviePoster
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -15,7 +14,10 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class HomeFragment : Fragment() {
 
     private lateinit var topMoviesCarouselAdapter: TopMoviesCarouselAdapter
-    private val moviesAdapter:MoviesAdapter by lazy {
+    private val moviesAdapter: MoviesAdapter by lazy {
+        MoviesAdapter()
+    }
+    private val seriesAdapter: MoviesAdapter by lazy {
         MoviesAdapter()
     }
 
@@ -70,27 +72,100 @@ class HomeFragment : Fragment() {
         populateRecyclerView()
         setUpRecyclerView()
 
-
-
     }
 
-    fun setUpRecyclerView(){
+    fun setUpRecyclerView() {
+
+        seriesRv.adapter = seriesAdapter
+        seriesRv.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
         moviesRv.adapter = moviesAdapter
-        moviesRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        moviesRv.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
-    fun populateRecyclerView(){
+
+    fun populateRecyclerView() {
         val mockData = listOf(
-            MoviePoster(imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg", imdbId = ""),
-            MoviePoster(imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg", imdbId = ""),
-            MoviePoster(imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg", imdbId = ""),
-            MoviePoster(imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg", imdbId = ""),
-            MoviePoster(imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg", imdbId = ""),
-            MoviePoster(imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg", imdbId = ""),
-            MoviePoster(imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg", imdbId = ""),
-            MoviePoster(imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg", imdbId = ""),
-            MoviePoster(imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg", imdbId = ""),
+            MoviePoster(
+                imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
+                imdbId = ""
+            ),
+            MoviePoster(
+                imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
+                imdbId = ""
+            ),
+            MoviePoster(
+                imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
+                imdbId = ""
+            ),
+            MoviePoster(
+                imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
+                imdbId = ""
+            ),
+            MoviePoster(
+                imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
+                imdbId = ""
+            ),
+            MoviePoster(
+                imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
+                imdbId = ""
+            ),
+            MoviePoster(
+                imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
+                imdbId = ""
+            ),
+            MoviePoster(
+                imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
+                imdbId = ""
+            ),
+            MoviePoster(
+                imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
+                imdbId = ""
+            ),
         )
+
+        val mockDataSeries = listOf(
+            MoviePoster(
+                imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
+                imdbId = ""
+            ),
+            MoviePoster(
+                imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
+                imdbId = ""
+            ),
+            MoviePoster(
+                imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
+                imdbId = ""
+            ),
+            MoviePoster(
+                imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
+                imdbId = ""
+            ),
+            MoviePoster(
+                imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
+                imdbId = ""
+            ),
+            MoviePoster(
+                imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
+                imdbId = ""
+            ),
+            MoviePoster(
+                imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
+                imdbId = ""
+            ),
+            MoviePoster(
+                imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
+                imdbId = ""
+            ),
+            MoviePoster(
+                imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
+                imdbId = ""
+            ),
+        )
+
         moviesAdapter.setData(mockData)
+        seriesAdapter.setData(mockDataSeries)
     }
 
 }
