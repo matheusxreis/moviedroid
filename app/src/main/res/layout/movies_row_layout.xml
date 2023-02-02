@@ -16,6 +16,7 @@
         android:background="@color/backgroundColor">
 
         <ImageView
+            loadImageUrl="@{moviePoster.imageUrl}"
             android:layout_width="108dp"
             android:layout_height="200dp"
             app:layout_constraintTop_toTopOf="parent"
