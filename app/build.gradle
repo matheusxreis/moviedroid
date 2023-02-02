@@ -94,3 +94,6 @@ dependencies {
     implementation "androidx.datastore:datastore-preferences:1.0.0-alpha04"
 
 }
+kapt {
+    correctErrorTypes true
+}
