@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="moviePoster"
             type="com.matheusxreis.moviedroid.models.MoviePoster" />
@@ -19,17 +19,29 @@
         <ImageView
             android:id="@+id/posterMovie"
             loadImageUrl="@{moviePoster.imageUrl}"
-            android:layout_width="158dp"
-            android:layout_height="250dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:src="@drawable/i_care_a_lot"
-            android:scaleType="centerCrop"
+            android:layout_width="178dp"
+            android:layout_height="270dp"
             android:clickable="true"
             android:focusable="true"
-            />
+            android:scaleType="centerCrop"
+            android:src="@drawable/i_care_a_lot"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{moviePoster.title}"
+            android:textColor="@color/text"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/posterMovie"
+            app:layout_constraintStart_toStartOf="@id/posterMovie"
+            app:layout_constraintTop_toBottomOf="@id/posterMovie" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
