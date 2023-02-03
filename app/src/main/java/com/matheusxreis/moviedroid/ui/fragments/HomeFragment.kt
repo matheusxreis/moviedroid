@@ -46,8 +46,6 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -63,14 +61,13 @@ class HomeFragment : Fragment() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 selectSliderCarousel(position)
-
             }
         })
 
     }
 
 
-    fun setUpViewPagerCarousel() {
+    private fun setUpViewPagerCarousel() {
         viewPagerCarousel.apply {
             clipChildren = false
             clipToPadding = false
@@ -80,7 +77,7 @@ class HomeFragment : Fragment() {
         viewPagerCarousel.adapter = topMoviesAdapter
     }
 
-    fun populateViewPagerCarousel() {
+    private fun populateViewPagerCarousel() {
 
         homeViewModel.getTrendingSeries()
         homeViewModel.trendingSeries.observe(viewLifecycleOwner) {
@@ -91,7 +88,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    fun setUpRecyclerView() {
+    private fun setUpRecyclerView() {
 
         moviesAdapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT
         seriesRv.adapter = seriesAdapter
@@ -130,7 +127,7 @@ class HomeFragment : Fragment() {
 
     }
 
-    fun populateRecyclerView() {
+    private fun populateRecyclerView() {
 
         homeViewModel.getMovies("popular")
         homeViewModel.getTv("popular")
@@ -153,8 +150,7 @@ class HomeFragment : Fragment() {
 
     }
 
-
-    fun selectSliderCarousel(number: Number) {
+    private fun selectSliderCarousel(number: Number) {
         when (number) {
             0 -> {
                 markTopMovies1.alpha = 1f
@@ -176,8 +172,7 @@ class HomeFragment : Fragment() {
 
     }
 
-
-    fun showShimmer(who: String = "all") {
+    private fun showShimmer(who: String = "all") {
         when (who) {
             "movies" -> {
                 moviesRv.showShimmer()
@@ -193,7 +188,7 @@ class HomeFragment : Fragment() {
 
     }
 
-    fun hideShimmer(who: String = "all") {
+    private fun hideShimmer(who: String = "all") {
 
         when (who) {
             "movie" -> {

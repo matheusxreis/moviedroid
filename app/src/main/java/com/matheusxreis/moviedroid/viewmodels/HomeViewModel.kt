@@ -20,8 +20,8 @@ class HomeViewModel @Inject constructor(
     val trendingSeries: MutableLiveData<List<MoviePoster>> = MutableLiveData()
     val popularMovies: MutableLiveData<List<MoviePoster>> = MutableLiveData()
     val popularSeries: MutableLiveData<List<MoviePoster>> = MutableLiveData()
-    var pageMovie = 1
-    val pageSerie = 1
+    private var pageMovie = 1
+    private val pageSerie = 1
 
     fun getTrendingSeries() = viewModelScope.launch {
 
@@ -39,7 +39,7 @@ class HomeViewModel @Inject constructor(
             queries = applyMoviesQueries(),
             filter = filter
         )
-        when(filter){
+        when (filter) {
             "popular" -> {
                 Log.d("RESPONSE API", response.toString())
                 popularMovies.value = response.body()?.results
@@ -47,13 +47,14 @@ class HomeViewModel @Inject constructor(
         }
 
     }
+
     fun getTv(filter: String) = viewModelScope.launch {
 
         val response = repository.remoteDataSource.getTv(
             queries = applySeriesQueries(),
             filter = filter
         )
-        when(filter){
+        when (filter) {
             "popular" -> {
                 Log.d("RESPONSE API", response.toString())
                 popularSeries.value = response.body()?.results
@@ -64,11 +65,11 @@ class HomeViewModel @Inject constructor(
 
     fun getNewPageMovies(filter: String) = viewModelScope.launch {
         val response = repository.remoteDataSource.getMovies(
-            queries = applyMoviesQueries(pageMovie+1),
+            queries = applyMoviesQueries(pageMovie + 1),
             filter = filter
         )
         pageMovie = pageMovie + 1
-        when(filter){
+        when (filter) {
             "popular" -> {
 
                 val newList: ArrayList<MoviePoster> = arrayListOf()
@@ -87,21 +88,22 @@ class HomeViewModel @Inject constructor(
         queries["api_key"] = Constants.API_KEY
         return queries
     }
-    private fun applyMoviesQueries(page:Int = 1):HashMap<String, String> {
+
+    private fun applyMoviesQueries(page: Int = 1): HashMap<String, String> {
         val queries = HashMap<String, String>()
         queries["api_key"] = Constants.API_KEY
         queries["language"] = "en-US"
         queries["page"] = page.toString()
         return queries
     }
-    private fun applySeriesQueries():HashMap<String, String> {
+
+    private fun applySeriesQueries(): HashMap<String, String> {
         val queries = HashMap<String, String>()
         queries["api_key"] = Constants.API_KEY
         queries["language"] = "en-US"
         queries["page"] = pageSerie.toString()
         return queries
     }
-
 
 
 }
