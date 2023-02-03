@@ -8,6 +8,7 @@ class RemoteDataSource @Inject constructor(
    private val movieAPI: MovieAPI
 ) {
 
-    suspend fun getTrendingMovies(queries:Map<String, String>, mediaType: String, period: String) = movieAPI.getTrendingDay(queries, mediaType, period)
+    suspend fun getTrendingMovies(queries:Map<String, String>, mediaType: String, period: String) = movieAPI.getTrendingDay(
+        queries = queries, mediaType = mediaType, period = period)
 
 }

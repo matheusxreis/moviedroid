@@ -11,8 +11,8 @@ interface MovieAPI {
 
     @GET("trending/{media_type}/{period}")
     suspend fun getTrendingDay(
-        @QueryMap queries: Map<String, String>,
-        @Path("media_type") mediaType:String,
+       @Path("media_type") mediaType:String,
         @Path("period") period:String,
+       @QueryMap queries: Map<String, String>,
         ): Response<ResultApi>
 }
