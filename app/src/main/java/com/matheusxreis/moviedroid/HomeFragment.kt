@@ -63,17 +63,19 @@ class HomeFragment : Fragment() {
         val mockData = listOf(
             MoviePoster(
                 imageUrl = "https://occ-0-2873-987.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABbFI2wcwiGkHDdGWaw58hWgLETOBsbqqv6GbKnZFn3s_Y4fjw0Ys9DNYD5txnfV3oj9tgsBeaSnPcBOwQqQnpHVqHeQr9FtvVzaL.jpg?r=776",
-                imdbId = ""
+                imdbId = "",
+                title = "Breaking Bad"
             ),
             MoviePoster(
                 imageUrl = "https://static.hbo.com/game-of-thrones-1-1920x1080.jpg",
-                imdbId = ""
+                imdbId = "",
+                title = "Game of Thrones"
             ),
             MoviePoster(
                 imageUrl = "https://flxt.tmsimg.com/assets/p186698_b_v9_ay.jpg",
-                imdbId = ""
+                imdbId = "",
+                title = "Sons of Anarchy"
             ))
-
         topMoviesAdapter.setData(mockData)
     }
 
@@ -92,78 +94,102 @@ class HomeFragment : Fragment() {
         val mockData = listOf(
             MoviePoster(
                 imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
-                imdbId = ""
+                imdbId = "",
+                title = "Sons of Anarchy"
+
             ),
             MoviePoster(
                 imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
-                imdbId = ""
+                imdbId = "",
+                title = "Sons of Anarchy"
+
             ),
             MoviePoster(
                 imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
-                imdbId = ""
+                imdbId = "",
+                title = "Sons of Anarchy"
+
             ),
             MoviePoster(
                 imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
-                imdbId = ""
+                imdbId = "",
+                title = "Sons of Anarchy"
+
             ),
             MoviePoster(
                 imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
-                imdbId = ""
+                imdbId = "",
+                title = "Sons of Anarchy"
+
             ),
             MoviePoster(
                 imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
-                imdbId = ""
+                imdbId = "",
+                title = "Sons of Anarchy"
+
             ),
             MoviePoster(
                 imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
-                imdbId = ""
+                imdbId = "",
+                title = "Sons of Anarchy"
             ),
             MoviePoster(
                 imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
-                imdbId = ""
+                imdbId = "",
+                title = "Sons of Anarchy"
             ),
             MoviePoster(
                 imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
-                imdbId = ""
+                imdbId = "",
+                title = "Sons of Anarchy"
             ),
         )
 
         val mockDataSeries = listOf(
             MoviePoster(
                 imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
-                imdbId = ""
+                imdbId = "",
+                title = "Sons of Anarchy"
             ),
             MoviePoster(
                 imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
-                imdbId = ""
+                imdbId = "",
+                title = "Sons of Anarchy"
             ),
             MoviePoster(
                 imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
-                imdbId = ""
+                imdbId = "",
+                title = "Sons of Anarchy"
             ),
             MoviePoster(
                 imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
-                imdbId = ""
+                imdbId = "",
+                title = "Sons of Anarchy"
             ),
             MoviePoster(
                 imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
-                imdbId = ""
+                imdbId = "",
+                title = "Sons of Anarchy"
             ),
             MoviePoster(
                 imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
-                imdbId = ""
+                imdbId = "",
+                title = "Sons of Anarchy"
             ),
             MoviePoster(
                 imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
-                imdbId = ""
+                imdbId = "",
+                title = "Sons of Anarchy"
             ),
             MoviePoster(
                 imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
-                imdbId = ""
+                imdbId = "",
+                title = "Sons of Anarchy"
             ),
             MoviePoster(
                 imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
-                imdbId = ""
+                imdbId = "",
+                title = "Sons of Anarchy"
             ),
         )
 
