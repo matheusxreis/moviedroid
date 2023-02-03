@@ -1,6 +1,7 @@
 package com.matheusxreis.moviedroid.di
 
 import com.matheusxreis.moviedroid.data.network.MovieAPI
+import com.matheusxreis.moviedroid.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,6 +42,7 @@ object NetworkModule {
         return Retrofit.Builder()
             .client(okHttpClient)
             .addConverterFactory(gsonConverterFactory)
+            .baseUrl(Constants.BASE_URL)
             .build()
     }
 
