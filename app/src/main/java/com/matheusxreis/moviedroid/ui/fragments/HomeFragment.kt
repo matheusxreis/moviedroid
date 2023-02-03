@@ -103,59 +103,7 @@ class HomeFragment : Fragment() {
     }
 
     fun populateRecyclerView() {
-        val mockData = listOf(
-            MoviePoster(
-                imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
-                imdbId = "",
-                title = "Sons of Anarchy"
 
-            ),
-            MoviePoster(
-                imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
-                imdbId = "",
-                title = "Sons of Anarchy"
-
-            ),
-            MoviePoster(
-                imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
-                imdbId = "",
-                title = "Sons of Anarchy"
-
-            ),
-            MoviePoster(
-                imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
-                imdbId = "",
-                title = "Sons of Anarchy"
-
-            ),
-            MoviePoster(
-                imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
-                imdbId = "",
-                title = "Sons of Anarchy"
-
-            ),
-            MoviePoster(
-                imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
-                imdbId = "",
-                title = "Sons of Anarchy"
-
-            ),
-            MoviePoster(
-                imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
-                imdbId = "",
-                title = "Sons of Anarchy"
-            ),
-            MoviePoster(
-                imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
-                imdbId = "",
-                title = "Sons of Anarchy"
-            ),
-            MoviePoster(
-                imageUrl = "https://upload.wikimedia.org/wikipedia/pt/8/86/I_Care_A_Lot_poster.jpg",
-                imdbId = "",
-                title = "Sons of Anarchy"
-            ),
-        )
 
         val mockDataSeries = listOf(
             MoviePoster(
@@ -204,8 +152,13 @@ class HomeFragment : Fragment() {
                 title = "Sons of Anarchy"
             ),
         )
+        homeViewModel.getMovies("popular")
 
-        moviesAdapter.setData(mockData)
+        homeViewModel.popularMovies.observe(viewLifecycleOwner){
+            if(it != null){
+                moviesAdapter.setData(it)
+            }
+        }
         seriesAdapter.setData(mockDataSeries)
 
         hideShimmer()

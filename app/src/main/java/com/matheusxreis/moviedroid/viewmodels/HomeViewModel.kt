@@ -15,23 +15,39 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val repository: Repository
-): ViewModel() {
+) : ViewModel() {
 
 
     val trendingSeries: MutableLiveData<List<MoviePoster>> = MutableLiveData()
+    val popularMovies: MutableLiveData<List<MoviePoster>> = MutableLiveData()
 
     fun getTrendingSeries() = viewModelScope.launch {
+
         val response = repository.remoteDataSource.getTrendingMovies(
             queries = applyQueries(),
             mediaType = "tv",
             period = "day"
         )
-            Log.d("RESPONSE API", response.body().toString())
         trendingSeries.value = response.body()?.results
     }
 
+    fun getMovies(filter: String) = viewModelScope.launch {
 
-    fun applyQueries():HashMap<String, String>{
+        val response = repository.remoteDataSource.getMovies(
+            queries = applyQueries(),
+            filter = filter
+        )
+        when(filter){
+            "popular" -> {
+                Log.d("RESPONSE API", response.toString())
+                popularMovies.value = response.body()?.results
+            }
+        }
+
+    }
+
+
+    fun applyQueries(): HashMap<String, String> {
         val queries = HashMap<String, String>()
         queries["api_key"] = Constants.API_KEY
         return queries
