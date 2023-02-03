@@ -1,14 +1,18 @@
 package com.matheusxreis.moviedroid.data.network
 
 import com.matheusxreis.moviedroid.models.MoviePoster
+import com.matheusxreis.moviedroid.models.ResultApi
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.QueryMap
 
 interface MovieAPI {
 
-    @GET("trending")
+    @GET("trending/{media_type}/{period}")
     suspend fun getTrendingDay(
-        @QueryMap queries: Map<String, String>
-    ): Response<MoviePoster>
+        @QueryMap queries: Map<String, String>,
+        @Path("media_type") mediaType:String,
+        @Path("period") period:String,
+        ): Response<ResultApi>
 }
