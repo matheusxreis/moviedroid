@@ -8,7 +8,7 @@ import retrofit2.http.QueryMap
 interface MovieAPI {
 
     @GET("trending")
-    fun getTrendingDay(
+    suspend fun getTrendingDay(
         @QueryMap queries: Map<String, String>
     ): Response<MoviePoster>
 }
