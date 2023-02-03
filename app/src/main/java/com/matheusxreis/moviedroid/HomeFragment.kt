@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.matheusxreis.moviedroid.adapters.TopMoviesCarouselAdapter
 import com.matheusxreis.moviedroid.models.MoviePoster
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -20,6 +21,9 @@ class HomeFragment : Fragment() {
     }
     private val seriesAdapter: MoviesAdapter by lazy {
         MoviesAdapter()
+    }
+    private val topMoviesAdapter: TopMoviesCarouselAdapter by lazy {
+        TopMoviesCarouselAdapter()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,45 +42,39 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val images = listOf(
-            "https://pop.proddigital.com.br/wp-content/uploads/sites/8/2021/11/breaking-bad.jpg",
-            "https://sm.ign.com/ign_br/gallery/t/the-last-o/the-last-of-us-hbo-series-character-guide_nr24.jpg",
-            "https://veja.abril.com.br/wp-content/uploads/2019/04/seriado-game-of-thrones-s8-23-1.jpg-1.jpg?quality=70&strip=info&w=1280&h=720&crop=1"
-        )
-        val titles = listOf(
-            "Breaking Bad",
-            "The Last Of Us",
-            "Game of Thrones"
-        )
-
-        topMoviesCarouselAdapter = TopMoviesCarouselAdapter { index ->
-            topMoviesTitleTv.text = titles[index]
-            topMoviesTitleTv.setOnClickListener { }
-            seeMoreTv.setOnClickListener { }
-
-
-
-            if (index == 0) {
-                markTopMovies1.alpha = 1f
-                markTopMovies2.alpha = 0.5f
-                markTopMovies3.alpha = 0.5f
-
-            } else if (index == 1) {
-                markTopMovies2.alpha = 1f
-                markTopMovies1.alpha = 0.5f
-                markTopMovies3.alpha = 0.5f
-            } else {
-                markTopMovies3.alpha = 1f
-                markTopMovies1.alpha = 0.5f
-                markTopMovies2.alpha = 0.5f
-            }
-        }
-        topMoviesCarouselAdapter.setData(images)
-        carousel.setAdapter(topMoviesCarouselAdapter)
-
-        populateRecyclerView()
         setUpRecyclerView()
+        setUpViewPagerCarousel()
+        populateViewPagerCarousel()
+        populateRecyclerView()
 
+    }
+
+
+    fun setUpViewPagerCarousel(){
+        viewPagerCarousel.apply {
+            clipChildren = false
+            clipToPadding = false
+            offscreenPageLimit = 3
+            overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+        }
+        viewPagerCarousel.adapter = topMoviesAdapter
+    }
+    fun populateViewPagerCarousel(){
+        val mockData = listOf(
+            MoviePoster(
+                imageUrl = "https://occ-0-2873-987.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABbFI2wcwiGkHDdGWaw58hWgLETOBsbqqv6GbKnZFn3s_Y4fjw0Ys9DNYD5txnfV3oj9tgsBeaSnPcBOwQqQnpHVqHeQr9FtvVzaL.jpg?r=776",
+                imdbId = ""
+            ),
+            MoviePoster(
+                imageUrl = "https://static.hbo.com/game-of-thrones-1-1920x1080.jpg",
+                imdbId = ""
+            ),
+            MoviePoster(
+                imageUrl = "https://flxt.tmsimg.com/assets/p186698_b_v9_ay.jpg",
+                imdbId = ""
+            ))
+
+        topMoviesAdapter.setData(mockData)
     }
 
     fun setUpRecyclerView() {
