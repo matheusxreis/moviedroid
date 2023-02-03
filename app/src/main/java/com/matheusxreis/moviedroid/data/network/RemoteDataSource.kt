@@ -18,4 +18,9 @@ class RemoteDataSource @Inject constructor(
         filter = filter
     )
 
+    suspend fun getTv(queries: Map<String, String>, filter: String) = movieAPI.getTv(
+        queries = queries,
+        filter = filter
+    )
+
 }

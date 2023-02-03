@@ -20,6 +20,7 @@ class HomeViewModel @Inject constructor(
 
     val trendingSeries: MutableLiveData<List<MoviePoster>> = MutableLiveData()
     val popularMovies: MutableLiveData<List<MoviePoster>> = MutableLiveData()
+    val popularSeries: MutableLiveData<List<MoviePoster>> = MutableLiveData()
 
     fun getTrendingSeries() = viewModelScope.launch {
 
@@ -34,7 +35,7 @@ class HomeViewModel @Inject constructor(
     fun getMovies(filter: String) = viewModelScope.launch {
 
         val response = repository.remoteDataSource.getMovies(
-            queries = applyQueries(),
+            queries = applyMoviesQueries(),
             filter = filter
         )
         when(filter){
@@ -46,10 +47,32 @@ class HomeViewModel @Inject constructor(
 
     }
 
+    fun getTv(filter: String) = viewModelScope.launch {
+
+        val response = repository.remoteDataSource.getTv(
+            queries = applyMoviesQueries(),
+            filter = filter
+        )
+        when(filter){
+            "popular" -> {
+                Log.d("RESPONSE API", response.toString())
+                popularSeries.value = response.body()?.results
+            }
+        }
+
+    }
+
 
     fun applyQueries(): HashMap<String, String> {
         val queries = HashMap<String, String>()
         queries["api_key"] = Constants.API_KEY
+        return queries
+    }
+    fun applyMoviesQueries():HashMap<String, String> {
+        val queries = HashMap<String, String>()
+        queries["api_key"] = Constants.API_KEY
+        queries["language"] = "en-US"
+        queries["page"] = "1"
         return queries
     }
 

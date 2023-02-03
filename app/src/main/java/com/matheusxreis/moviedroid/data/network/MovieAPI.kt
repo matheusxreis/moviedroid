@@ -22,4 +22,10 @@ interface MovieAPI {
         @Path("filter") filter: String,
         @QueryMap queries: Map<String, String>
     ): Response<ResultApi>
+
+    @GET("tv/{filter}")
+    suspend fun getTv(
+        @Path("filter") filter: String,
+        @QueryMap queries: Map<String, String>
+    ): Response<ResultApi>
 }

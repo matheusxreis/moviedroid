@@ -105,61 +105,21 @@ class HomeFragment : Fragment() {
     fun populateRecyclerView() {
 
 
-        val mockDataSeries = listOf(
-            MoviePoster(
-                imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
-                imdbId = "",
-                title = "Sons of Anarchy"
-            ),
-            MoviePoster(
-                imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
-                imdbId = "",
-                title = "Sons of Anarchy"
-            ),
-            MoviePoster(
-                imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
-                imdbId = "",
-                title = "Sons of Anarchy"
-            ),
-            MoviePoster(
-                imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
-                imdbId = "",
-                title = "Sons of Anarchy"
-            ),
-            MoviePoster(
-                imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
-                imdbId = "",
-                title = "Sons of Anarchy"
-            ),
-            MoviePoster(
-                imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
-                imdbId = "",
-                title = "Sons of Anarchy"
-            ),
-            MoviePoster(
-                imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
-                imdbId = "",
-                title = "Sons of Anarchy"
-            ),
-            MoviePoster(
-                imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
-                imdbId = "",
-                title = "Sons of Anarchy"
-            ),
-            MoviePoster(
-                imageUrl = "https://br.web.img2.acsta.net/pictures/22/05/04/18/36/1857369.jpg",
-                imdbId = "",
-                title = "Sons of Anarchy"
-            ),
-        )
         homeViewModel.getMovies("popular")
+        homeViewModel.getTv("popular")
 
-        homeViewModel.popularMovies.observe(viewLifecycleOwner){
-            if(it != null){
+        homeViewModel.popularMovies.observe(viewLifecycleOwner) {
+            if (it != null) {
                 moviesAdapter.setData(it)
             }
         }
-        seriesAdapter.setData(mockDataSeries)
+
+        homeViewModel.popularSeries.observe(viewLifecycleOwner) {
+            if (it != null) {
+                seriesAdapter.setData(it)
+            }
+        }
+
 
         hideShimmer()
     }
