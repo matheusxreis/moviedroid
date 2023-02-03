@@ -104,24 +104,25 @@ class HomeFragment : Fragment() {
 
     fun populateRecyclerView() {
 
-
         homeViewModel.getMovies("popular")
         homeViewModel.getTv("popular")
 
         homeViewModel.popularMovies.observe(viewLifecycleOwner) {
             if (it != null) {
                 moviesAdapter.setData(it)
+                hideShimmer("movie")
             }
         }
 
         homeViewModel.popularSeries.observe(viewLifecycleOwner) {
             if (it != null) {
                 seriesAdapter.setData(it)
+                hideShimmer("tv")
+
             }
         }
 
 
-        hideShimmer()
     }
 
 
@@ -148,14 +149,39 @@ class HomeFragment : Fragment() {
     }
 
 
-    fun showShimmer() {
-        moviesRv.showShimmer()
-        seriesRv.showShimmer()
+    fun showShimmer(who: String = "all") {
+        when (who) {
+            "movies" -> {
+                moviesRv.showShimmer()
+            }
+            "tv" -> {
+                seriesRv.showShimmer()
+            }
+            else -> {
+                moviesRv.showShimmer()
+                seriesRv.showShimmer()
+            }
+        }
+
     }
 
-    fun hideShimmer() {
-        moviesRv.hideShimmer()
-        seriesRv.hideShimmer()
+    fun hideShimmer(who:String = "all") {
+
+        when(who){
+            "movie" -> {
+                moviesRv.hideShimmer()
+
+            }
+            "tv" -> {
+                seriesRv.hideShimmer()
+
+            }
+            else -> {
+                moviesRv.hideShimmer()
+                seriesRv.hideShimmer()
+            }
+        }
+
     }
 
 }
