@@ -7,9 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.matheusxreis.moviedroid.R
@@ -91,6 +93,7 @@ class HomeFragment : Fragment() {
 
     fun setUpRecyclerView() {
 
+        moviesAdapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT
         seriesRv.adapter = seriesAdapter
         seriesRv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -100,6 +103,31 @@ class HomeFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
         showShimmer()
+
+        moviesRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!recyclerView.canScrollHorizontally(1) && !moviesRv.isShimmerShowing) {
+
+                    moviesProgressBar.visibility = View.VISIBLE
+                    val lastPosition = homeViewModel.popularMovies.value?.size ?: 0
+
+                    recyclerView.scrollToPosition(lastPosition - 1)
+                    homeViewModel.getNewPageMovies("popular")
+
+                } else {
+                    moviesProgressBar.visibility = View.GONE
+                }
+            }
+        })
+        seriesRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!recyclerView.canScrollHorizontally(1) && !seriesRv.isShimmerShowing) {
+                }
+            }
+        })
+
     }
 
     fun populateRecyclerView() {
@@ -165,9 +193,9 @@ class HomeFragment : Fragment() {
 
     }
 
-    fun hideShimmer(who:String = "all") {
+    fun hideShimmer(who: String = "all") {
 
-        when(who){
+        when (who) {
             "movie" -> {
                 moviesRv.hideShimmer()
 

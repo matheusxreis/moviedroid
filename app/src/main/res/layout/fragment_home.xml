@@ -78,10 +78,9 @@
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/viewPagerCarousel" />
-
             <com.todkars.shimmer.ShimmerRecyclerView
                 android:id="@+id/moviesRv"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
@@ -90,10 +89,22 @@
                 android:orientation="horizontal"
                 app:shimmer_recycler_item_count="3"
                 app:shimmer_recycler_layout="@layout/movie_row_placeholder_layout"
+                app:layout_constraintEnd_toStartOf="@id/moviesProgressBar"
                 app:layout_constraintStart_toStartOf="@id/moviesTitleTv"
                 app:layout_constraintTop_toBottomOf="@id/moviesTitleTv"
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/movies_row_layout" />
+
+            <ProgressBar
+                android:id="@+id/moviesProgressBar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:visibility="visible"
+                app:layout_constraintStart_toEndOf="@id/moviesRv"
+                app:layout_constraintTop_toTopOf="@id/moviesRv"
+                app:layout_constraintBottom_toBottomOf="@id/moviesRv"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
 
             <TextView
                 android:id="@+id/seriesTitleTv"
