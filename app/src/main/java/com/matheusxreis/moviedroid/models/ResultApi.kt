@@ -6,6 +6,6 @@ data class ResultApi(
     @SerializedName("page")
     val page: Int,
 
-    @SerializedName("result")
+    @SerializedName("results")
     val results: List<MoviePoster>
 )

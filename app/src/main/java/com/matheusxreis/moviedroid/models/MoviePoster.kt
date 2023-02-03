@@ -7,6 +7,6 @@ data class MoviePoster(
     val imageUrl: String,
     @SerializedName("id")
     val imdbId: String,
-    @SerializedName("original_title")
+    @SerializedName("name")
     val title: String
 )
