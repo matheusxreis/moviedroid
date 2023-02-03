@@ -1,4 +1,4 @@
-package com.matheusxreis.moviedroid
+package com.matheusxreis.moviedroid.ui.fragments
 
 import MoviesAdapter
 import android.os.Bundle
@@ -9,11 +9,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.adapters.TopMoviesCarouselAdapter
 import com.matheusxreis.moviedroid.models.MoviePoster
-import com.todkars.shimmer.ShimmerRecyclerView
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class HomeFragment : Fragment() {
 
