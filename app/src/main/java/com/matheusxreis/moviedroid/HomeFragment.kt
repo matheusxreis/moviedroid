@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.matheusxreis.moviedroid.adapters.TopMoviesCarouselAdapter
 import com.matheusxreis.moviedroid.models.MoviePoster
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -47,6 +48,14 @@ class HomeFragment : Fragment() {
         populateViewPagerCarousel()
         populateRecyclerView()
 
+        viewPagerCarousel.registerOnPageChangeCallback(object: OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                    selectSliderCarousel(position)
+
+            }
+        })
+
     }
 
 
@@ -78,7 +87,6 @@ class HomeFragment : Fragment() {
             ))
         topMoviesAdapter.setData(mockData)
     }
-
     fun setUpRecyclerView() {
 
         seriesRv.adapter = seriesAdapter
@@ -89,7 +97,6 @@ class HomeFragment : Fragment() {
         moviesRv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
-
     fun populateRecyclerView() {
         val mockData = listOf(
             MoviePoster(
@@ -195,6 +202,29 @@ class HomeFragment : Fragment() {
 
         moviesAdapter.setData(mockData)
         seriesAdapter.setData(mockDataSeries)
+    }
+
+
+    fun selectSliderCarousel(number: Number){
+        when(number){
+            0 -> {
+                markTopMovies1.alpha = 1f
+                markTopMovies2.alpha = 0.5f
+                markTopMovies3.alpha = 0.5f
+
+            }
+            1 -> {
+                markTopMovies1.alpha = 0.5f
+                markTopMovies2.alpha = 1f
+                markTopMovies3.alpha = 0.5f
+            }
+            else -> {
+                markTopMovies1.alpha = 0.5f
+                markTopMovies2.alpha = 0.5f
+                markTopMovies3.alpha = 1f
+            }
+        }
+
     }
 
 }
