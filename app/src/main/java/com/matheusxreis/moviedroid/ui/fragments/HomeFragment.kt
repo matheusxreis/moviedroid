@@ -2,6 +2,7 @@ package com.matheusxreis.moviedroid.ui.fragments
 
 import MoviesAdapter
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: ViewModel
+    private lateinit var homeViewModel: HomeViewModel
     private val moviesAdapter: MoviesAdapter by lazy {
         MoviesAdapter()
     }
@@ -35,6 +36,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
 
     }
 
@@ -43,9 +45,6 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
-
-        homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
 
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
@@ -80,24 +79,14 @@ class HomeFragment : Fragment() {
     }
 
     fun populateViewPagerCarousel() {
-        val mockData = listOf(
-            MoviePoster(
-                imageUrl = "https://occ-0-2873-987.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABbFI2wcwiGkHDdGWaw58hWgLETOBsbqqv6GbKnZFn3s_Y4fjw0Ys9DNYD5txnfV3oj9tgsBeaSnPcBOwQqQnpHVqHeQr9FtvVzaL.jpg?r=776",
-                imdbId = "",
-                title = "Breaking Bad"
-            ),
-            MoviePoster(
-                imageUrl = "https://static.hbo.com/game-of-thrones-1-1920x1080.jpg",
-                imdbId = "",
-                title = "Game of Thrones"
-            ),
-            MoviePoster(
-                imageUrl = "https://flxt.tmsimg.com/assets/p186698_b_v9_ay.jpg",
-                imdbId = "",
-                title = "Sons of Anarchy"
-            )
-        )
-        topMoviesAdapter.setData(mockData)
+
+        homeViewModel.getTrendingSeries()
+        homeViewModel.trendingSeries.observe(viewLifecycleOwner) {
+
+            if (it != null) {
+                topMoviesAdapter.setData(it.subList(0, 3))
+            }
+        }
     }
 
     fun setUpRecyclerView() {
