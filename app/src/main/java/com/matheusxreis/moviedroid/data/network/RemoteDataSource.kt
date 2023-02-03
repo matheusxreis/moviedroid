@@ -1,6 +1,8 @@
 package com.matheusxreis.moviedroid.data.network
 
-class RemoteDataSource constructor(
-    movieAPI: MovieAPI
+import javax.inject.Inject
+
+class RemoteDataSource @Inject constructor(
+   //private val movieAPI: MovieAPI
 ) {
 }

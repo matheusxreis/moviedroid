@@ -6,17 +6,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.adapters.TopMoviesCarouselAdapter
 import com.matheusxreis.moviedroid.models.MoviePoster
+import com.matheusxreis.moviedroid.viewmodels.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private lateinit var topMoviesCarouselAdapter: TopMoviesCarouselAdapter
+    private lateinit var homeViewModel: ViewModel
     private val moviesAdapter: MoviesAdapter by lazy {
         MoviesAdapter()
     }
@@ -26,6 +31,7 @@ class HomeFragment : Fragment() {
     private val topMoviesAdapter: TopMoviesCarouselAdapter by lazy {
         TopMoviesCarouselAdapter()
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +43,10 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
+
+        homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
