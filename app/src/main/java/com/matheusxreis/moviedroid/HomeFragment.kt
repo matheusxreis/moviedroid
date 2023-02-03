@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.matheusxreis.moviedroid.adapters.TopMoviesCarouselAdapter
 import com.matheusxreis.moviedroid.models.MoviePoster
+import com.todkars.shimmer.ShimmerRecyclerView
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
@@ -48,10 +49,10 @@ class HomeFragment : Fragment() {
         populateViewPagerCarousel()
         populateRecyclerView()
 
-        viewPagerCarousel.registerOnPageChangeCallback(object: OnPageChangeCallback() {
+        viewPagerCarousel.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                    selectSliderCarousel(position)
+                selectSliderCarousel(position)
 
             }
         })
@@ -59,7 +60,7 @@ class HomeFragment : Fragment() {
     }
 
 
-    fun setUpViewPagerCarousel(){
+    fun setUpViewPagerCarousel() {
         viewPagerCarousel.apply {
             clipChildren = false
             clipToPadding = false
@@ -68,7 +69,8 @@ class HomeFragment : Fragment() {
         }
         viewPagerCarousel.adapter = topMoviesAdapter
     }
-    fun populateViewPagerCarousel(){
+
+    fun populateViewPagerCarousel() {
         val mockData = listOf(
             MoviePoster(
                 imageUrl = "https://occ-0-2873-987.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABbFI2wcwiGkHDdGWaw58hWgLETOBsbqqv6GbKnZFn3s_Y4fjw0Ys9DNYD5txnfV3oj9tgsBeaSnPcBOwQqQnpHVqHeQr9FtvVzaL.jpg?r=776",
@@ -84,9 +86,11 @@ class HomeFragment : Fragment() {
                 imageUrl = "https://flxt.tmsimg.com/assets/p186698_b_v9_ay.jpg",
                 imdbId = "",
                 title = "Sons of Anarchy"
-            ))
+            )
+        )
         topMoviesAdapter.setData(mockData)
     }
+
     fun setUpRecyclerView() {
 
         seriesRv.adapter = seriesAdapter
@@ -96,7 +100,10 @@ class HomeFragment : Fragment() {
         moviesRv.adapter = moviesAdapter
         moviesRv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        showShimmer()
     }
+
     fun populateRecyclerView() {
         val mockData = listOf(
             MoviePoster(
@@ -202,11 +209,13 @@ class HomeFragment : Fragment() {
 
         moviesAdapter.setData(mockData)
         seriesAdapter.setData(mockDataSeries)
+
+        hideShimmer()
     }
 
 
-    fun selectSliderCarousel(number: Number){
-        when(number){
+    fun selectSliderCarousel(number: Number) {
+        when (number) {
             0 -> {
                 markTopMovies1.alpha = 1f
                 markTopMovies2.alpha = 0.5f
@@ -225,6 +234,17 @@ class HomeFragment : Fragment() {
             }
         }
 
+    }
+
+
+    fun showShimmer() {
+        moviesRv.showShimmer()
+        seriesRv.showShimmer()
+    }
+
+    fun hideShimmer() {
+        moviesRv.hideShimmer()
+        seriesRv.hideShimmer()
     }
 
 }
