@@ -28,4 +28,9 @@ interface MovieAPI {
         @Path("filter") filter: String,
         @QueryMap queries: Map<String, String>
     ): Response<ResultApi>
+
+    @GET("search/multi")
+    suspend fun searchMulti(
+        @QueryMap queries: Map<String, String>
+    ):Response<ResultApi>
 }

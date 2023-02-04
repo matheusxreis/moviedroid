@@ -7,6 +7,8 @@ import android.view.*
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -22,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 @AndroidEntryPoint
 class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private val homeViewModel: HomeViewModel by activityViewModels<HomeViewModel>()
     private val moviesAdapter: MoviesAdapter by lazy {
         MoviesAdapter()
     }
@@ -37,7 +39,6 @@ class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -88,9 +89,14 @@ class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener {
     // SEARCH VIEW
     override fun onQueryTextSubmit(p0: String?): Boolean {
 
-        searchView.clearFocus()
-        val action = HomeFragmentDirections.actionHomeFragmentToSearchResultFragment(p0 as String)
-        findNavController().navigate(action)
+        if(!p0.isNullOrEmpty()){
+            homeViewModel.search(p0)
+            searchView.clearFocus()
+            val action = HomeFragmentDirections.actionHomeFragmentToSearchResultFragment(p0 as String)
+            findNavController().navigate(action)
+        }
+
+
 
        // findNavController().
         return true

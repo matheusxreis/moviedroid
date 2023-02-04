@@ -2,11 +2,12 @@ package com.matheusxreis.moviedroid.ui.fragments
 
 import MoviesAdapter
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.core.view.MenuProvider
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -23,7 +24,7 @@ class SearchResultFragment : Fragment(), MenuProvider, SearchView.OnQueryTextLis
     private val resultSearchAdapter: MoviesAdapter by lazy {
         MoviesAdapter()
     }
-    private val homeViewModel: HomeViewModel by viewModels<HomeViewModel>()
+    private val homeViewModel: HomeViewModel by activityViewModels<HomeViewModel>()
     private lateinit var searchView: SearchView;
 
 
@@ -43,6 +44,13 @@ class SearchResultFragment : Fragment(), MenuProvider, SearchView.OnQueryTextLis
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         return inflater.inflate(R.layout.fragment_search_result, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setUpRecyclerView()
+        populateRecyclerView()
     }
 
 
@@ -70,30 +78,46 @@ class SearchResultFragment : Fragment(), MenuProvider, SearchView.OnQueryTextLis
     // Text listener
 
     override fun onQueryTextSubmit(p0: String?): Boolean {
+        if(!p0.isNullOrEmpty()){
+            homeViewModel.search(p0)
+        }
+
         return true
     }
 
     override fun onQueryTextChange(p0: String?): Boolean {
-        searchView.clearFocus()
+        if(p0 == args.searchQuery){
+            searchView.clearFocus()
+        }
         return true
     }
 
 
     // CUSTOM FUNCTIONS
     private fun setUpRecyclerView(){
+
         searchResultRv.adapter = resultSearchAdapter
         searchResultRv.layoutManager = GridLayoutManager(requireContext(), 2)
+        showShimmer()
     }
 
     private fun populateRecyclerView(){
-
+       // homeViewModel.search()
+        homeViewModel.searchedResult.observe(viewLifecycleOwner) {
+            if(!it.isNullOrEmpty()){
+                Log.d("responsesearch", it.toString())
+                Log.d("responsesearch", "oooi")
+                resultSearchAdapter.setData(it)
+                hideShimmer()
+            }
+        }
     }
 
     private fun showShimmer(){
-        searchResultRv.showShimmer()
+       searchResultRv.showShimmer()
     }
     private fun hideShimmer(){
-        searchResultRv.hideShimmer()
+       searchResultRv.hideShimmer()
     }
 
 

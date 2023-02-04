@@ -20,6 +20,9 @@ class HomeViewModel @Inject constructor(
     val trendingSeries: MutableLiveData<List<MoviePoster>> = MutableLiveData()
     val popularMovies: MutableLiveData<List<MoviePoster>> = MutableLiveData()
     val popularSeries: MutableLiveData<List<MoviePoster>> = MutableLiveData()
+    val searchedResult: MutableLiveData<List<MoviePoster>> = MutableLiveData()
+
+
     private var pageMovie = 1
     private val pageSerie = 1
 
@@ -63,6 +66,18 @@ class HomeViewModel @Inject constructor(
 
     }
 
+    fun search(searchQuery: String) = viewModelScope.launch {
+        val response = repository.remoteDataSource.searchMulti(
+            queries = applySearchQueries(searchQuery)
+        )
+
+        Log.d("responsesearch", response.body().toString())
+        if(!response.body()?.results.isNullOrEmpty()){
+            Log.d("responsesearch", "entrei")
+            searchedResult.value = response.body()?.results
+        }
+    }
+
     fun getNewPageMovies(filter: String) = viewModelScope.launch {
         val response = repository.remoteDataSource.getMovies(
             queries = applyMoviesQueries(pageMovie + 1),
@@ -96,12 +111,22 @@ class HomeViewModel @Inject constructor(
         queries["page"] = page.toString()
         return queries
     }
-
     private fun applySeriesQueries(): HashMap<String, String> {
         val queries = HashMap<String, String>()
         queries["api_key"] = Constants.API_KEY
         queries["language"] = "en-US"
         queries["page"] = pageSerie.toString()
+        return queries
+    }
+
+    private fun applySearchQueries(searchQuery:String):HashMap<String, String>{
+        val queries = HashMap<String, String>()
+        queries["api_key"] = Constants.API_KEY
+        queries["language"] = "en-US"
+        queries["page"] = "1"
+        queries["include_adult"] = "true"
+        queries["query"] = searchQuery
+
         return queries
     }
 
