@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(), MenuProvider {
+class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener {
 
     private lateinit var homeViewModel: HomeViewModel
     private val moviesAdapter: MoviesAdapter by lazy {
@@ -68,7 +68,31 @@ class HomeFragment : Fragment(), MenuProvider {
 
     }
 
+    // MENU PROVIDER
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.menu_home_fragment, menu)
 
+        val searchMenu = menu.findItem(R.id.search_menu)
+        val searchView = searchMenu.actionView as SearchView
+        searchView?.isSubmitButtonEnabled = true
+        searchView?.setOnQueryTextListener(this)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    // SEARCH VIEW
+    override fun onQueryTextSubmit(p0: String?): Boolean {
+        return true
+    }
+
+    override fun onQueryTextChange(p0: String?): Boolean {
+        return true
+    }
+
+
+    // CUSTOM FUNCTIONS
     private fun setUpViewPagerCarousel() {
         viewPagerCarousel.apply {
             clipChildren = false
@@ -204,12 +228,6 @@ class HomeFragment : Fragment(), MenuProvider {
 
     }
 
-    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-       menuInflater.inflate(R.menu.menu_home_fragment, menu)
-    }
 
-    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        TODO("Not yet implemented")
-    }
 
 }
