@@ -6,17 +6,15 @@ import android.util.Log
 import android.view.*
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
-import android.widget.Toast
 import androidx.core.view.MenuProvider
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.adapters.TopMoviesCarouselAdapter
-import com.matheusxreis.moviedroid.models.MoviePoster
 import com.matheusxreis.moviedroid.viewmodels.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -34,25 +32,27 @@ class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener {
     private val topMoviesAdapter: TopMoviesCarouselAdapter by lazy {
         TopMoviesCarouselAdapter()
     }
+    private lateinit var searchView: SearchView;
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
-
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        requireActivity().addMenuProvider(this)
+        requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         setUpRecyclerView()
         setUpViewPagerCarousel()
@@ -73,17 +73,26 @@ class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener {
         menuInflater.inflate(R.menu.menu_home_fragment, menu)
 
         val searchMenu = menu.findItem(R.id.search_menu)
-        val searchView = searchMenu.actionView as SearchView
+        searchView = searchMenu.actionView as SearchView
         searchView?.isSubmitButtonEnabled = true
         searchView?.setOnQueryTextListener(this)
+        searchView.clearFocus()
+
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        TODO("Not yet implemented")
+
+        return true
     }
 
     // SEARCH VIEW
     override fun onQueryTextSubmit(p0: String?): Boolean {
+
+        searchView.clearFocus()
+        val action = HomeFragmentDirections.actionHomeFragmentToSearchResultFragment(p0 as String)
+        findNavController().navigate(action)
+
+       // findNavController().
         return true
     }
 
@@ -227,6 +236,7 @@ class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener {
         }
 
     }
+
 
 
 
