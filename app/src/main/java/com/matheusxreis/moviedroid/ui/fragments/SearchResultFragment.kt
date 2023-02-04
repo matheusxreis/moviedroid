@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.matheusxreis.moviedroid.R
+import com.matheusxreis.moviedroid.databinding.FragmentSearchResultBinding
 import com.matheusxreis.moviedroid.utils.NetworkResult
 import com.matheusxreis.moviedroid.viewmodels.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +28,10 @@ class SearchResultFragment : Fragment(), MenuProvider, SearchView.OnQueryTextLis
         MoviesAdapter()
     }
     private val homeViewModel: HomeViewModel by activityViewModels<HomeViewModel>()
+
+
     private lateinit var searchView: SearchView;
+    private lateinit var binding: FragmentSearchResultBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +54,9 @@ class SearchResultFragment : Fragment(), MenuProvider, SearchView.OnQueryTextLis
 
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
-        return inflater.inflate(R.layout.fragment_search_result, container, false)
+        val layoutInflater = LayoutInflater.from(requireContext())
+        binding = FragmentSearchResultBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -115,6 +121,7 @@ class SearchResultFragment : Fragment(), MenuProvider, SearchView.OnQueryTextLis
                 when(it){
                     is NetworkResult.Error -> {
                         hideShimmer()
+
                     }
                     is NetworkResult.Success ->{
                         resultSearchAdapter.setData(it.data!!)
