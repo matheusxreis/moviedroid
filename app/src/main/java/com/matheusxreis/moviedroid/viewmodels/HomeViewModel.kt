@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.matheusxreis.moviedroid.data.Repository
 import com.matheusxreis.moviedroid.models.MoviePoster
 import com.matheusxreis.moviedroid.utils.Constants
+import com.matheusxreis.moviedroid.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,10 +18,10 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    val trendingSeries: MutableLiveData<List<MoviePoster>> = MutableLiveData()
-    val popularMovies: MutableLiveData<List<MoviePoster>> = MutableLiveData()
-    val popularSeries: MutableLiveData<List<MoviePoster>> = MutableLiveData()
-    val searchedResult: MutableLiveData<List<MoviePoster>> = MutableLiveData()
+    val trendingSeries: MutableLiveData<NetworkResult<List<MoviePoster>>> = MutableLiveData()
+    val popularMovies: MutableLiveData<NetworkResult<List<MoviePoster>>> = MutableLiveData()
+    val popularSeries: MutableLiveData<NetworkResult<List<MoviePoster>>> = MutableLiveData()
+    val searchedResult: MutableLiveData<NetworkResult<List<MoviePoster>>> = MutableLiveData()
 
 
     private var pageMovie = 1
@@ -28,74 +29,118 @@ class HomeViewModel @Inject constructor(
 
     fun getTrendingSeries() = viewModelScope.launch {
 
-        val response = repository.remoteDataSource.getTrendingMovies(
-            queries = applyQueries(),
-            mediaType = "tv",
-            period = "day"
-        )
-        trendingSeries.value = response.body()?.results
+        trendingSeries.value = NetworkResult.Loading()
+
+        try {
+            val response = repository.remoteDataSource.getTrendingMovies(
+                queries = applyQueries(),
+                mediaType = "tv",
+                period = "day"
+            )
+            if (response?.body()?.results.isNullOrEmpty()) {
+                trendingSeries.value = NetworkResult.Error("empty")
+            } else {
+                trendingSeries.value = NetworkResult.Success(response.body()?.results!!)
+            }
+        } catch (e: Exception) {
+
+            trendingSeries.value = NetworkResult.Error(e.toString())
+        }
     }
 
     fun getMovies(filter: String) = viewModelScope.launch {
 
-        val response = repository.remoteDataSource.getMovies(
-            queries = applyMoviesQueries(),
-            filter = filter
-        )
-        when (filter) {
-            "popular" -> {
-                Log.d("RESPONSE API", response.toString())
-                popularMovies.value = response.body()?.results
+        try {
+
+            trendingSeries.value = NetworkResult.Loading()
+
+            val response = repository.remoteDataSource.getMovies(
+                queries = applyMoviesQueries(),
+                filter = filter
+            )
+            if (response?.body()?.results.isNullOrEmpty()) {
+                popularMovies.value = NetworkResult.Error("empty")
+                return@launch
             }
+            when (filter) {
+                "popular" -> {
+                    popularMovies.value = NetworkResult.Success(response.body()?.results!!)
+                }
+            }
+        } catch (e: Exception) {
+
+            popularMovies.value = NetworkResult.Error(e.toString())
+
         }
 
     }
 
     fun getTv(filter: String) = viewModelScope.launch {
 
-        val response = repository.remoteDataSource.getTv(
-            queries = applySeriesQueries(),
-            filter = filter
-        )
-        when (filter) {
-            "popular" -> {
-                Log.d("RESPONSE API", response.toString())
-                popularSeries.value = response.body()?.results
+        popularSeries.value = NetworkResult.Loading()
+        try {
+            val response = repository.remoteDataSource.getTv(
+                queries = applySeriesQueries(),
+                filter = filter
+            )
+
+            if(response?.body()?.results.isNullOrEmpty()){
+                popularSeries.value = NetworkResult.Error("empty")
+                return@launch
             }
+            when (filter) {
+                "popular" -> {
+                    Log.d("RESPONSE API", response.toString())
+                    popularSeries.value = NetworkResult.Success(response.body()?.results!!)
+                }
+            }
+        }catch(e:Exception){
+            popularSeries.value = NetworkResult.Error(e.toString())
         }
 
     }
 
     fun search(searchQuery: String) = viewModelScope.launch {
-        val response = repository.remoteDataSource.searchMulti(
-            queries = applySearchQueries(searchQuery)
-        )
 
-        Log.d("responsesearch", response.body().toString())
-        if(!response.body()?.results.isNullOrEmpty()){
-            Log.d("responsesearch", "entrei")
-            searchedResult.value = response.body()?.results
-        }
-    }
+        searchedResult.value = NetworkResult.Loading()
 
-    fun getNewPageMovies(filter: String) = viewModelScope.launch {
-        val response = repository.remoteDataSource.getMovies(
-            queries = applyMoviesQueries(pageMovie + 1),
-            filter = filter
-        )
-        pageMovie = pageMovie + 1
-        when (filter) {
-            "popular" -> {
+        try {
+            val response = repository.remoteDataSource.searchMulti(
+                queries = applySearchQueries(searchQuery)
+            )
 
-                val newList: ArrayList<MoviePoster> = arrayListOf()
-                popularMovies.value?.let { newList.addAll(it) }
-                response.body()?.results.let { newList.addAll(it!!) }
-                Log.d("respeeonse", response.body().toString())
-                popularMovies.value = newList
+            if(response?.body()?.results.isNullOrEmpty()){
+                searchedResult.value = NetworkResult.Error("empty")
             }
-        }
 
+            if (!response.body()?.results.isNullOrEmpty()) {
+                searchedResult.value = NetworkResult.Success(response.body()?.results!!)
+            }
+        }catch (e:Exception){
+
+            searchedResult.value = NetworkResult.Error(e.toString())
+
+        }
     }
+
+//    fun getNewPageMovies(filter: String) = viewModelScope.launch {
+//        val response = repository.remoteDataSource.getMovies(
+//            queries = applyMoviesQueries(pageMovie + 1),
+//            filter = filter
+//        )
+//        pageMovie = pageMovie + 1
+//        when (filter) {
+//            "popular" -> {
+//
+//                val newList: ArrayList<MoviePoster> = arrayListOf()
+//                popularMovies.value?.let { newList.addAll(it) }
+//                response.body()?.results.let { newList.addAll(it!!) }
+//                Log.d("respeeonse", response.body().toString())
+//                popularMovies.value = newList
+//            }
+//        }
+//
+//    }
 
 
     private fun applyQueries(): HashMap<String, String> {
@@ -111,6 +156,7 @@ class HomeViewModel @Inject constructor(
         queries["page"] = page.toString()
         return queries
     }
+
     private fun applySeriesQueries(): HashMap<String, String> {
         val queries = HashMap<String, String>()
         queries["api_key"] = Constants.API_KEY
@@ -119,7 +165,7 @@ class HomeViewModel @Inject constructor(
         return queries
     }
 
-    private fun applySearchQueries(searchQuery:String):HashMap<String, String>{
+    private fun applySearchQueries(searchQuery: String): HashMap<String, String> {
         val queries = HashMap<String, String>()
         queries["api_key"] = Constants.API_KEY
         queries["language"] = "en-US"

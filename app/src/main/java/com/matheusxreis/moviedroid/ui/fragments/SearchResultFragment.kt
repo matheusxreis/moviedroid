@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.matheusxreis.moviedroid.R
+import com.matheusxreis.moviedroid.utils.NetworkResult
 import com.matheusxreis.moviedroid.viewmodels.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_search_result.*
@@ -110,12 +111,21 @@ class SearchResultFragment : Fragment(), MenuProvider, SearchView.OnQueryTextLis
     private fun populateRecyclerView(){
        // homeViewModel.search()
         homeViewModel.searchedResult.observe(viewLifecycleOwner) {
-            if(!it.isNullOrEmpty()){
-                Log.d("responsesearch", it.toString())
-                Log.d("responsesearch", "oooi")
-                resultSearchAdapter.setData(it)
-                hideShimmer()
-            }
+
+                when(it){
+                    is NetworkResult.Error -> {
+                        hideShimmer()
+                    }
+                    is NetworkResult.Success ->{
+                        resultSearchAdapter.setData(it.data!!)
+                        hideShimmer()
+                    }
+                    is NetworkResult.Loading -> {
+                        showShimmer()
+                    }
+                }
+
+
         }
     }
 

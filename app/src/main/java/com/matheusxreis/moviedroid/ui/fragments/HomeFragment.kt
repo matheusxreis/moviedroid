@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.adapters.TopMoviesCarouselAdapter
+import com.matheusxreis.moviedroid.utils.NetworkResult
 import com.matheusxreis.moviedroid.viewmodels.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -122,10 +123,18 @@ class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener {
 
         homeViewModel.getTrendingSeries()
         homeViewModel.trendingSeries.observe(viewLifecycleOwner) {
+                when(it) {
+                    is NetworkResult.Error -> {
 
-            if (it != null) {
-                topMoviesAdapter.setData(it.subList(0, 3))
-            }
+                    }
+                    is NetworkResult.Success -> {
+                        topMoviesAdapter.setData(it.data!!.subList(0, 3))
+                    }
+                    is NetworkResult.Loading -> {
+
+                    }
+                }
+
         }
     }
 
@@ -169,18 +178,41 @@ class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener {
         homeViewModel.getMovies("popular")
         homeViewModel.getTv("popular")
         homeViewModel.popularMovies.observe(viewLifecycleOwner) {
-            if (it != null) {
-                moviesAdapter.setData(it)
-                hideShimmer("movie")
-            }
+
+                when(it){
+                    is NetworkResult.Error -> {
+                        hideShimmer("movie")
+                    }
+                    is NetworkResult.Success -> {
+                        moviesAdapter.setData(it.data!!)
+                        hideShimmer("movie")
+
+                    }
+                    is NetworkResult.Loading -> {
+                        showShimmer("movie")
+                    }
+                }
+
         }
 
         homeViewModel.popularSeries.observe(viewLifecycleOwner) {
-            if (it != null) {
-                seriesAdapter.setData(it)
-                hideShimmer("tv")
 
-            }
+                when(it){
+                    is NetworkResult.Error -> {
+                        hideShimmer("tv")
+                    }
+                    is NetworkResult.Success -> {
+                        seriesAdapter.setData(it.data!!)
+                        hideShimmer("tv")
+                    }
+                    is NetworkResult.Loading -> {
+                        showShimmer("tv")
+                    }
+                }
+
+
+
+
         }
 
 
