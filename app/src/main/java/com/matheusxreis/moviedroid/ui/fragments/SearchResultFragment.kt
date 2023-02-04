@@ -56,6 +56,7 @@ class SearchResultFragment : Fragment(), MenuProvider, SearchView.OnQueryTextLis
 
         val layoutInflater = LayoutInflater.from(requireContext())
         binding = FragmentSearchResultBinding.inflate(layoutInflater, container, false)
+        binding.homeViewModel = homeViewModel
         return binding.root
     }
 

@@ -17,6 +17,7 @@
         tools:context=".ui.fragments.SearchResultFragment">
 
         <com.todkars.shimmer.ShimmerRecyclerView
+            hasResult="@{homeViewModel}"
             android:id="@+id/searchResultRv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -33,6 +34,7 @@
             tools:listitem="@layout/movies_row_layout" />
 
         <ImageView
+            hasResult="@{homeViewModel}"
             android:id="@+id/noResultImageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -47,6 +49,7 @@
             app:tint="@color/text" />
 
         <TextView
+            hasResult="@{homeViewModel}"
             android:id="@+id/noResultTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
