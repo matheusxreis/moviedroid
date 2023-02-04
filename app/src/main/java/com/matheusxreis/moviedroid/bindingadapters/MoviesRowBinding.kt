@@ -11,7 +11,7 @@ class MoviesRowBinding {
 
         @BindingAdapter("loadImageUrl")
         @JvmStatic
-        fun loadImageUrl(imageView: ImageView, url:String){
+        fun loadImageUrl(imageView: ImageView, url:String? = ""){
             imageView.load("${Constants.IMAGE_BASE_URL}$url")
         }
     }
