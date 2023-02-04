@@ -105,12 +105,10 @@ class HomeFragment : Fragment() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (!recyclerView.canScrollHorizontally(1) && !moviesRv.isShimmerShowing) {
-
-                    moviesProgressBar.visibility = View.VISIBLE
-                    val lastPosition = homeViewModel.popularMovies.value?.size ?: 0
-
-                    recyclerView.scrollToPosition(lastPosition - 1)
-                    homeViewModel.getNewPageMovies("popular")
+                    // moviesProgressBar.visibility = View.VISIBLE
+                    // val lastPosition = homeViewModel.popularMovies.value?.size ?: 0
+                    // recyclerView.scrollToPosition(lastPosition - 1)
+                    // homeViewModel.getNewPageMovies("popular")
 
                 } else {
                     moviesProgressBar.visibility = View.GONE
@@ -124,14 +122,11 @@ class HomeFragment : Fragment() {
                 }
             }
         })
-
     }
 
     private fun populateRecyclerView() {
-
         homeViewModel.getMovies("popular")
         homeViewModel.getTv("popular")
-
         homeViewModel.popularMovies.observe(viewLifecycleOwner) {
             if (it != null) {
                 moviesAdapter.setData(it)
