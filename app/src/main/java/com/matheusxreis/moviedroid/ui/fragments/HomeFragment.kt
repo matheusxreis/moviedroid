@@ -3,11 +3,11 @@ package com.matheusxreis.moviedroid.ui.fragments
 import MoviesAdapter
 import android.os.Bundle
 import android.util.Log
+import android.view.*
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.MenuProvider
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), MenuProvider {
 
     private lateinit var homeViewModel: HomeViewModel
     private val moviesAdapter: MoviesAdapter by lazy {
@@ -51,6 +51,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().addMenuProvider(this)
 
         setUpRecyclerView()
         setUpViewPagerCarousel()
@@ -200,6 +202,14 @@ class HomeFragment : Fragment() {
             }
         }
 
+    }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+       menuInflater.inflate(R.menu.menu_home_fragment, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        TODO("Not yet implemented")
     }
 
 }
