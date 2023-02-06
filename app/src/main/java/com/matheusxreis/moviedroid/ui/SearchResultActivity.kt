@@ -57,7 +57,7 @@ class SearchResultActivity : AppCompatActivity() {
         searchView.apply {
             // Assumes current activity is the searchable activity
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
-            setIconifiedByDefault(false) // Do not iconify the widget; expand it by default
+            setIconifiedByDefault(true) // Do not iconify the widget; expand it by default
         }
         searchView.onActionViewCollapsed()
 
