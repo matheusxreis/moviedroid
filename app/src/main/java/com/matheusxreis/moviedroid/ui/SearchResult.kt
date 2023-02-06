@@ -16,11 +16,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.bindingadapters.SearchResultBinding
 import com.matheusxreis.moviedroid.databinding.ActivitySearchResultBinding
-import com.matheusxreis.moviedroid.databinding.FragmentSearchResultBinding
 import com.matheusxreis.moviedroid.utils.NetworkResult
 import com.matheusxreis.moviedroid.viewmodels.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_search_result.*
+import kotlinx.android.synthetic.main.activity_search_result.*
 
 @AndroidEntryPoint
 class SearchResult : AppCompatActivity() {
@@ -30,6 +29,7 @@ class SearchResult : AppCompatActivity() {
     private val resultSearchAdapter: MoviesAdapter by lazy {
         MoviesAdapter()
     }
+    private lateinit var searchView:SearchView;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +37,7 @@ class SearchResult : AppCompatActivity() {
         binding = ActivitySearchResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.homeViewModel = homeViewModel
+
 
         handleIntent()
         setUpRecyclerView()
@@ -48,7 +49,7 @@ class SearchResult : AppCompatActivity() {
 
         val searchItem = menu?.findItem(R.id.search_menu)
 
-        val searchView = searchItem?.actionView as SearchView
+        searchView = searchItem?.actionView as SearchView
         val searchManager = getSystemService(SEARCH_SERVICE) as SearchManager
         searchView.apply {
             // Assumes current activity is the searchable activity

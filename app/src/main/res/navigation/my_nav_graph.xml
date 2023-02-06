@@ -10,21 +10,7 @@
         android:name="com.matheusxreis.moviedroid.ui.fragments.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_searchResultFragment"
-            app:destination="@id/searchResultFragment" />
+
     </fragment>
-    <fragment
-        android:id="@+id/searchResultFragment"
-        android:name="com.matheusxreis.moviedroid.ui.fragments.SearchResultFragment"
-        android:label="fragment_search_result"
-        tools:layout="@layout/fragment_search_result" >
-        <action
-            android:id="@+id/action_searchResultFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-        <argument
-            android:name="searchQuery"
-            app:argType="string"
-            android:defaultValue='""' />
-    </fragment>
+
 </navigation>
