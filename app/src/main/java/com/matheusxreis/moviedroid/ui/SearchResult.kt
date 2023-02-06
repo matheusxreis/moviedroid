@@ -40,6 +40,9 @@ class SearchResult : AppCompatActivity() {
         binding.homeViewModel = homeViewModel
 
 
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         handleIntent()
         setUpRecyclerView()
         populateRecyclerView()
@@ -65,7 +68,9 @@ class SearchResult : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        if (item.itemId == R.id.delete_search_history) {
+        if (item.itemId == android.R.id.home) {
+            finish()
+        } else if (item.itemId == R.id.delete_search_history) {
             SearchRecentSuggestions(this, MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE)
                 .clearHistory()
         }
@@ -78,6 +83,11 @@ class SearchResult : AppCompatActivity() {
         searchView.onActionViewCollapsed()
 
         super.onPause()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 
     /// custom functions
@@ -122,8 +132,13 @@ class SearchResult : AppCompatActivity() {
     private fun handleIntent() {
         if (Intent.ACTION_SEARCH == intent.action) {
             intent.getStringExtra(SearchManager.QUERY)?.also { query ->
+                supportActionBar?.setTitle("searching: $query")
                 homeViewModel.search(query)
-                SearchRecentSuggestions(this, MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE)
+                SearchRecentSuggestions(
+                    this,
+                    MySuggestionProvider.AUTHORITY,
+                    MySuggestionProvider.MODE
+                )
                     .saveRecentQuery(query, null)
             }
         }
