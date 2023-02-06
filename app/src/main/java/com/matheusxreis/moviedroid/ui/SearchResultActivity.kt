@@ -6,8 +6,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.SearchRecentSuggestions
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
@@ -23,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_search_result.*
 
 @AndroidEntryPoint
-class SearchResult : AppCompatActivity() {
+class SearchResultActivity : AppCompatActivity() {
 
     private val homeViewModel: HomeViewModel by viewModels<HomeViewModel>()
     private lateinit var binding: ActivitySearchResultBinding

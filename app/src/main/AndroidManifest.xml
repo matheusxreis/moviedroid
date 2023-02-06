@@ -20,7 +20,7 @@
             android:authorities="com.matheusxreis.moviedroid.utils.MySuggestionProvider" />
 
         <activity
-            android:name=".ui.SearchResult"
+            android:name=".ui.SearchResultActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -46,7 +46,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
             <meta-data android:name="android.app.default_searchable"
-                android:value=".ui.SearchResult" />
+                android:value=".ui.SearchResultActivity" />
         </activity>
     </application>
 
