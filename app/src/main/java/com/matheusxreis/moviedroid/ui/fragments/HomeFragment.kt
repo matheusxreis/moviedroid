@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.activityViewModels
@@ -54,7 +55,7 @@ class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        requireActivity().addMenuProvider(this)
+        requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         setUpRecyclerView()
         setUpViewPagerCarousel()
@@ -74,11 +75,8 @@ class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener {
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.menu_home_fragment, menu)
 
-      //  val searchMenu = menu.findItem(R.id.search_menu)
-     //   searchView = searchMenu.actionView as SearchView
-     //   searchView?.isSubmitButtonEnabled = true
-      //  searchView?.setOnQueryTextListener(this)
-      //  searchView.clearFocus()
+        val searchMenu = menu.findItem(R.id.search_menu)
+        searchMenu.icon?.setTint(ContextCompat.getColor(requireActivity(), R.color.white))
 
     }
 
@@ -87,7 +85,6 @@ class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener {
         if(menuItem.itemId == R.id.search_menu){
             requireActivity().onSearchRequested()
         }
-
         return true
     }
 
