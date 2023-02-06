@@ -5,6 +5,7 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Context.SEARCH_SERVICE
 import android.os.Bundle
+import android.provider.SearchRecentSuggestions
 import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
@@ -23,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.adapters.TopMoviesCarouselAdapter
+import com.matheusxreis.moviedroid.utils.MySuggestionProvider
 import com.matheusxreis.moviedroid.utils.NetworkResult
 import com.matheusxreis.moviedroid.viewmodels.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -97,9 +99,11 @@ class HomeFragment : Fragment(), MenuProvider {
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
 
-        if(menuItem.itemId == R.id.search_menu){
-         //   requireActivity().onSearchRequested()
-        }
+            if (menuItem.itemId == R.id.delete_search_history) {
+                SearchRecentSuggestions(requireActivity(), MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE)
+                    .clearHistory()
+            }
+
         return true
     }
 

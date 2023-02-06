@@ -11,4 +11,10 @@
         app:showAsAction="ifRoom"
         />
 
+    <item
+        android:id="@+id/delete_search_history"
+        android:title="Delete Search History"
+        app:showAsAction="never"
+        />
+
 </menu>

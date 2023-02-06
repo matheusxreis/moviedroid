@@ -59,13 +59,15 @@ class SearchResult : AppCompatActivity() {
         }
         searchView.onActionViewCollapsed()
 
+
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        if (item.itemId == R.id.search_menu) {
-            // onSearchRequested()
+        if (item.itemId == R.id.delete_search_history) {
+            SearchRecentSuggestions(this, MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE)
+                .clearHistory()
         }
         return true
     }
@@ -74,8 +76,10 @@ class SearchResult : AppCompatActivity() {
     override fun onPause() {
         searchView.clearFocus()
         searchView.onActionViewCollapsed()
+
         super.onPause()
     }
+
     /// custom functions
 
     private fun setUpRecyclerView() {
@@ -125,4 +129,6 @@ class SearchResult : AppCompatActivity() {
         }
 
     }
+
+
 }
