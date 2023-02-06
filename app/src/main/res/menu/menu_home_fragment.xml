@@ -8,7 +8,7 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         android:orderInCategory="100"
         android:title="@string/abc_search_hint"
-        app:showAsAction="ifRoom|collapseActionView"
+        app:showAsAction="ifRoom"
         />
 
 </menu>

@@ -11,10 +11,9 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.activity.viewModels
-import androidx.fragment.app.activityViewModels
+
 import androidx.recyclerview.widget.GridLayoutManager
 import com.matheusxreis.moviedroid.R
-import com.matheusxreis.moviedroid.bindingadapters.SearchResultBinding
 import com.matheusxreis.moviedroid.databinding.ActivitySearchResultBinding
 import com.matheusxreis.moviedroid.utils.NetworkResult
 import com.matheusxreis.moviedroid.viewmodels.HomeViewModel
@@ -29,7 +28,7 @@ class SearchResult : AppCompatActivity() {
     private val resultSearchAdapter: MoviesAdapter by lazy {
         MoviesAdapter()
     }
-    private lateinit var searchView:SearchView;
+    private lateinit var searchView: SearchView;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +55,7 @@ class SearchResult : AppCompatActivity() {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
             setIconifiedByDefault(false) // Do not iconify the widget; expand it by default
         }
+        searchView.onActionViewCollapsed()
 
         return true
     }
@@ -68,6 +68,12 @@ class SearchResult : AppCompatActivity() {
         return true
     }
 
+
+    override fun onPause() {
+        searchView.clearFocus()
+        searchView.onActionViewCollapsed()
+        super.onPause()
+    }
     /// custom functions
 
     private fun setUpRecyclerView() {
