@@ -12,6 +12,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.activity.viewModels
 
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.databinding.ActivitySearchResultBinding
 import com.matheusxreis.moviedroid.utils.MySuggestionProvider
@@ -71,6 +72,10 @@ class SearchResultActivity : AppCompatActivity() {
         } else if (item.itemId == R.id.delete_search_history) {
             SearchRecentSuggestions(this, MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE)
                 .clearHistory()
+
+            Snackbar.make(binding.root, "Search History Deleted", Snackbar.LENGTH_LONG)
+                .setAction("Okay", {})
+                .show()
         }
         return true
     }

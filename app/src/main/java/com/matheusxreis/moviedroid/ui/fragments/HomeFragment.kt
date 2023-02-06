@@ -22,6 +22,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import com.google.android.material.snackbar.Snackbar
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.adapters.TopMoviesCarouselAdapter
 import com.matheusxreis.moviedroid.utils.MySuggestionProvider
@@ -33,6 +34,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 @AndroidEntryPoint
 class HomeFragment : Fragment(), MenuProvider {
 
+    private lateinit var mView:View
     private val homeViewModel: HomeViewModel by activityViewModels<HomeViewModel>()
     private val moviesAdapter: MoviesAdapter by lazy {
         MoviesAdapter()
@@ -56,7 +58,8 @@ class HomeFragment : Fragment(), MenuProvider {
     ): View? {
 
 
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        mView = inflater.inflate(R.layout.fragment_home, container, false)
+        return mView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -102,6 +105,9 @@ class HomeFragment : Fragment(), MenuProvider {
             if (menuItem.itemId == R.id.delete_search_history) {
                 SearchRecentSuggestions(requireActivity(), MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE)
                     .clearHistory()
+                Snackbar.make(mView, "Search History Deleted", Snackbar.LENGTH_LONG)
+                    .setAction("Okay", {})
+                    .show()
             }
 
         return true
