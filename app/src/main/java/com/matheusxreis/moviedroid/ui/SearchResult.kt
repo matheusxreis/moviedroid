@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.widget.SearchView
 import androidx.activity.viewModels
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -44,13 +45,24 @@ class SearchResult : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_home_fragment, menu)
+
+        val searchItem = menu?.findItem(R.id.search_menu)
+
+        val searchView = searchItem?.actionView as SearchView
+        val searchManager = getSystemService(SEARCH_SERVICE) as SearchManager
+        searchView.apply {
+            // Assumes current activity is the searchable activity
+            setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            setIconifiedByDefault(false) // Do not iconify the widget; expand it by default
+        }
+
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        if(item.itemId == R.id.search_menu){
-            onSearchRequested()
+        if (item.itemId == R.id.search_menu) {
+            // onSearchRequested()
         }
         return true
     }

@@ -1,11 +1,15 @@
 package com.matheusxreis.moviedroid.ui.fragments
 
 import MoviesAdapter
+import android.app.SearchManager
+import android.content.Context
+import android.content.Context.SEARCH_SERVICE
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.activityViewModels
@@ -13,6 +17,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
@@ -24,7 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener {
+class HomeFragment : Fragment(), MenuProvider {
 
     private val homeViewModel: HomeViewModel by activityViewModels<HomeViewModel>()
     private val moviesAdapter: MoviesAdapter by lazy {
@@ -77,36 +82,28 @@ class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener {
 
         val searchMenu = menu.findItem(R.id.search_menu)
         searchMenu.icon?.setTint(ContextCompat.getColor(requireActivity(), R.color.white))
+        searchView = searchMenu.actionView as SearchView
+        searchView?.isSubmitButtonEnabled = true
+//        searchView?.setOnQueryTextListener(requireActivity().textl)
+        searchView.clearFocus()
 
+        val searchManager = requireContext().getSystemService(SEARCH_SERVICE) as SearchManager
+        searchView.apply {
+            // Assumes current activity is the searchable activity
+            setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
+            setIconifiedByDefault(false) // Do not iconify the widget; expand it by default
+        }
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
 
         if(menuItem.itemId == R.id.search_menu){
-            requireActivity().onSearchRequested()
+         //   requireActivity().onSearchRequested()
         }
         return true
     }
 
-    // SEARCH VIEW
-    override fun onQueryTextSubmit(p0: String?): Boolean {
 
-        if(!p0.isNullOrEmpty()){
-            homeViewModel.search(p0)
-            searchView.clearFocus()
-            val action = HomeFragmentDirections.actionHomeFragmentToSearchResultFragment(p0 as String)
-            findNavController().navigate(action)
-        }
-
-
-
-       // findNavController().
-        return true
-    }
-
-    override fun onQueryTextChange(p0: String?): Boolean {
-        return true
-    }
 
 
     // CUSTOM FUNCTIONS
