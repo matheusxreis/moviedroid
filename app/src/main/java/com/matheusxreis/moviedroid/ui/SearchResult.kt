@@ -1,8 +1,11 @@
 package com.matheusxreis.moviedroid.ui
 
 import MoviesAdapter
+import android.app.SearchManager
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import androidx.fragment.app.activityViewModels
@@ -20,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_search_result.*
 class SearchResult : AppCompatActivity() {
 
     private val homeViewModel: HomeViewModel by viewModels<HomeViewModel>()
-    private lateinit var binding:ActivitySearchResultBinding
+    private lateinit var binding: ActivitySearchResultBinding
     private val resultSearchAdapter: MoviesAdapter by lazy {
         MoviesAdapter()
     }
@@ -32,31 +35,33 @@ class SearchResult : AppCompatActivity() {
         setContentView(binding.root)
         binding.homeViewModel = homeViewModel
 
-        homeViewModel.search("laddxssddddt")
+        handleIntent()
         setUpRecyclerView()
         populateRecyclerView()
-
-
     }
 
 
-    private fun setUpRecyclerView(){
+
+
+    /// custom functions
+
+    private fun setUpRecyclerView() {
 
         searchResultRv.adapter = resultSearchAdapter
         searchResultRv.layoutManager = GridLayoutManager(this, 2)
         showShimmer()
     }
 
-    private fun populateRecyclerView(){
+    private fun populateRecyclerView() {
         // homeViewModel.search()
         homeViewModel.searchedResult.observe(this) {
 
-            when(it){
+            when (it) {
                 is NetworkResult.Error -> {
                     hideShimmer()
 
                 }
-                is NetworkResult.Success ->{
+                is NetworkResult.Success -> {
                     resultSearchAdapter.setData(it.data!!)
                     hideShimmer()
                 }
@@ -69,10 +74,20 @@ class SearchResult : AppCompatActivity() {
         }
     }
 
-    private fun showShimmer(){
+    private fun showShimmer() {
         searchResultRv.showShimmer()
     }
-    private fun hideShimmer(){
+
+    private fun hideShimmer() {
         searchResultRv.hideShimmer()
+    }
+
+    private fun handleIntent() {
+        if (Intent.ACTION_SEARCH == intent.action) {
+            intent.getStringExtra(SearchManager.QUERY)?.also { query ->
+                homeViewModel.search(query)
+            }
+        }
+
     }
 }
