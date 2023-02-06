@@ -54,7 +54,7 @@ class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        requireActivity().addMenuProvider(this)
 
         setUpRecyclerView()
         setUpViewPagerCarousel()
@@ -74,15 +74,19 @@ class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener {
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.menu_home_fragment, menu)
 
-        val searchMenu = menu.findItem(R.id.search_menu)
-        searchView = searchMenu.actionView as SearchView
-        searchView?.isSubmitButtonEnabled = true
-        searchView?.setOnQueryTextListener(this)
-        searchView.clearFocus()
+      //  val searchMenu = menu.findItem(R.id.search_menu)
+     //   searchView = searchMenu.actionView as SearchView
+     //   searchView?.isSubmitButtonEnabled = true
+      //  searchView?.setOnQueryTextListener(this)
+      //  searchView.clearFocus()
 
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+
+        if(menuItem.itemId == R.id.search_menu){
+            requireActivity().onSearchRequested()
+        }
 
         return true
     }
