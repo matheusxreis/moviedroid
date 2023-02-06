@@ -1,23 +1,17 @@
-package com.matheusxreis.moviedroid.ui.fragments
+package com.matheusxreis.moviedroid.ui.fragments.home
 
 import MoviesAdapter
 import android.app.SearchManager
-import android.content.Context
 import android.content.Context.SEARCH_SERVICE
 import android.os.Bundle
 import android.provider.SearchRecentSuggestions
-import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
