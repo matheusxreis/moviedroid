@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Moviedroid"
         tools:targetApi="31">
+        <provider android:name=".utils.MySuggestionProvider"
+            android:authorities="com.matheusxreis.moviedroid.utils.MySuggestionProvider" />
+
         <activity
             android:name=".ui.SearchResult"
             android:exported="false">
