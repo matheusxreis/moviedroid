@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.core.view.forEach
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -16,11 +19,16 @@ import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.adapters.DetailsPagerAdapter
 import com.matheusxreis.moviedroid.databinding.FragmentDetailsBinding
 import com.matheusxreis.moviedroid.ui.fragments.about.AboutFragment
+import com.matheusxreis.moviedroid.viewmodels.DetailsViewModel
+import com.matheusxreis.moviedroid.viewmodels.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailsFragment : Fragment(), MenuProvider {
 
     val args by navArgs<DetailsFragmentArgs>()
     private lateinit var binding: FragmentDetailsBinding
+    private val detailsViewModel: DetailsViewModel by activityViewModels<DetailsViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -42,13 +50,14 @@ class DetailsFragment : Fragment(), MenuProvider {
         val layoutInflater = LayoutInflater.from(requireContext())
         binding = FragmentDetailsBinding.inflate(layoutInflater)
 
+
         binding.movie = args.movie
 
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         setUpAndPopulateViewPager()
 
 
-
+        fetchDetails(args.movie.id)
         return binding.root
     }
 
@@ -110,6 +119,10 @@ class DetailsFragment : Fragment(), MenuProvider {
         } else {
             findNavController().popBackStack()
         }
+    }
+
+    private fun fetchDetails(id:String){
+        detailsViewModel.getDetails(id)
     }
 
 

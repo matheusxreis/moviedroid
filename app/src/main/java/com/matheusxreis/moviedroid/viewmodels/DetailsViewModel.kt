@@ -1,5 +1,6 @@
 package com.matheusxreis.moviedroid.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,12 +24,14 @@ class DetailsViewModel @Inject constructor(
         id: String
     ) = viewModelScope.launch {
         details.value = NetworkResult.Loading()
+        Log.d("funcionou", "ajhsaj")
         try {
 
             val response = repository.remoteDataSource.getDetails(
                 queries = applyQueries(),
                 id = id
             )
+            Log.d("funcionou", response.toString())
 
             if (response.body() == null) {
                 details.value = NetworkResult.Error("empty")
