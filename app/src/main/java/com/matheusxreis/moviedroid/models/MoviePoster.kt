@@ -11,5 +11,11 @@ data class MoviePoster(
     @SerializedName("id")
     val imdbId: String,
     @SerializedName("original_title", alternate = ["original_name", "name", "title"])
-    val title: String
+    val title: String,
+    @SerializedName("vote_average")
+    val voteAverage: Float,
+    @SerializedName("vote_count")
+    val vouteCount: Number,
+
 ): Parcelable
+
