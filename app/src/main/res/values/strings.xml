@@ -2,4 +2,12 @@
     <string name="app_name">moviedroid</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="original_title">Original Title:</string>
+    <string name="genres">Genres:</string>
+    <string name="released_at">Released at:</string>
+    <string name="directed_by">Directed by:</string>
+    <string name="mock_cast">Rosamund Pike, Rosamund Pike, Rosamund Pike, Rosamund Pike, Rosamund Pike, Rosamund Pike, Rosamund Pike.</string>
+    <string name="cast">Cast:</string>
+    <string name="overview">Overview:</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla placerat, ipsum ac lobortis imperdiet, felis erat efficitur risus, sed gravida nunc mi non urna. Quisque at tincidunt mauris, sed pretium purus. Nulla ut nisl lacus. Praesent quis fermentum diam. Mauris pulvinar sem sed lorem malesuada egestas. Cras eget libero et magna maximus commodo eget id nibh. Suspendisse sed velit pulvinar, porta leo a, feugiat libero. In non odio sit amet sapiens venenatis auctor eu eu diam.</string>
 </resources>

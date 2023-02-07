@@ -19,6 +19,7 @@
     <color name="placeholder">#7A7A7A</color>
 
     <color name="backgroundColor">@color/darker</color>
+    <color name="backgroundSecondaryColor">@color/dark</color>
     <color name="rippleColor">#30212121</color>
 
 
