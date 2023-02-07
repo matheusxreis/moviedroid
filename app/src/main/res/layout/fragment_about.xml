@@ -75,6 +75,7 @@
                     app:layout_constraintTop_toBottomOf="@id/originalTitleLabelTv" />
 
                 <TextView
+                    getGenres="@{movieDetails.genres}"
                     android:id="@+id/genreTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
