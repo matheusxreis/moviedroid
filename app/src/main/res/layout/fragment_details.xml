@@ -95,6 +95,7 @@
             app:layout_scrollFlags="scroll|enterAlways"
             style="@style/Custom.TabLayoutStyle"
             app:tabTextAppearance="@style/Custom.TabTextStyle"
+            android:layout_marginHorizontal="24dp"
             >
 
         </com.google.android.material.tabs.TabLayout>
