@@ -13,13 +13,17 @@ import com.matheusxreis.moviedroid.databinding.CarouselItemLayoutBinding
 import com.matheusxreis.moviedroid.models.MoviePoster
 import kotlinx.android.synthetic.main.carousel_item_layout.view.*
 
-class TopMoviesCarouselAdapter(): RecyclerView.Adapter<TopMoviesCarouselAdapter.MyViewHolder>() {
+class TopMoviesCarouselAdapter(private val  onClickImageCallback: (movie: MoviePoster)-> Unit): RecyclerView.Adapter<TopMoviesCarouselAdapter.MyViewHolder>() {
 
     private var topMovies: List<MoviePoster> = emptyList()
 
-    class MyViewHolder(private val binding: CarouselItemLayoutBinding): RecyclerView.ViewHolder(binding.root){
+    class MyViewHolder(private val binding: CarouselItemLayoutBinding, private val onClickImageCallback: (movie: MoviePoster)-> Unit): RecyclerView.ViewHolder(binding.root){
         fun bind(topMovie:MoviePoster){
             binding.moviePoster = topMovie
+
+            binding.topMoviesImageView.setOnClickListener {
+                onClickImageCallback(topMovie)
+            }
             binding.executePendingBindings()
         }
     }
@@ -27,7 +31,7 @@ class TopMoviesCarouselAdapter(): RecyclerView.Adapter<TopMoviesCarouselAdapter.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = CarouselItemLayoutBinding.inflate(layoutInflater, parent, false)
-        return MyViewHolder(binding)
+        return MyViewHolder(binding, onClickImageCallback)
 
     }
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {

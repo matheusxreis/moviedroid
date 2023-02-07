@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.findNavController
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,7 +38,10 @@ class HomeFragment : Fragment(), MenuProvider {
         MoviesAdapter()
     }
     private val topMoviesAdapter: TopMoviesCarouselAdapter by lazy {
-        TopMoviesCarouselAdapter()
+        TopMoviesCarouselAdapter() {
+            val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(movie = it)
+            findNavController().navigate(action)
+        }
     }
     private lateinit var searchView: SearchView;
 
