@@ -18,7 +18,7 @@
 
         <ImageView
             android:id="@+id/backgroundMovieImageView"
-            loadImageUrl="@{movie.imageUrl}"
+            loadAndBlurImage="@{movie.imageUrl}"
             android:layout_width="match_parent"
             android:layout_height="350dp"
             android:alpha="0.8"
