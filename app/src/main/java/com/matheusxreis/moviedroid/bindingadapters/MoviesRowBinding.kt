@@ -6,6 +6,7 @@ import androidx.databinding.BindingAdapter
 import androidx.navigation.findNavController
 import coil.load
 import com.matheusxreis.moviedroid.R
+import com.matheusxreis.moviedroid.models.MoviePoster
 import com.matheusxreis.moviedroid.ui.fragments.home.HomeFragmentDirections
 import com.matheusxreis.moviedroid.utils.Constants
 
@@ -23,12 +24,12 @@ class MoviesRowBinding {
         }
         @BindingAdapter("goToDetails")
         @JvmStatic
-        fun goToDetails(imageView: ImageView, go:Boolean){
-            if(go){
+        fun goToDetails(imageView: ImageView, moviePoster: MoviePoster){
+
                 imageView.setOnClickListener {
-                    val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment()
+                    val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(movie = moviePoster)
                     imageView.findNavController().navigate(action)
-                }
+
             }
         }
     }
