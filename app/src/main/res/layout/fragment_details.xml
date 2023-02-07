@@ -93,6 +93,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:backgroundTint="@color/darker"
             app:layout_scrollFlags="scroll|enterAlways"
+            style="@style/Custom.TabLayoutStyle"
+            app:tabTextAppearance="@style/Custom.TabTextStyle"
             >
 
         </com.google.android.material.tabs.TabLayout>
