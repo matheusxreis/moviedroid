@@ -1,5 +1,6 @@
 package com.matheusxreis.moviedroid.data.network
 
+import com.matheusxreis.moviedroid.models.MovieDetails
 import com.matheusxreis.moviedroid.models.MoviePoster
 import com.matheusxreis.moviedroid.models.ResultApi
 import retrofit2.Response
@@ -33,4 +34,10 @@ interface MovieAPI {
     suspend fun searchMulti(
         @QueryMap queries: Map<String, String>
     ):Response<ResultApi>
+
+    @GET("/movie/{movieId}")
+    suspend fun getDetails(
+        @Path("movieId") id:String,
+        @QueryMap queries: Map<String, String>
+    ):Response<MovieDetails>
 }

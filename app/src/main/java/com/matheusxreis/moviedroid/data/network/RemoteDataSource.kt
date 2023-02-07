@@ -25,4 +25,7 @@ class RemoteDataSource @Inject constructor(
 
     suspend fun searchMulti(queries: Map<String, String>) = movieAPI.searchMulti(queries)
 
+    suspend fun getDetails(queries: Map<String, String>, id: String) = movieAPI.getDetails(
+        queries = queries, id = id
+    )
 }
