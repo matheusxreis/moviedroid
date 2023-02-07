@@ -9,7 +9,7 @@ data class MoviePoster(
     @SerializedName("poster_path")
     val imageUrl: String?,
     @SerializedName("id")
-    val imdbId: String,
+    val id: String,
     @SerializedName("original_title", alternate = ["original_name", "name", "title"])
     val title: String,
     @SerializedName("vote_average")
