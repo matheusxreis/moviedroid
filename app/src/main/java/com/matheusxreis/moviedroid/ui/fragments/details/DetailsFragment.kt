@@ -31,7 +31,7 @@ class DetailsFragment : Fragment() {
 
         class Back(enabled: Boolean) : OnBackPressedCallback(enabled) {
             override fun handleOnBackPressed() {
-               findNavController().popBackStack()
+                handleComeBack()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, Back(true))
@@ -39,9 +39,11 @@ class DetailsFragment : Fragment() {
 
         val layoutInflater = LayoutInflater.from(requireContext())
         binding = FragmentDetailsBinding.inflate(layoutInflater)
+
         binding.movie = args.movie
 
         setUpAndPopulateViewPager()
+
 
         return binding.root
     }
@@ -49,7 +51,7 @@ class DetailsFragment : Fragment() {
 
     // CUSTOM FUNCTIONS
 
-    fun setUpAndPopulateViewPager(){
+    private fun setUpAndPopulateViewPager() {
 
         val fragments = ArrayList<Fragment>()
         fragments.add(AboutFragment())
@@ -75,5 +77,16 @@ class DetailsFragment : Fragment() {
         }.attach()
 
     }
+
+
+    private fun handleComeBack() {
+
+        if (args.fromSearch) {
+            requireActivity().finish()
+        } else {
+            findNavController().popBackStack()
+        }
+    }
+
 
 }

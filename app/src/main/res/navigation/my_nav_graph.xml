@@ -26,6 +26,10 @@
         <argument
             android:name="movie"
             app:argType="com.matheusxreis.moviedroid.models.MoviePoster" />
+        <argument
+            android:name="fromSearch"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 
 </navigation>
