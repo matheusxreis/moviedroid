@@ -10,10 +10,12 @@
             type="com.matheusxreis.moviedroid.models.MoviePoster" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/backgroundColor"
+        app:layoutDescription="@xml/fragment_details_xml_constraintlayout_scene"
         tools:context=".ui.fragments.details.DetailsFragment">
 
         <ImageView
@@ -29,33 +31,34 @@
             tools:src="@drawable/i_care_a_lot" />
 
         <ImageView
-            android:layout_marginTop="32dp"
-            loadImageUrl="@{movie.imageUrl}"
             android:id="@+id/movieImageView"
+            loadImageUrl="@{movie.imageUrl}"
             android:layout_width="150dp"
-            android:layout_height="300dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="64dp"
             android:scaleType="centerCrop"
-            tools:src="@drawable/i_care_a_lot"
             app:layout_constraintBottom_toBottomOf="@id/backgroundMovieImageView"
             app:layout_constraintEnd_toEndOf="@id/backgroundMovieImageView"
             app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toStartOf="@id/backgroundMovieImageView"
-            app:layout_constraintTop_toTopOf="@id/backgroundMovieImageView" />
+            tools:src="@drawable/i_care_a_lot" />
 
         <TextView
+            android:id="@+id/votesTv"
             setVotesValues="@{movie}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="1280 votes"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@id/ratingBar"
-            app:layout_constraintStart_toStartOf="@id/movieTitleTv" />
+            app:layout_constraintStart_toStartOf="@id/movieTitleTv"
+            tools:text="1280 votes" />
 
         <androidx.appcompat.widget.AppCompatRatingBar
-            setVotesValues="@{movie}"
             android:id="@+id/ratingBar"
             style="?android:attr/ratingBarStyleIndicator"
+            setVotesValues="@{movie}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:numStars="5"
@@ -64,8 +67,8 @@
             android:rating="2"
             android:secondaryProgressTint="@color/white"
             app:layout_constraintBottom_toTopOf="@id/movieTitleTv"
+
             app:layout_constraintStart_toStartOf="@id/movieTitleTv"
-            app:layout_constraintTop_toTopOf="@id/movieImageView"
             app:layout_constraintVertical_bias="1" />
 
         <TextView
@@ -76,39 +79,39 @@
             android:ellipsize="end"
             android:maxLines="4"
             android:text="@{movie.title}"
-            tools:text="I Care a Lot"
             android:textColor="@color/white"
             android:textSize="40sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/movieImageView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/movieImageView" />
+            app:layout_constraintStart_toEndOf="@id/movieImageView"
+            tools:text="I Care a Lot" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
+            style="@style/Custom.TabLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/backgroundMovieImageView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:backgroundTint="@color/darker"
-            app:layout_scrollFlags="scroll|enterAlways"
-            style="@style/Custom.TabLayoutStyle"
-            app:tabTextAppearance="@style/Custom.TabTextStyle"
             android:layout_marginHorizontal="24dp"
-            >
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/darker"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/backgroundMovieImageView"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:tabTextAppearance="@style/Custom.TabTextStyle">
 
         </com.google.android.material.tabs.TabLayout>
+
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/detailsViewPager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tabLayout"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tabLayout" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>
