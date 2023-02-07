@@ -1,191 +1,206 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/backgroundSecondaryColor"
-    tools:context=".ui.fragments.about.AboutFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ScrollView
+    <data>
+
+        <variable
+            name="movieDetails"
+            type="com.matheusxreis.moviedroid.models.MovieDetails" />
+
+        <variable
+            name="movie"
+            type="com.matheusxreis.moviedroid.models.MoviePoster" />
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="match_parent"
+        android:background="@color/backgroundSecondaryColor"
+        tools:context=".ui.fragments.about.AboutFragment">
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/originalTitleLabelTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/original_title"
-                android:textStyle="bold"
-                android:textColor="@color/text"
-                android:textSize="18sp"
-                app:layout_constraintHorizontal_bias="0"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="32dp"
-                />
-            <TextView
-                android:id="@+id/originalTitleTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/originalTitleLabelTv"
-                app:layout_constraintTop_toTopOf="@id/originalTitleLabelTv"
-                app:layout_constraintBottom_toBottomOf="@id/originalTitleLabelTv"
-                tools:text="Puss in Boots: The Last Wish"
-                android:layout_marginStart="12dp"
-                android:textColor="@color/text"
-                android:textSize="16sp"
-                />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/genreLabelTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/originalTitleLabelTv"
-                android:text="@string/genres"
-                android:textStyle="bold"
-                android:textColor="@color/text"
-                android:textSize="18sp"
-                app:layout_constraintHorizontal_bias="0"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="6dp"
-                />
-            <TextView
-                android:id="@+id/genreTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/genreLabelTv"
-                app:layout_constraintTop_toTopOf="@id/genreLabelTv"
-                app:layout_constraintBottom_toBottomOf="@id/genreLabelTv"
-                tools:text="Drama, Comedy"
-                android:layout_marginStart="12dp"
-                android:textColor="@color/text"
-                android:textSize="16sp"
-                />
+                <TextView
+                    android:id="@+id/originalTitleLabelTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/original_title"
+                    android:textColor="@color/text"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/releasedAtLabelTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/genreLabelTv"
-                android:text="@string/released_at"
-                android:textStyle="bold"
-                android:textColor="@color/text"
-                android:textSize="18sp"
-                app:layout_constraintHorizontal_bias="0"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="6dp"
-                />
-            <TextView
-                android:id="@+id/releasedAtTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/releasedAtLabelTv"
-                app:layout_constraintTop_toTopOf="@id/releasedAtLabelTv"
-                app:layout_constraintBottom_toBottomOf="@id/releasedAtLabelTv"
-                tools:text="16/04/2020"
-                android:layout_marginStart="12dp"
-                android:textColor="@color/text"
-                android:textSize="16sp"
-                />
+                <TextView
+                    android:id="@+id/originalTitleTv"
+                    defineTextViewValue="@{movie.title}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:textColor="@color/text"
+                    android:textSize="16sp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/originalTitleLabelTv"
+                    app:layout_constraintStart_toEndOf="@id/originalTitleLabelTv"
+                    app:layout_constraintTop_toTopOf="@id/originalTitleLabelTv"
+                    tools:text="Puss in Boots: The Last Wish" />
 
-            <TextView
-                android:id="@+id/directionLabelTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/releasedAtLabelTv"
-                android:text="@string/directed_by"
-                android:textStyle="bold"
-                android:textColor="@color/text"
-                android:textSize="18sp"
-                app:layout_constraintHorizontal_bias="0"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="6dp"
-                />
-            <TextView
-                android:id="@+id/directionTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/directionLabelTv"
-                app:layout_constraintTop_toTopOf="@id/directionLabelTv"
-                app:layout_constraintBottom_toBottomOf="@id/directionLabelTv"
-                tools:text="Matt Reeves"
-                android:layout_marginStart="12dp"
-                android:textColor="@color/text"
-                android:textSize="16sp"
-                />
+                <TextView
+                    android:id="@+id/genreLabelTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/genres"
+                    android:textColor="@color/text"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/originalTitleLabelTv" />
 
-            <TextView
-                android:id="@+id/castLabelTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/directionTv"
-                android:text="@string/cast"
-                android:textStyle="bold"
-                android:textColor="@color/text"
-                android:textSize="18sp"
-                app:layout_constraintHorizontal_bias="0"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="6dp"
-                />
-            <TextView
-                android:id="@+id/castTv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/castLabelTv"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:text="@string/mock_cast"
-                android:layout_marginStart="24dp"
-                android:textColor="@color/text"
-                android:textSize="16sp"
-                />
+                <TextView
+                    android:id="@+id/genreTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:textColor="@color/text"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/genreLabelTv"
+                    app:layout_constraintStart_toEndOf="@id/genreLabelTv"
+                    app:layout_constraintTop_toTopOf="@id/genreLabelTv"
+                    tools:text="Drama, Comedy" />
 
-            <TextView
-                android:id="@+id/overviewLabelTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/castTv"
-                android:text="@string/overview"
-                android:textStyle="bold"
-                android:textColor="@color/text"
-                android:textSize="20sp"
-                app:layout_constraintHorizontal_bias="0"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="6dp"
-                />
-            <TextView
-                android:id="@+id/overviewTv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/overviewLabelTv"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:text="@string/lorem_ipsum"
-                android:layout_marginStart="24dp"
-                android:textColor="@color/text"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="32dp"
-                />
+                <TextView
+                    android:id="@+id/releasedAtLabelTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/released_at"
+                    android:textColor="@color/text"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/genreLabelTv" />
+
+                <TextView
+                    android:id="@+id/releasedAtTv"
+                    defineTextViewValue="@{movieDetails.realeasedAt}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:textColor="@color/text"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/releasedAtLabelTv"
+                    app:layout_constraintStart_toEndOf="@id/releasedAtLabelTv"
+                    app:layout_constraintTop_toTopOf="@id/releasedAtLabelTv"
+                    tools:text="16/04/2020" />
+
+                <TextView
+                    android:id="@+id/directionLabelTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/directed_by"
+                    android:textColor="@color/text"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/releasedAtLabelTv" />
+
+                <TextView
+                    android:id="@+id/directionTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:textColor="@color/text"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/directionLabelTv"
+                    app:layout_constraintStart_toEndOf="@id/directionLabelTv"
+                    app:layout_constraintTop_toTopOf="@id/directionLabelTv"
+                    tools:text="Matt Reeves" />
+
+                <TextView
+                    android:id="@+id/castLabelTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/cast"
+                    android:textColor="@color/text"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/directionTv" />
+
+                <TextView
+                    android:id="@+id/castTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="@string/mock_cast"
+                    android:textColor="@color/text"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/castLabelTv" />
+
+                <TextView
+                    android:id="@+id/overviewLabelTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/overview"
+                    android:textColor="@color/text"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/castTv" />
+
+                <TextView
+                    android:id="@+id/overviewTv"
+                    defineTextViewValue="@{movieDetails.overview}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginBottom="32dp"
+                    android:text="@string/lorem_ipsum"
+                    android:textColor="@color/text"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/overviewLabelTv" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
 
-</FrameLayout>
+    </FrameLayout>
+</layout>
