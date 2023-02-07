@@ -78,6 +78,8 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:2.44"
     // coil
     implementation "io.coil-kt:coil:2.2.2"
+    implementation("com.github.Commit451.coil-transformations:transformations:2.0.2")
+
     // room
     def room_version = "2.5.0"
     implementation "androidx.room:room-runtime:$room_version"
