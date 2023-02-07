@@ -1,11 +1,13 @@
 package com.matheusxreis.moviedroid.ui.fragments.details
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
+import androidx.core.view.MenuProvider
+import androidx.core.view.forEach
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -15,7 +17,7 @@ import com.matheusxreis.moviedroid.adapters.DetailsPagerAdapter
 import com.matheusxreis.moviedroid.databinding.FragmentDetailsBinding
 import com.matheusxreis.moviedroid.ui.fragments.about.AboutFragment
 
-class DetailsFragment : Fragment() {
+class DetailsFragment : Fragment(), MenuProvider {
 
     val args by navArgs<DetailsFragmentArgs>()
     private lateinit var binding: FragmentDetailsBinding
@@ -42,10 +44,29 @@ class DetailsFragment : Fragment() {
 
         binding.movie = args.movie
 
+        requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         setUpAndPopulateViewPager()
 
 
+
         return binding.root
+    }
+
+    // MENU PROVIDER
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.menu_details_fragment, menu)
+
+        menu.forEach { setTintIconMenuItem(it) }
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        when (menuItem.itemId) {
+            android.R.id.home -> {
+                handleComeBack()
+            }
+        }
+        return true
     }
 
 
@@ -78,6 +99,9 @@ class DetailsFragment : Fragment() {
 
     }
 
+    private fun setTintIconMenuItem(menuItem: MenuItem) {
+        menuItem.icon?.setTint(ContextCompat.getColor(requireActivity(), R.color.white))
+    }
 
     private fun handleComeBack() {
 
