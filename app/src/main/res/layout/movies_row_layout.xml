@@ -13,8 +13,7 @@
         android:id="@+id/layoutRowMovie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:background="@color/backgroundColor">
+        android:layout_marginEnd="4dp">
 
         <ImageView
             android:id="@+id/posterMovie"

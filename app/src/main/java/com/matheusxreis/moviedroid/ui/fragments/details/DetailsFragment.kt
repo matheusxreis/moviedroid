@@ -61,6 +61,8 @@ class DetailsFragment : Fragment(), MenuProvider {
 
 
         fetchDetails(args.movie)
+        fetchRecommendations(args.movie)
+
         return binding.root
     }
 
@@ -135,6 +137,17 @@ class DetailsFragment : Fragment(), MenuProvider {
                 binding.movieDetails = it.data
             }
         }
+    }
+
+    private fun fetchRecommendations(moviePoster: MoviePoster){
+        var mediaType = "tv"
+        moviePoster.let {
+            if(it.firstAirDate.isNullOrEmpty()) { mediaType="movie"}
+        }
+        detailsViewModel.getRecommendations(
+            id = moviePoster.id,
+            mediaType = mediaType
+        )
     }
 
 
