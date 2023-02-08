@@ -55,7 +55,9 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginBottom="32dp"
-                    android:text="@string/lorem_ipsum"
+                    tools:text="@string/lorem_ipsum"
+                    android:visibility="invisible"
+                    tools:visibility="visible"
                     android:textColor="@color/text"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -73,6 +75,8 @@
                     android:textColor="@color/text"
                     android:textSize="18sp"
                     android:textStyle="bold"
+                    android:visibility="invisible"
+                    tools:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -88,6 +92,7 @@
                     android:layout_marginEnd="24dp"
                     android:ellipsize="end"
                     android:maxLines="4"
+
                     android:textColor="@color/text"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -96,6 +101,8 @@
                     tools:text="Puss in Boots: The Last Wish" />
 
                 <TextView
+                    android:visibility="invisible"
+                    tools:visibility="visible"
                     android:id="@+id/genreLabelTv"
                     hasDetailsResult="@{detailsViewModel}"
                     android:layout_width="wrap_content"
@@ -128,6 +135,8 @@
                     tools:text="Drama, Comedy" />
 
                 <TextView
+                    android:visibility="invisible"
+                    tools:visibility="visible"
                     android:id="@+id/releasedAtLabelTv"
                     hasDetailsResult="@{detailsViewModel}"
                     android:layout_width="wrap_content"
@@ -160,6 +169,8 @@
 
 
                 <TextView
+                    android:visibility="invisible"
+                    tools:visibility="visible"
                     android:id="@+id/castLabelTv"
                     hasDetailsResult="@{detailsViewModel}"
                     android:layout_width="wrap_content"
@@ -193,6 +204,8 @@
                     app:layout_constraintBottom_toTopOf="@id/crewRecyclerView"
                     app:layout_constraintTop_toBottomOf="@id/castLabelTv" />
                 <TextView
+                    android:visibility="invisible"
+                    tools:visibility="visible"
                     android:id="@+id/crewLabelTv"
                     hasDetailsResult="@{detailsViewModel}"
                     app:layout_goneMarginTop="12dp"
