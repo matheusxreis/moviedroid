@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.databinding.FragmentRecommendedBinding
@@ -51,7 +52,7 @@ class RecommendedFragment : Fragment() {
 
         binding.recommendRecyclerView.adapter = movieAdapter
         binding.recommendRecyclerView.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+           GridLayoutManager(requireContext(), 2)
 
     }
 
