@@ -20,6 +20,7 @@ import com.matheusxreis.moviedroid.adapters.DetailsPagerAdapter
 import com.matheusxreis.moviedroid.databinding.FragmentDetailsBinding
 import com.matheusxreis.moviedroid.models.MoviePoster
 import com.matheusxreis.moviedroid.ui.fragments.about.AboutFragment
+import com.matheusxreis.moviedroid.ui.fragments.recommended.RecommendedFragment
 import com.matheusxreis.moviedroid.utils.NetworkResult
 import com.matheusxreis.moviedroid.viewmodels.DetailsViewModel
 import com.matheusxreis.moviedroid.viewmodels.HomeViewModel
@@ -87,7 +88,7 @@ class DetailsFragment : Fragment(), MenuProvider {
 
         val fragments = ArrayList<Fragment>()
         fragments.add(AboutFragment())
-        fragments.add(AboutFragment())
+        fragments.add(RecommendedFragment())
 
         val titles = ArrayList<String>()
         titles.add("About")

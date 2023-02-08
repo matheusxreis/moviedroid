@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.matheusxreis.moviedroid.data.Repository
 import com.matheusxreis.moviedroid.models.MovieDetails
+import com.matheusxreis.moviedroid.models.MoviePoster
 import com.matheusxreis.moviedroid.utils.Constants
 import com.matheusxreis.moviedroid.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +20,7 @@ class DetailsViewModel @Inject constructor(
 
 
     val details: MutableLiveData<NetworkResult<MovieDetails>> = MutableLiveData()
+    val recommendations: MutableLiveData<NetworkResult<List<MoviePoster>>> = MutableLiveData()
 
     fun getDetails(
         id: String,
@@ -29,7 +31,7 @@ class DetailsViewModel @Inject constructor(
         try {
 
             val response = repository.remoteDataSource.getDetails(
-                queries = applyQueries(),
+                queries = applyDetailsQueries(),
                 id = id,
                 mediaType = mediaType
             )
@@ -45,10 +47,38 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    private fun applyQueries(): HashMap<String, String> {
+
+    fun getRecommendations(
+        id:String,
+        mediaType: String
+    ) = viewModelScope.launch {
+        recommendations.value = NetworkResult.Loading()
+        try{
+            val response = repository.remoteDataSource.getRecommendations(
+                queries = applyQueries(),
+                id = id,
+                mediaType = mediaType
+            )
+            if(response.body()?.results.isNullOrEmpty()){
+                recommendations.value = NetworkResult.Error("empty")
+                return@launch
+            }
+            recommendations.value = NetworkResult.Success(response.body()?.results!!)
+        }catch(e:Exception) {
+            recommendations.value = NetworkResult.Error(e.toString())
+        }
+
+    }
+
+    private fun applyDetailsQueries(): HashMap<String, String> {
         val queries = HashMap<String, String>()
         queries["api_key"] = Constants.API_KEY
         queries["append_to_response"] = "credits"
+        return queries
+    }
+    private fun applyQueries(): HashMap<String, String> {
+        val queries = HashMap<String, String>()
+        queries["api_key"] = Constants.API_KEY
         return queries
     }
 
