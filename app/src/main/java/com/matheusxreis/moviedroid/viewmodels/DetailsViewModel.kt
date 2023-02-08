@@ -48,6 +48,7 @@ class DetailsViewModel @Inject constructor(
     private fun applyQueries(): HashMap<String, String> {
         val queries = HashMap<String, String>()
         queries["api_key"] = Constants.API_KEY
+        queries["append_to_response"] = "credits"
         return queries
     }
 

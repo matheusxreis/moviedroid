@@ -27,4 +27,6 @@ data class MovieDetails(
     val id: Number,
     @SerializedName("original_title", alternate = ["original_name", "name", "title"])
     val title: String,
+    @SerializedName("credits")
+    val credits: Credits
 )
