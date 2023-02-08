@@ -94,6 +94,9 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
     // datastore
     implementation "androidx.datastore:datastore-preferences:1.0.0-alpha04"
+    //shimmer
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
 
 }
 kapt {
