@@ -17,6 +17,7 @@ class CreditsRowBinding {
             imageView.load("${Constants.IMAGE_BASE_URL}$url") {
                 crossfade(900)
                 error(R.drawable.no_result_darker)
+                placeholder(R.drawable.no_result_darker)
             }
         }
         @BindingAdapter("getSubtitle")

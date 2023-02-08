@@ -53,7 +53,7 @@ class DetailsFragment : Fragment(), MenuProvider {
         val layoutInflater = LayoutInflater.from(requireContext())
         binding = FragmentDetailsBinding.inflate(layoutInflater)
 
-
+        binding.detailsViewModel = detailsViewModel
         binding.movie = args.movie
 
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
