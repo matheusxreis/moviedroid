@@ -8,6 +8,10 @@
         <variable
             name="movie"
             type="com.matheusxreis.moviedroid.models.MoviePoster" />
+
+        <variable
+            name="movieDetails"
+            type="com.matheusxreis.moviedroid.models.MovieDetails" />
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
@@ -20,10 +24,11 @@
 
         <ImageView
             android:id="@+id/backgroundMovieImageView"
-            loadAndBlurImage="@{movie.imageUrl}"
+            loadAndBlurImage="@{movieDetails.backdropImageUrl}"
+            loadAndBlurImageCover="@{movie.imageUrl}"
             android:layout_width="match_parent"
             android:layout_height="400dp"
-            android:alpha="0.4"
+            android:alpha="0.6"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -30,14 +30,23 @@ class DetailsBinding {
             }
         }
 
-        @BindingAdapter("loadAndBlurImage")
+        @BindingAdapter("loadAndBlurImage", "loadAndBlurImageCover", requireAll = true)
         @JvmStatic
-        fun loadAndBlurImage(imageView: ImageView, url: String){
-            imageView.load("${Constants.IMAGE_BASE_URL}$url")  {
-                transformations(BlurTransformation(imageView.context)) // You can add as many as desired
-                crossfade(900)
-                error(R.drawable.no_result)
+        fun loadAndBlurImage(imageView: ImageView, backdropUrl: String?, coverUrl:String){
+            if(backdropUrl == null){
+                imageView.load("${Constants.IMAGE_BASE_URL}$coverUrl")  {
+                    transformations(BlurTransformation(imageView.context)) // You can add as many as desired
+                    crossfade(900)
+                    error(R.drawable.no_result)
+                }
+            }else {
+                imageView.load("${Constants.IMAGE_BASE_URL}$backdropUrl")  {
+                    transformations(BlurTransformation(imageView.context)) // You can add as many as desired
+                    crossfade(900)
+                    error(R.drawable.no_result)
+                }
             }
+
         }
     }
 }

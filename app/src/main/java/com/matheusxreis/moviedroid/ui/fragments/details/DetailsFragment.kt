@@ -19,6 +19,7 @@ import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.adapters.DetailsPagerAdapter
 import com.matheusxreis.moviedroid.databinding.FragmentDetailsBinding
 import com.matheusxreis.moviedroid.ui.fragments.about.AboutFragment
+import com.matheusxreis.moviedroid.utils.NetworkResult
 import com.matheusxreis.moviedroid.viewmodels.DetailsViewModel
 import com.matheusxreis.moviedroid.viewmodels.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -123,6 +124,11 @@ class DetailsFragment : Fragment(), MenuProvider {
 
     private fun fetchDetails(id:String){
         detailsViewModel.getDetails(id)
+        detailsViewModel.details.observe(viewLifecycleOwner){
+            if(it is NetworkResult.Success){
+                binding.movieDetails = it.data
+            }
+        }
     }
 
 
