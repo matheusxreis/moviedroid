@@ -25,8 +25,9 @@ class AboutBinding {
             genres?.forEach {
                 if (!allGenres.isNullOrEmpty()) {
                     allGenres = "$allGenres, ${it.name}"
+                }else {
+                    allGenres = it.name
                 }
-                allGenres = it.name
             }
             textView.text = allGenres
         }
