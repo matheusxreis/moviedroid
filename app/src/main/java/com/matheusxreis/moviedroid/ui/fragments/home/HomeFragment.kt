@@ -294,7 +294,7 @@ class HomeFragment : Fragment(), MenuProvider {
     }
 
 
-    private fun monitoringNetwork() =  lifecycleScope.launch {
+    private fun monitoringNetwork() =  lifecycleScope.launchWhenStarted {
 
         val connection = homeViewModel.networkListener.checkNetworkavailability(requireContext())
         connection.collect {
