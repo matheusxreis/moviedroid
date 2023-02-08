@@ -5,7 +5,7 @@
     <data>
         <variable
             name="cast"
-            type="com.matheusxreis.moviedroid.models.Cast" />
+            type="com.matheusxreis.moviedroid.models.Person" />
 
     </data>
 

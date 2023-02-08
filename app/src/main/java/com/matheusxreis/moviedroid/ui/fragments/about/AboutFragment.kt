@@ -25,10 +25,12 @@ class AboutFragment : Fragment() {
 
     private val detailsViewModel: DetailsViewModel by activityViewModels<DetailsViewModel>()
     private lateinit var binding:FragmentAboutBinding
-    private val creditsAdapter:CreditsAdapter by lazy {
+    private val castAdapter:CreditsAdapter by lazy {
         CreditsAdapter()
     }
-
+    private val crewAdapter:CreditsAdapter by lazy {
+        CreditsAdapter()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -64,7 +66,8 @@ class AboutFragment : Fragment() {
                 is NetworkResult.Success -> {
                     //overviewTv.text = it.data?.overview
                     binding.movieDetails = it.data
-                    creditsAdapter.setData(it.data?.credits?.cast!!)
+                    castAdapter.setData(it.data?.credits?.cast!!)
+                    crewAdapter.setData(it.data?.credits?.crew!!)
                 }
                 else -> {
 
@@ -73,26 +76,31 @@ class AboutFragment : Fragment() {
         }
     }
     private fun setUpRecyclerView(){
-        binding.castRecyclerView.adapter = creditsAdapter
+
+        binding.castRecyclerView.adapter = castAdapter
+        binding.crewRecyclerView.adapter = crewAdapter
+
         binding.castRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.crewRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
     private fun disablingTabWhenRvScroll(){
-        binding.castRecyclerView.addOnItemTouchListener(object: RecyclerView.OnItemTouchListener {
+        val touchListener = object: RecyclerView.OnItemTouchListener {
             override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-               binding.castRecyclerView.parent.requestDisallowInterceptTouchEvent(true)
+                binding.castRecyclerView.parent.requestDisallowInterceptTouchEvent(true)
+                binding.crewRecyclerView.parent.requestDisallowInterceptTouchEvent(true)
                 return false
             }
 
             override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
-                TODO("Not yet implemented")
             }
 
             override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
-                TODO("Not yet implemented")
             }
 
-        })
+        }
+        binding.castRecyclerView.addOnItemTouchListener(touchListener)
+        binding.crewRecyclerView.addOnItemTouchListener(touchListener)
 
     }
 

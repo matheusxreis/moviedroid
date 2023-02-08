@@ -21,7 +21,7 @@ data class MovieDetails(
     val voteAverage: Float,
     @SerializedName("vote_count")
     val vouteCount: Number,
-    @SerializedName("release_date")
+    @SerializedName("release_date", alternate = ["first_air_date"])
     val realeasedAt: String,
     @SerializedName("id")
     val id: Number,

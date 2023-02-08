@@ -2,7 +2,7 @@ package com.matheusxreis.moviedroid.models
 
 import com.google.gson.annotations.SerializedName
 
-data class Cast(
+data class Person(
     @SerializedName("known_for_department")
     val knownFor:String,
     @SerializedName("name")
@@ -10,5 +10,5 @@ data class Cast(
     @SerializedName("profile_path")
     val image:String,
     @SerializedName("character")
-    val character:String
+    val character:String?
 )
