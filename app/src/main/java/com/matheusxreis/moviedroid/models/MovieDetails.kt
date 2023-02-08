@@ -24,5 +24,7 @@ data class MovieDetails(
     @SerializedName("release_date")
     val realeasedAt: String,
     @SerializedName("id")
-    val id: Number
+    val id: Number,
+    @SerializedName("original_title", alternate = ["original_name", "name", "title"])
+    val title: String,
 )

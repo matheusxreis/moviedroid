@@ -12,9 +12,7 @@
         <variable
             name="detailsViewModel"
             type="com.matheusxreis.moviedroid.viewmodels.DetailsViewModel" />
-        <variable
-            name="movie"
-            type="com.matheusxreis.moviedroid.models.MoviePoster" />
+
     </data>
 
     <FrameLayout
@@ -180,7 +178,7 @@
                 <TextView
                     hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/originalTitleTv"
-                    defineTextViewValue="@{movie.title}"
+                    defineTextViewValue="@{movieDetails.title}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"

@@ -30,15 +30,9 @@ class AboutFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        // inflater.inflate(R.layout.fragment_about, container, false)
 
         binding = FragmentAboutBinding.inflate(inflater)
 
-        val movie: MoviePoster? = arguments?.getParcelable("movie")
-        if(movie != null){
-            binding.movie = movie
-        }
         binding.detailsViewModel = detailsViewModel
         return binding.root
     }
