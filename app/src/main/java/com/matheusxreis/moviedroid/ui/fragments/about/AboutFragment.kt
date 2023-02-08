@@ -3,10 +3,12 @@ package com.matheusxreis.moviedroid.ui.fragments.about
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.adapters.CreditsAdapter
 import com.matheusxreis.moviedroid.databinding.FragmentAboutBinding
@@ -47,7 +49,9 @@ class AboutFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setUpRecyclerView()
+        disablingTabWhenRvScroll()
         populateData()
+
 
     }
 
@@ -71,6 +75,25 @@ class AboutFragment : Fragment() {
     private fun setUpRecyclerView(){
         binding.castRecyclerView.adapter = creditsAdapter
         binding.castRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    private fun disablingTabWhenRvScroll(){
+        binding.castRecyclerView.addOnItemTouchListener(object: RecyclerView.OnItemTouchListener {
+            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+               binding.castRecyclerView.parent.requestDisallowInterceptTouchEvent(true)
+                return false
+            }
+
+            override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
     }
 
 

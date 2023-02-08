@@ -21,7 +21,7 @@
         android:background="@color/backgroundSecondaryColor"
         tools:context=".ui.fragments.about.AboutFragment">
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -279,11 +279,12 @@
                     app:layout_constraintTop_toBottomOf="@id/releasedAtTv" />
 
                 <com.todkars.shimmer.ShimmerRecyclerView
+                    android:nestedScrollingEnabled="false"
                     android:layout_marginTop="12dp"
                     tools:listitem="@layout/credits_row_layout"
                     android:id="@+id/castRecyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="24dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="horizontal"
@@ -293,7 +294,7 @@
                     app:layout_constraintTop_toBottomOf="@id/castLabelTv" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
     </FrameLayout>
 </layout>
