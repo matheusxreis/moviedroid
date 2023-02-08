@@ -1,26 +1,33 @@
 package com.matheusxreis.moviedroid.viewmodels
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.matheusxreis.moviedroid.data.Repository
 import com.matheusxreis.moviedroid.models.MovieDetails
 import com.matheusxreis.moviedroid.models.MoviePoster
 import com.matheusxreis.moviedroid.utils.Constants
+import com.matheusxreis.moviedroid.utils.NetworkListener
 import com.matheusxreis.moviedroid.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    private val repository: Repository
-) : ViewModel() {
+    private val repository: Repository,
+    application:Application
+    ) : AndroidViewModel(application) {
 
 
     val details: MutableLiveData<NetworkResult<MovieDetails>> = MutableLiveData()
     val recommendations: MutableLiveData<NetworkResult<List<MoviePoster>>> = MutableLiveData()
+
+    val networkListener = NetworkListener()
+
 
     fun getDetails(
         id: String,
