@@ -39,6 +39,7 @@ class AboutFragment : Fragment() {
         if(movie != null){
             binding.movie = movie
         }
+        binding.detailsViewModel = detailsViewModel
         return binding.root
     }
 

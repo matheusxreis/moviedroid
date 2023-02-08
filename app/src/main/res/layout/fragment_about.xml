@@ -57,7 +57,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintHorizontal_bias="0.1"
                     />
-
                 <com.facebook.shimmer.ShimmerFrameLayout
                     hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/shimmer3"
@@ -102,7 +101,6 @@
                     app:layout_constraintTop_toTopOf="@id/shimmer5"
                     android:layout_marginStart="12dp"
                     />
-
                 <com.facebook.shimmer.ShimmerFrameLayout
                     hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/shimmer7"
@@ -154,7 +152,7 @@
 
 
                 <TextView
-                    android:visibility="invisible"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/originalTitleLabelTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -170,7 +168,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:visibility="invisible"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/originalTitleTv"
                     defineTextViewValue="@{movie.title}"
                     android:layout_width="0dp"
@@ -187,7 +185,7 @@
                     tools:text="Puss in Boots: The Last Wish" />
 
                 <TextView
-                    android:visibility="invisible"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/genreLabelTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -203,7 +201,7 @@
                     app:layout_constraintTop_toBottomOf="@id/originalTitleLabelTv" />
 
                 <TextView
-                    android:visibility="invisible"
+                    hasDetailsResult="@{detailsViewModel}"
                     getGenres="@{movieDetails.genres}"
                     android:id="@+id/genreTv"
                     android:layout_width="wrap_content"
@@ -217,7 +215,7 @@
                     tools:text="Drama, Comedy" />
 
                 <TextView
-                    android:visibility="invisible"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/releasedAtLabelTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -233,7 +231,7 @@
                     app:layout_constraintTop_toBottomOf="@id/genreLabelTv" />
 
                 <TextView
-                    android:visibility="invisible"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/releasedAtTv"
                     defineTextViewValue="@{movieDetails.realeasedAt}"
                     android:layout_width="wrap_content"
@@ -247,7 +245,7 @@
                     tools:text="16/04/2020" />
 
                 <TextView
-                    android:visibility="invisible"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/directionLabelTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -263,7 +261,7 @@
                     app:layout_constraintTop_toBottomOf="@id/releasedAtLabelTv" />
 
                 <TextView
-                    android:visibility="invisible"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/directionTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -276,7 +274,7 @@
                     tools:text="Matt Reeves" />
 
                 <TextView
-                    android:visibility="invisible"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/castLabelTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -292,7 +290,7 @@
                     app:layout_constraintTop_toBottomOf="@id/directionTv" />
 
                 <TextView
-                    android:visibility="invisible"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/castTv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -305,6 +303,7 @@
                     app:layout_constraintTop_toBottomOf="@id/castLabelTv" />
 
                 <TextView
+                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/overviewLabelTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -314,13 +313,13 @@
                     android:textColor="@color/text"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/castTv" />
 
                 <TextView
+                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/overviewTv"
                     defineTextViewValue="@{movieDetails.overview}"
                     android:layout_width="0dp"
@@ -330,7 +329,6 @@
                     android:text="@string/lorem_ipsum"
                     android:textColor="@color/text"
                     android:textSize="16sp"
-                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
