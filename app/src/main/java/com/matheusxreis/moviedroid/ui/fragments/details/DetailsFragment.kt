@@ -18,6 +18,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.adapters.DetailsPagerAdapter
 import com.matheusxreis.moviedroid.databinding.FragmentDetailsBinding
+import com.matheusxreis.moviedroid.models.MoviePoster
 import com.matheusxreis.moviedroid.ui.fragments.about.AboutFragment
 import com.matheusxreis.moviedroid.utils.NetworkResult
 import com.matheusxreis.moviedroid.viewmodels.DetailsViewModel
@@ -58,7 +59,7 @@ class DetailsFragment : Fragment(), MenuProvider {
         setUpAndPopulateViewPager()
 
 
-        fetchDetails(args.movie.id)
+        fetchDetails(args.movie)
         return binding.root
     }
 
@@ -122,8 +123,12 @@ class DetailsFragment : Fragment(), MenuProvider {
         }
     }
 
-    private fun fetchDetails(id:String){
-        detailsViewModel.getDetails(id)
+    private fun fetchDetails(moviePoster: MoviePoster){
+       var mediaType = "tv"
+        moviePoster.let {
+            if(it.firstAirDate.isNullOrEmpty()) { mediaType="movie"}
+        }
+        detailsViewModel.getDetails(id = moviePoster.id, mediaType = mediaType)
         detailsViewModel.details.observe(viewLifecycleOwner){
             if(it is NetworkResult.Success){
                 binding.movieDetails = it.data

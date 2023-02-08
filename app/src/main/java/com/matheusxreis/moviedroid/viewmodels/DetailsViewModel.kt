@@ -21,15 +21,17 @@ class DetailsViewModel @Inject constructor(
     val details: MutableLiveData<NetworkResult<MovieDetails>> = MutableLiveData()
 
     fun getDetails(
-        id: String
+        id: String,
+        mediaType: String
     ) = viewModelScope.launch {
         details.value = NetworkResult.Loading()
-        Log.d("funcionou", "ajhsaj")
+        Log.d("funcionou", id)
         try {
 
             val response = repository.remoteDataSource.getDetails(
                 queries = applyQueries(),
-                id = id
+                id = id,
+                mediaType = mediaType
             )
             Log.d("funcionou", response.toString())
 

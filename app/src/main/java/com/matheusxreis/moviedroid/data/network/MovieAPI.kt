@@ -35,8 +35,9 @@ interface MovieAPI {
         @QueryMap queries: Map<String, String>
     ):Response<ResultApi>
 
-    @GET("movie/{movieId}")
+    @GET("{mediaType}/{movieId}")
     suspend fun getDetails(
+        @Path("mediaType") mediaType: String,
         @Path("movieId") id:String,
         @QueryMap queries: Map<String, String>
     ):Response<MovieDetails>

@@ -16,6 +16,8 @@ data class MoviePoster(
     val voteAverage: Float,
     @SerializedName("vote_count")
     val vouteCount: Number,
+    @SerializedName("first_air_date")
+    val firstAirDate: String?
 
 ): Parcelable
 
