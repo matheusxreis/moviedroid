@@ -30,133 +30,134 @@
                 android:layout_height="match_parent">
 
                 <com.facebook.shimmer.ShimmerFrameLayout
-                    android:visibility="invisible"
-                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/shimmer10"
-                    android:layout_marginTop="23dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginStart="24dp"
-                    android:background="@color/placeholder"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="23dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@color/placeholder"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0"
-                    />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.facebook.shimmer.ShimmerFrameLayout
-                    android:visibility="invisible"
-                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/shimmer1"
-                    android:layout_marginTop="32dp"
-                    android:background="@color/placeholder"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:layout_width="200dp"
                     android:layout_height="25dp"
+                    android:layout_marginTop="32dp"
+                    android:background="@color/placeholder"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.1"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/shimmer10"
-                    app:layout_constraintHorizontal_bias="0.1"
-                    />
+                    app:layout_constraintTop_toBottomOf="@id/shimmer10" />
+
                 <com.facebook.shimmer.ShimmerFrameLayout
-                    android:visibility="invisible"
-                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/shimmer2"
+                    hasDetailsResult="@{detailsViewModel}"
+                    android:layout_width="150dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="12dp"
                     android:layout_marginTop="32dp"
-                    android:background="@color/placeholder"
-                    android:layout_width="150dp"
                     android:layout_marginEnd="12dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_height="25dp"
-                    app:layout_constraintStart_toEndOf="@id/shimmer1"
+                    android:background="@color/placeholder"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintHorizontal_bias="0.1"
-                    />
+                    app:layout_constraintStart_toEndOf="@id/shimmer1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <com.facebook.shimmer.ShimmerFrameLayout
-                    android:visibility="invisible"
-                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/shimmer3"
-                    android:layout_marginTop="12dp"
-                    android:background="@color/placeholder"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:layout_width="200dp"
                     android:layout_height="25dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/placeholder"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="@id/shimmer1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/shimmer1"
-                    app:layout_constraintHorizontal_bias="0"
-                    />
+                    app:layout_constraintTop_toBottomOf="@id/shimmer1" />
+
                 <com.facebook.shimmer.ShimmerFrameLayout
-                    android:visibility="invisible"
-                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/shimmer4"
-                    android:background="@color/placeholder"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:layout_width="150dp"
-                    android:layout_marginEnd="12dp"                    android:layout_height="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@color/placeholder"
+                    android:visibility="invisible"
                     app:layout_constraintStart_toEndOf="@id/shimmer3"
-                    app:layout_constraintTop_toTopOf="@id/shimmer3"
-                    android:layout_marginStart="12dp"
-                    />
+                    app:layout_constraintTop_toTopOf="@id/shimmer3" />
+
                 <com.facebook.shimmer.ShimmerFrameLayout
-                    android:visibility="invisible"
-                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/shimmer5"
-                    android:layout_marginTop="12dp"
-                    android:background="@color/placeholder"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:layout_width="200dp"
                     android:layout_height="25dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/placeholder"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="@id/shimmer3"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/shimmer3"
-                    app:layout_constraintHorizontal_bias="0"
-                    />
+                    app:layout_constraintTop_toBottomOf="@id/shimmer3" />
+
                 <com.facebook.shimmer.ShimmerFrameLayout
-                    android:visibility="invisible"
-                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/shimmer6"
-                    android:background="@color/placeholder"
-                    android:layout_width="150dp"
-                    android:layout_marginEnd="12dp"                    android:layout_height="25dp"
-                    app:layout_constraintStart_toEndOf="@id/shimmer5"
-                    app:layout_constraintTop_toTopOf="@id/shimmer5"
-                    android:layout_marginStart="12dp"
-                    />
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    android:visibility="invisible"
                     hasDetailsResult="@{detailsViewModel}"
-                    android:id="@+id/shimmer7"
-                    android:layout_marginTop="12dp"
+                    android:layout_width="150dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
                     android:background="@color/placeholder"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toEndOf="@id/shimmer5"
+                    app:layout_constraintTop_toTopOf="@id/shimmer5" />
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer7"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:layout_width="200dp"
                     android:layout_height="25dp"
-                    app:layout_constraintStart_toStartOf="@id/shimmer5"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/shimmer5"
-                    app:layout_constraintHorizontal_bias="0"
-                    />
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    android:visibility="invisible"
-                    hasDetailsResult="@{detailsViewModel}"
-                    android:id="@+id/shimmer8"
+                    android:layout_marginTop="12dp"
                     android:background="@color/placeholder"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="@id/shimmer5"
+                    app:layout_constraintTop_toBottomOf="@id/shimmer5" />
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer8"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:layout_width="150dp"
-                    android:layout_marginEnd="12dp"                    android:layout_height="25dp"
-                    app:layout_constraintStart_toEndOf="@id/shimmer7"
-                    app:layout_constraintTop_toTopOf="@id/shimmer7"
+                    android:layout_height="25dp"
                     android:layout_marginStart="12dp"
-                    />
+                    android:layout_marginEnd="12dp"
+                    android:background="@color/placeholder"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toEndOf="@id/shimmer7"
+                    app:layout_constraintTop_toTopOf="@id/shimmer7" />
 
 
                 <TextView
-                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/overviewTv"
                     defineTextViewValue="@{movieDetails.overview}"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:layout_marginBottom="32dp"
-                    android:layout_marginEnd="24dp"
                     android:layout_marginTop="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="32dp"
                     android:text="@string/lorem_ipsum"
                     android:textColor="@color/text"
                     android:textSize="20sp"
@@ -165,8 +166,8 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/originalTitleLabelTv"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -181,25 +182,25 @@
                     app:layout_constraintTop_toBottomOf="@id/overviewTv" />
 
                 <TextView
-                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/originalTitleTv"
                     defineTextViewValue="@{movieDetails.title}"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:layout_marginEnd="24dp"
+                    android:ellipsize="end"
+                    android:maxLines="4"
                     android:textColor="@color/text"
                     android:textSize="18sp"
-                    android:maxLines="4"
-                    android:ellipsize="end"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="24dp"
                     app:layout_constraintStart_toEndOf="@id/originalTitleLabelTv"
                     app:layout_constraintTop_toTopOf="@id/originalTitleLabelTv"
                     tools:text="Puss in Boots: The Last Wish" />
 
                 <TextView
-                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/genreLabelTv"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -214,24 +215,24 @@
                     app:layout_constraintTop_toBottomOf="@id/originalTitleTv" />
 
                 <TextView
-                    hasDetailsResult="@{detailsViewModel}"
-                    getGenres="@{movieDetails.genres}"
                     android:id="@+id/genreTv"
+                    getGenres="@{movieDetails.genres}"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:maxLines="6"
                     android:textColor="@color/text"
                     android:textSize="18sp"
-                    android:maxLines="6"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="24dp"
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="@id/originalTitleTv"
                     app:layout_constraintTop_toTopOf="@id/genreLabelTv"
                     tools:text="Drama, Comedy" />
 
                 <TextView
-                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/releasedAtLabelTv"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -246,53 +247,24 @@
                     app:layout_constraintTop_toBottomOf="@id/genreTv" />
 
                 <TextView
-                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/releasedAtTv"
                     defineTextViewValue="@{movieDetails.realeasedAt}"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
                     android:textColor="@color/text"
                     android:textSize="18sp"
-                    app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="24dp"
+                    app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="@id/originalTitleTv"
                     app:layout_constraintTop_toTopOf="@id/releasedAtLabelTv"
                     tools:text="16/04/2020" />
 
-                <TextView
-                    hasDetailsResult="@{detailsViewModel}"
-                    android:id="@+id/directionLabelTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="6dp"
-                    android:text="@string/directed_by"
-                    android:textColor="@color/text"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/releasedAtTv" />
 
                 <TextView
-                    hasDetailsResult="@{detailsViewModel}"
-                    android:id="@+id/directionTv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text"
-                    android:textSize="18sp"
-                    app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="24dp"
-                    app:layout_constraintStart_toStartOf="@id/originalTitleTv"
-                    app:layout_constraintTop_toTopOf="@id/directionLabelTv"
-                    tools:text="Matt Reeves" />
-
-                <TextView
-                    hasDetailsResult="@{detailsViewModel}"
                     android:id="@+id/castLabelTv"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -304,20 +276,21 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/directionTv" />
+                    app:layout_constraintTop_toBottomOf="@id/releasedAtTv" />
 
-                <TextView
-                    hasDetailsResult="@{detailsViewModel}"
-                    android:id="@+id/castTv"
-                    android:layout_width="0dp"
+                <com.todkars.shimmer.ShimmerRecyclerView
+                    android:layout_marginTop="12dp"
+                    tools:listitem="@layout/credits_row_layout"
+                    android:id="@+id/castRecyclerView"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/mock_cast"
-                    android:textColor="@color/text"
-                    android:textSize="18sp"
+                    android:layout_marginStart="24dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="horizontal"
                     android:layout_marginEnd="24dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/originalTitleTv"
-                    app:layout_constraintTop_toTopOf="@id/castLabelTv" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="24dp"
+                    app:layout_constraintTop_toBottomOf="@id/castLabelTv" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
