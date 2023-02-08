@@ -10,6 +10,9 @@
             type="com.matheusxreis.moviedroid.models.MovieDetails" />
 
         <variable
+            name="detailsViewModel"
+            type="com.matheusxreis.moviedroid.viewmodels.DetailsViewModel" />
+        <variable
             name="movie"
             type="com.matheusxreis.moviedroid.models.MoviePoster" />
     </data>
@@ -28,7 +31,130 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    hasDetailsResult="@{detailsViewModel}"
+                    android:id="@+id/shimmer1"
+                    android:layout_marginTop="32dp"
+                    android:background="@color/placeholder"
+                    android:layout_width="200dp"
+                    android:layout_height="25dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_bias="0.1"
+                    />
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    hasDetailsResult="@{detailsViewModel}"
+                    android:id="@+id/shimmer2"
+                    android:layout_marginTop="32dp"
+                    android:background="@color/placeholder"
+                    android:layout_width="150dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_height="25dp"
+                    app:layout_constraintStart_toEndOf="@id/shimmer1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_bias="0.1"
+                    />
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    hasDetailsResult="@{detailsViewModel}"
+                    android:id="@+id/shimmer3"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/placeholder"
+                    android:layout_width="200dp"
+                    android:layout_height="25dp"
+                    app:layout_constraintStart_toStartOf="@id/shimmer1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/shimmer1"
+                    app:layout_constraintHorizontal_bias="0"
+                    />
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    hasDetailsResult="@{detailsViewModel}"
+                    android:id="@+id/shimmer4"
+                    android:background="@color/placeholder"
+                    android:layout_width="150dp"
+                    android:layout_marginEnd="12dp"                    android:layout_height="25dp"
+                    app:layout_constraintStart_toEndOf="@id/shimmer3"
+                    app:layout_constraintTop_toTopOf="@id/shimmer3"
+                    android:layout_marginStart="12dp"
+                    />
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    hasDetailsResult="@{detailsViewModel}"
+                    android:id="@+id/shimmer5"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/placeholder"
+                    android:layout_width="200dp"
+                    android:layout_height="25dp"
+                    app:layout_constraintStart_toStartOf="@id/shimmer3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/shimmer3"
+                    app:layout_constraintHorizontal_bias="0"
+                    />
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    hasDetailsResult="@{detailsViewModel}"
+                    android:id="@+id/shimmer6"
+                    android:background="@color/placeholder"
+                    android:layout_width="150dp"
+                    android:layout_marginEnd="12dp"                    android:layout_height="25dp"
+                    app:layout_constraintStart_toEndOf="@id/shimmer5"
+                    app:layout_constraintTop_toTopOf="@id/shimmer5"
+                    android:layout_marginStart="12dp"
+                    />
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    hasDetailsResult="@{detailsViewModel}"
+                    android:id="@+id/shimmer7"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/placeholder"
+                    android:layout_width="200dp"
+                    android:layout_height="25dp"
+                    app:layout_constraintStart_toStartOf="@id/shimmer5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/shimmer5"
+                    app:layout_constraintHorizontal_bias="0"
+                    />
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    hasDetailsResult="@{detailsViewModel}"
+                    android:id="@+id/shimmer8"
+                    android:background="@color/placeholder"
+                    android:layout_width="150dp"
+                    android:layout_marginEnd="12dp"                    android:layout_height="25dp"
+                    app:layout_constraintStart_toEndOf="@id/shimmer7"
+                    app:layout_constraintTop_toTopOf="@id/shimmer7"
+                    android:layout_marginStart="12dp"
+                    />
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    hasDetailsResult="@{detailsViewModel}"
+                    android:id="@+id/shimmer9"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/placeholder"
+                    android:layout_width="150dp"
+                    android:layout_marginEnd="12dp"                    android:layout_height="25dp"
+                    app:layout_constraintStart_toStartOf="@id/shimmer7"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/shimmer7"
+                    app:layout_constraintHorizontal_bias="0"
+                    />
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    hasDetailsResult="@{detailsViewModel}"
+                    android:id="@+id/shimmer10"
+                    android:layout_marginTop="23dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginStart="24dp"
+                    android:background="@color/placeholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    app:layout_constraintStart_toStartOf="@id/shimmer9"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/shimmer9"
+                    app:layout_constraintHorizontal_bias="0"
+                    />
+
+
                 <TextView
+                    android:visibility="invisible"
                     android:id="@+id/originalTitleLabelTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -44,6 +170,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:visibility="invisible"
                     android:id="@+id/originalTitleTv"
                     defineTextViewValue="@{movie.title}"
                     android:layout_width="0dp"
@@ -60,6 +187,7 @@
                     tools:text="Puss in Boots: The Last Wish" />
 
                 <TextView
+                    android:visibility="invisible"
                     android:id="@+id/genreLabelTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -75,6 +203,7 @@
                     app:layout_constraintTop_toBottomOf="@id/originalTitleLabelTv" />
 
                 <TextView
+                    android:visibility="invisible"
                     getGenres="@{movieDetails.genres}"
                     android:id="@+id/genreTv"
                     android:layout_width="wrap_content"
@@ -88,6 +217,7 @@
                     tools:text="Drama, Comedy" />
 
                 <TextView
+                    android:visibility="invisible"
                     android:id="@+id/releasedAtLabelTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -103,6 +233,7 @@
                     app:layout_constraintTop_toBottomOf="@id/genreLabelTv" />
 
                 <TextView
+                    android:visibility="invisible"
                     android:id="@+id/releasedAtTv"
                     defineTextViewValue="@{movieDetails.realeasedAt}"
                     android:layout_width="wrap_content"
@@ -116,6 +247,7 @@
                     tools:text="16/04/2020" />
 
                 <TextView
+                    android:visibility="invisible"
                     android:id="@+id/directionLabelTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -131,6 +263,7 @@
                     app:layout_constraintTop_toBottomOf="@id/releasedAtLabelTv" />
 
                 <TextView
+                    android:visibility="invisible"
                     android:id="@+id/directionTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -143,6 +276,7 @@
                     tools:text="Matt Reeves" />
 
                 <TextView
+                    android:visibility="invisible"
                     android:id="@+id/castLabelTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -158,6 +292,7 @@
                     app:layout_constraintTop_toBottomOf="@id/directionTv" />
 
                 <TextView
+                    android:visibility="invisible"
                     android:id="@+id/castTv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -179,6 +314,7 @@
                     android:textColor="@color/text"
                     android:textSize="20sp"
                     android:textStyle="bold"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -194,6 +330,7 @@
                     android:text="@string/lorem_ipsum"
                     android:textColor="@color/text"
                     android:textSize="16sp"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
