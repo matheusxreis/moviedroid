@@ -8,6 +8,7 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.matheusxreis.moviedroid.models.Genre
 import com.matheusxreis.moviedroid.utils.NetworkResult
 import com.matheusxreis.moviedroid.viewmodels.DetailsViewModel
+import com.todkars.shimmer.ShimmerRecyclerView
 
 class AboutBinding {
     companion object {
@@ -44,6 +45,8 @@ class AboutBinding {
                             view.visibility = View.INVISIBLE
                         }else if(view is TextView){
                             view.visibility = View.VISIBLE
+                        }else if(view is ShimmerRecyclerView){
+                            view.hideShimmer()
                         }
 
                     }
@@ -53,6 +56,8 @@ class AboutBinding {
                             view.showShimmer(true)
                         }else if(view is TextView){
                             view.visibility = View.INVISIBLE
+                        }else if(view is ShimmerRecyclerView){
+                            view.showShimmer()
                         }
 
                     }
@@ -62,6 +67,8 @@ class AboutBinding {
                             view.visibility = View.INVISIBLE
                         }else if(view is TextView){
                             view.visibility = View.VISIBLE
+                        }else if(view is ShimmerRecyclerView){
+                            view.hideShimmer()
                         }
                     }
                 }

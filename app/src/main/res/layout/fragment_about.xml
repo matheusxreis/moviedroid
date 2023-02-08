@@ -279,6 +279,9 @@
                     app:layout_constraintTop_toBottomOf="@id/releasedAtTv" />
 
                 <com.todkars.shimmer.ShimmerRecyclerView
+                    app:shimmer_recycler_layout="@layout/credits_row_placeholder"
+                    app:shimmer_recycler_item_count="4"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:nestedScrollingEnabled="false"
                     android:layout_marginTop="0dp"
                     tools:listitem="@layout/credits_row_layout"
@@ -310,6 +313,9 @@
                     app:layout_constraintTop_toBottomOf="@id/castRecyclerView" />
 
                 <com.todkars.shimmer.ShimmerRecyclerView
+                    app:shimmer_recycler_layout="@layout/credits_row_placeholder"
+                    app:shimmer_recycler_item_count="4"
+                    hasDetailsResult="@{detailsViewModel}"
                     android:nestedScrollingEnabled="false"
                     tools:listitem="@layout/credits_row_layout"
                     android:id="@+id/crewRecyclerView"
