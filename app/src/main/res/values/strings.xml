@@ -12,4 +12,5 @@
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla placerat, ipsum ac lobortis imperdiet, felis erat efficitur risus, sed gravida nunc mi non urna. Quisque at tincidunt mauris, sed pretium purus. Nulla ut nisl lacus. Praesent quis fermentum diam. Mauris pulvinar sem sed lorem malesuada egestas. Cras eget libero et magna maximus commodo eget id nibh. Suspendisse sed velit pulvinar, porta leo a, feugiat libero. In non odio sit amet sapiens venenatis auctor eu eu diam.</string>
     <string name="cast2">Cast:</string>
     <string name="crew">Crew:</string>
+    <string name="recommend_description">Because you are interested in this, you might like:</string>
 </resources>
