@@ -6,12 +6,14 @@ import android.content.Context.SEARCH_SERVICE
 import android.os.Bundle
 import android.provider.SearchRecentSuggestions
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,16 +22,22 @@ import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.android.material.snackbar.Snackbar
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.adapters.TopMoviesCarouselAdapter
+import com.matheusxreis.moviedroid.bindingadapters.HomeBinding
 import com.matheusxreis.moviedroid.utils.MySuggestionProvider
+import com.matheusxreis.moviedroid.utils.NetworkListener
 import com.matheusxreis.moviedroid.utils.NetworkResult
 import com.matheusxreis.moviedroid.viewmodels.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import com.matheusxreis.moviedroid.databinding.FragmentHomeBinding
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(), MenuProvider {
 
-    private lateinit var mView:View
+    private lateinit var binding: FragmentHomeBinding
     private val homeViewModel: HomeViewModel by activityViewModels<HomeViewModel>()
     private val moviesAdapter: MoviesAdapter by lazy {
         MoviesAdapter()
@@ -46,6 +54,9 @@ class HomeFragment : Fragment(), MenuProvider {
     private lateinit var searchView: SearchView;
 
 
+    private var hasDesconnected = false
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -55,16 +66,17 @@ class HomeFragment : Fragment(), MenuProvider {
         savedInstanceState: Bundle?
     ): View? {
 
+        binding = FragmentHomeBinding.inflate(inflater)
+        binding.homeViewModel = homeViewModel
 
-        mView = inflater.inflate(R.layout.fragment_home, container, false)
-        return mView
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
-
+        monitoringNetwork()
         setUpRecyclerView()
         setUpViewPagerCarousel()
         populateViewPagerCarousel()
@@ -103,7 +115,7 @@ class HomeFragment : Fragment(), MenuProvider {
             if (menuItem.itemId == R.id.delete_search_history) {
                 SearchRecentSuggestions(requireActivity(), MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE)
                     .clearHistory()
-                Snackbar.make(mView, "Search History Deleted", Snackbar.LENGTH_LONG)
+                Snackbar.make(binding.root, "Search History Deleted", Snackbar.LENGTH_LONG)
                     .setAction("Okay", {})
                     .show()
             }
@@ -167,7 +179,7 @@ class HomeFragment : Fragment(), MenuProvider {
                     // homeViewModel.getNewPageMovies("popular")
 
                 } else {
-                    moviesProgressBar.visibility = View.GONE
+
                 }
             }
         })
@@ -282,6 +294,34 @@ class HomeFragment : Fragment(), MenuProvider {
     }
 
 
+    private fun monitoringNetwork() =  lifecycleScope.launch {
+
+        val connection = homeViewModel.networkListener.checkNetworkavailability(requireContext())
+        connection.collect {
+            if (!it) {
+                Toast.makeText(
+                    context,
+                    "No network",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+
+                hasDesconnected = true
+            } else {
+                if (hasDesconnected) {
+                    populateViewPagerCarousel()
+                    populateRecyclerView()
+                    Toast.makeText(context,
+                        "Connected",
+                        Toast.LENGTH_SHORT)
+                        .show()
+                }else {
+                    hasDesconnected = false
+                }
+            }
+        }
+
+    }
 
 
 }

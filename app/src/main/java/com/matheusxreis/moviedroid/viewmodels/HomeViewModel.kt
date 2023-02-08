@@ -1,21 +1,27 @@
 package com.matheusxreis.moviedroid.viewmodels
 
+import android.app.Application
 import android.util.Log
+import android.widget.Toast
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.matheusxreis.moviedroid.data.Repository
 import com.matheusxreis.moviedroid.models.MoviePoster
 import com.matheusxreis.moviedroid.utils.Constants
+import com.matheusxreis.moviedroid.utils.NetworkListener
 import com.matheusxreis.moviedroid.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val repository: Repository
-) : ViewModel() {
+    private val repository: Repository,
+    application: Application
+) : AndroidViewModel(application) {
 
 
     val trendingSeries: MutableLiveData<NetworkResult<List<MoviePoster>>> = MutableLiveData()
@@ -23,9 +29,14 @@ class HomeViewModel @Inject constructor(
     val popularSeries: MutableLiveData<NetworkResult<List<MoviePoster>>> = MutableLiveData()
     val searchedResult: MutableLiveData<NetworkResult<List<MoviePoster>>> = MutableLiveData()
 
+    val networkListener = NetworkListener()
+
+    var hasDesconnected = false
 
     private var pageMovie = 1
     private val pageSerie = 1
+
+    val context = application.applicationContext
 
     fun getTrendingSeries() = viewModelScope.launch {
 
@@ -84,7 +95,7 @@ class HomeViewModel @Inject constructor(
                 filter = filter
             )
 
-            if(response?.body()?.results.isNullOrEmpty()){
+            if (response?.body()?.results.isNullOrEmpty()) {
                 popularSeries.value = NetworkResult.Error("empty")
                 return@launch
             }
@@ -94,7 +105,7 @@ class HomeViewModel @Inject constructor(
                     popularSeries.value = NetworkResult.Success(response.body()?.results!!)
                 }
             }
-        }catch(e:Exception){
+        } catch (e: Exception) {
             popularSeries.value = NetworkResult.Error(e.toString())
         }
 
@@ -109,14 +120,14 @@ class HomeViewModel @Inject constructor(
                 queries = applySearchQueries(searchQuery)
             )
 
-            if(response?.body()?.results.isNullOrEmpty()){
+            if (response?.body()?.results.isNullOrEmpty()) {
                 searchedResult.value = NetworkResult.Error("empty")
             }
 
             if (!response.body()?.results.isNullOrEmpty()) {
                 searchedResult.value = NetworkResult.Success(response.body()?.results!!)
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
 
             searchedResult.value = NetworkResult.Error(e.toString())
 
@@ -175,6 +186,8 @@ class HomeViewModel @Inject constructor(
 
         return queries
     }
+
+
 
 
 }
