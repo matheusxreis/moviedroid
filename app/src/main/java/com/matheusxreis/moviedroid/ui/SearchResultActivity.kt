@@ -8,8 +8,10 @@ import android.os.Bundle
 import android.provider.SearchRecentSuggestions
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -29,6 +31,8 @@ class SearchResultActivity : AppCompatActivity() {
     private val resultSearchAdapter: MoviesAdapter by lazy {
         MoviesAdapter()
     }
+    private var hasDesconnected = false
+    private var searchedQuery:String? = null
     private lateinit var searchView: SearchView;
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +46,7 @@ class SearchResultActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        monitoringNetwork()
         handleIntent()
         setUpRecyclerView()
         populateRecyclerView()
@@ -137,6 +142,7 @@ class SearchResultActivity : AppCompatActivity() {
             intent.getStringExtra(SearchManager.QUERY)?.also { query ->
                 supportActionBar?.setTitle("searching: $query")
                 homeViewModel.search(query)
+                searchedQuery = query
                 SearchRecentSuggestions(
                     this,
                     MySuggestionProvider.AUTHORITY,
@@ -148,5 +154,37 @@ class SearchResultActivity : AppCompatActivity() {
 
     }
 
+
+    private fun monitoringNetwork() =  lifecycleScope.launchWhenStarted {
+
+        val connection = homeViewModel.networkListener.checkNetworkavailability(applicationContext)
+        connection.collect {
+            if (!it) {
+                Toast.makeText(
+                    applicationContext,
+                    "No network",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+
+                hasDesconnected = true
+            } else {
+                if (hasDesconnected) {
+
+                    if(searchedQuery!=null){
+                        homeViewModel.search(searchedQuery!!)
+                    //populateRecyclerView()
+                    }
+                    Toast.makeText(applicationContext,
+                        "Connected",
+                        Toast.LENGTH_SHORT)
+                        .show()
+                }else {
+                    hasDesconnected = false
+                }
+            }
+        }
+
+    }
 
 }
