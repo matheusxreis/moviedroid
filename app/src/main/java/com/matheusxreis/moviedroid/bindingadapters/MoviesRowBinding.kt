@@ -2,6 +2,7 @@ package com.matheusxreis.moviedroid.bindingadapters
 
 import android.content.Intent
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
@@ -15,6 +16,7 @@ import com.matheusxreis.moviedroid.models.MoviePoster
 import com.matheusxreis.moviedroid.ui.MainActivity
 import com.matheusxreis.moviedroid.ui.fragments.home.HomeFragmentDirections
 import com.matheusxreis.moviedroid.utils.Constants
+import com.matheusxreis.moviedroid.utils.NetworkStatus
 
 class MoviesRowBinding {
 
@@ -48,13 +50,22 @@ class MoviesRowBinding {
 
             imageView.setOnClickListener {
                 try {
+                    val isConnected = NetworkStatus().hasInternetConnection(imageView.context)
 
-                    val action =
-                        HomeFragmentDirections.actionHomeFragmentToDetailsFragment(
-                            movie = moviePoster,
-                            fromSearch = false
-                        )
-                    imageView.findNavController().navigate(action)
+                    if(isConnected) {
+                        val action =
+                            HomeFragmentDirections.actionHomeFragmentToDetailsFragment(
+                                movie = moviePoster,
+                                fromSearch = false
+                            )
+                        imageView.findNavController().navigate(action)
+                    }else {
+                        Toast.makeText(
+                            imageView.context,
+                            "No internet connection",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 } catch (e: Exception) {
                     val intent = Intent(imageView.context, MainActivity::class.java)
                     intent.putExtra("key", Gson().toJson(moviePoster))
