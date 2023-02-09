@@ -79,6 +79,10 @@ class DetailsFragment : Fragment(), MenuProvider {
             android.R.id.home -> {
                 handleComeBack()
             }
+            R.id.videos_menu -> {
+                val action = DetailsFragmentDirections.actionDetailsFragmentToVideosFragment()
+                findNavController().navigate(action)
+            }
         }
         return true
     }
