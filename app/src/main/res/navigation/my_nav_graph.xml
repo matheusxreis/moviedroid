@@ -30,6 +30,14 @@
             android:name="fromSearch"
             app:argType="boolean"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_detailsFragment_to_videosFragment"
+            app:destination="@id/videosFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/videosFragment"
+        android:name="com.matheusxreis.moviedroid.ui.fragments.videos.VideosFragment"
+        android:label="fragment_videos"
+        tools:layout="@layout/fragment_videos" />
 
 </navigation>
