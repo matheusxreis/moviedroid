@@ -167,6 +167,73 @@
                     app:layout_constraintTop_toTopOf="@id/releasedAtLabelTv"
                     tools:text="16/04/2020" />
 
+                <TextView
+                    isTvShowView="@{movieDetails.amountEpisodes}"
+                    android:visibility="invisible"
+                    tools:visibility="visible"
+                    android:id="@+id/seasonsLabelTv"
+                    hasDetailsResult="@{detailsViewModel}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="6dp"
+                    android:text="Seasons: "
+                    android:textColor="@color/text"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/releasedAtTv" />
+                <TextView
+                    android:id="@+id/seasonsTv"
+                    isTvShowView="@{movieDetails.amountEpisodes}"
+                    defineTextViewIntValue="@{movieDetails.seasons}"
+                    hasDetailsResult="@{detailsViewModel}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:textColor="@color/text"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="@id/originalTitleTv"
+                    app:layout_constraintTop_toTopOf="@id/seasonsLabelTv"
+                    tools:text="5" />
+
+                <TextView
+                    isTvShowView="@{movieDetails.amountEpisodes}"
+                    android:visibility="invisible"
+                    tools:visibility="visible"
+                    android:id="@+id/episodesLabelTv"
+                    hasDetailsResult="@{detailsViewModel}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="6dp"
+                    android:text="Episodes: "
+                    android:textColor="@color/text"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/seasonsLabelTv" />
+                <TextView
+                    isTvShowView="@{movieDetails.amountEpisodes}"
+                    android:id="@+id/episodesTv"
+                    defineTextViewIntValue="@{movieDetails.amountEpisodes}"
+                    hasDetailsResult="@{detailsViewModel}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:textColor="@color/text"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="@id/originalTitleTv"
+                    app:layout_constraintTop_toTopOf="@id/episodesLabelTv"
+                    tools:text="55" />
 
                 <TextView
                     android:visibility="invisible"
@@ -184,7 +251,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/releasedAtTv" />
+                    app:layout_constraintTop_toBottomOf="@id/episodesTv" />
 
                 <com.todkars.shimmer.ShimmerRecyclerView
                     app:shimmer_recycler_layout="@layout/credits_row_placeholder"

@@ -13,10 +13,25 @@ import com.todkars.shimmer.ShimmerRecyclerView
 class AboutBinding {
     companion object {
 
-        @BindingAdapter("defineTextViewValue")
+        @BindingAdapter("defineTextViewValue", "defineTextViewIntValue", requireAll = false)
         @JvmStatic
-        fun defineTextViewValue(textView: TextView, value: String?) {
-            textView.text = value
+        fun defineTextViewValue(textView: TextView, value: String?, value2:Int?) {
+            if(value!=null) {
+                textView.text = value
+            }
+            if(value2!=null){
+                textView.text = value2.toString()
+            }
+        }
+
+        @BindingAdapter("isTvShowView")
+        @JvmStatic
+        fun isTvShowView(view: TextView, value:Int?) {
+            if(value==null|| value==0){
+                view.visibility = View.GONE
+            }else {
+                view.visibility = View.VISIBLE
+            }
         }
 
         @BindingAdapter("getGenres")
