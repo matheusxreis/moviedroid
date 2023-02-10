@@ -38,6 +38,13 @@
         android:id="@+id/videosFragment"
         android:name="com.matheusxreis.moviedroid.ui.fragments.videos.VideosFragment"
         android:label="fragment_videos"
-        tools:layout="@layout/fragment_videos" />
+        tools:layout="@layout/fragment_videos" >
+        <argument
+            android:name="mediaType"
+            app:argType="string" />
+        <argument
+            android:name="movieId"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

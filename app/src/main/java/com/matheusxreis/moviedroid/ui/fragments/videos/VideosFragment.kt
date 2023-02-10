@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.adapters.VideosAdapter
@@ -14,6 +15,7 @@ import kotlinx.android.synthetic.main.fragment_videos.*
 
 class VideosFragment : Fragment() {
 
+    private val args by navArgs<VideosFragmentArgs>()
     private val videosAdapter by lazy {
         VideosAdapter()
     }

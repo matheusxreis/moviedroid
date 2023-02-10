@@ -80,7 +80,14 @@ class DetailsFragment : Fragment(), MenuProvider {
                 handleComeBack()
             }
             R.id.videos_menu -> {
-                val action = DetailsFragmentDirections.actionDetailsFragmentToVideosFragment()
+                var mediaType = "tv"
+                args.movie.let {
+                    if(it.firstAirDate.isNullOrEmpty()) { mediaType="movie"}
+                }
+                val action = DetailsFragmentDirections.actionDetailsFragmentToVideosFragment(
+                    movieId = args.movie.id,
+                    mediaType = mediaType
+                )
                 findNavController().navigate(action)
             }
         }
