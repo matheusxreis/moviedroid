@@ -6,16 +6,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.adapters.VideosAdapter
 import com.matheusxreis.moviedroid.models.Video
+import com.matheusxreis.moviedroid.utils.NetworkResult
+import com.matheusxreis.moviedroid.viewmodels.DetailsViewModel
 import kotlinx.android.synthetic.main.fragment_videos.*
 
 class VideosFragment : Fragment() {
 
     private val args by navArgs<VideosFragmentArgs>()
+    private val detailsViewModel:DetailsViewModel by activityViewModels<DetailsViewModel>()
     private val videosAdapter by lazy {
         VideosAdapter()
     }
@@ -53,16 +57,28 @@ class VideosFragment : Fragment() {
         videosRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
     }
     private fun populateRecyclerView(){
-        val mockVideos = listOf(
-            Video(key="AkFqg5wAuFk", from="youtube", title="title"),
-            Video(key="AkFqg5wAuFk", from="youtube", title="title"),
-            Video(key="AkFqg5wAuFk", from="youtube", title="title"),
-            Video(key="AkFqg5wAuFk", from="youtube", title="title"),
-            Video(key="AkFqg5wAuFk", from="youtube", title="title"),
-            Video(key="AkFqg5wAuFk", from="youtube", title="title")
+
+        detailsViewModel.getVideos(
+            id = args.movieId,
+            mediaType =  args.mediaType
         )
 
-        videosAdapter.setData(mockVideos)
+       detailsViewModel.videos.observe(viewLifecycleOwner){
+           when(it){
+               is NetworkResult.Loading -> {
+                   videosRecyclerView.showShimmer()
+               }
+               is NetworkResult.Error -> {
+                   videosRecyclerView.hideShimmer()
+               }
+               is NetworkResult.Success -> {
+                   videosRecyclerView.hideShimmer()
+                   videosAdapter.setData(it.data!!)
+               }
+           }
+       }
+
+
     }
     private fun setVideo() {
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
