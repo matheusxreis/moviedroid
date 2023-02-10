@@ -7,6 +7,6 @@ data class Video(
     val key: String,
     @SerializedName("site")
     val from: String,
-    @SerializedName("")
+    @SerializedName("name")
     val title: String
 )
