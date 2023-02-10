@@ -37,7 +37,7 @@
     <fragment
         android:id="@+id/videosFragment"
         android:name="com.matheusxreis.moviedroid.ui.fragments.videos.VideosFragment"
-        android:label="fragment_videos"
+        android:label="Watch videos"
         tools:layout="@layout/fragment_videos" >
         <argument
             android:name="mediaType"

@@ -15,7 +15,9 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/video_row_layout"
         android:layout_marginHorizontal="12dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
