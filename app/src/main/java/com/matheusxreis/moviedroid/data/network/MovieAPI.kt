@@ -3,6 +3,7 @@ package com.matheusxreis.moviedroid.data.network
 import com.matheusxreis.moviedroid.models.MovieDetails
 import com.matheusxreis.moviedroid.models.MoviePoster
 import com.matheusxreis.moviedroid.models.ResultApi
+import com.matheusxreis.moviedroid.models.VideoResult
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -48,4 +49,12 @@ interface MovieAPI {
         @Path("movieId") id: String,
         @QueryMap queries: Map<String, String>
     ):Response<ResultApi>
+
+    @GET("{mediaType}/{movieId}/videos")
+    suspend fun getVideos(
+        @Path("mediaType") mediaType: String,
+        @Path("movieId") id: String,
+        @QueryMap queries: Map<String, String>
+    ):Response<VideoResult>
 }
+
