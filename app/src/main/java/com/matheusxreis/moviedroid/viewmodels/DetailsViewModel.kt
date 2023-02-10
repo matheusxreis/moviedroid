@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.matheusxreis.moviedroid.data.Repository
 import com.matheusxreis.moviedroid.models.MovieDetails
 import com.matheusxreis.moviedroid.models.MoviePoster
+import com.matheusxreis.moviedroid.models.Video
 import com.matheusxreis.moviedroid.utils.Constants
 import com.matheusxreis.moviedroid.utils.NetworkListener
 import com.matheusxreis.moviedroid.utils.NetworkResult
@@ -25,6 +26,8 @@ class DetailsViewModel @Inject constructor(
 
     val details: MutableLiveData<NetworkResult<MovieDetails>> = MutableLiveData()
     val recommendations: MutableLiveData<NetworkResult<List<MoviePoster>>> = MutableLiveData()
+
+    val videos: MutableLiveData<NetworkResult<List<Video>>> = MutableLiveData()
 
     val networkListener = NetworkListener()
 
@@ -53,8 +56,6 @@ class DetailsViewModel @Inject constructor(
             details.value = NetworkResult.Error(e.toString())
         }
     }
-
-
     fun getRecommendations(
         id:String,
         mediaType: String
@@ -76,6 +77,30 @@ class DetailsViewModel @Inject constructor(
         }
 
     }
+
+    fun getVideos(
+        id:String,
+        mediaType: String
+    ) = viewModelScope.launch{
+
+        videos.value = NetworkResult.Loading()
+
+        try {
+            val response = repository.remoteDataSource.getVideos(
+                queries = applyQueries(),
+                id = id,
+                mediaType = mediaType
+            )
+            if(response.body()?.videos.isNullOrEmpty()){
+                videos.value = NetworkResult.Error("empty")
+                return@launch
+            }
+            videos.value = NetworkResult.Success(response.body()?.videos!!)
+        }catch (e:Exception){
+            videos.value = NetworkResult.Error(e.toString())
+        }
+    }
+
 
     private fun applyDetailsQueries(): HashMap<String, String> {
         val queries = HashMap<String, String>()
