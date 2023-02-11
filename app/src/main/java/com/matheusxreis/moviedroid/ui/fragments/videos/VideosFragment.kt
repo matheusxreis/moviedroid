@@ -80,19 +80,30 @@ class VideosFragment : Fragment() {
                }
                is NetworkResult.Error -> {
                    videosRecyclerView.hideShimmer()
+                   if(it.message == "empty"){
+                       showNoVideoViews()
+                   }
                }
                is NetworkResult.Success -> {
                    videosRecyclerView.hideShimmer()
                    videosAdapter.setData(it.data!!)
+                   hideNoVideoViews()
+
                }
            }
        }
 
 
     }
-    private fun setVideo() {
-        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-
+    private fun showNoVideoViews() {
+        noVideoImageView.visibility = View.VISIBLE
+        noVideoTextView.visibility = View.VISIBLE
+        videosRecyclerView.visibility = View.INVISIBLE
+    }
+    private fun hideNoVideoViews(){
+        noVideoImageView.visibility = View.INVISIBLE
+        noVideoImageView.visibility = View.INVISIBLE
+        videosRecyclerView.visibility = View.VISIBLE
     }
 
 

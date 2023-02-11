@@ -21,6 +21,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        tools:itemCount="1"
         />
+
+    <ImageView
+        android:id="@+id/noVideoImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:alpha="0.8"
+        android:src="@drawable/ic_no_video"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.37"
+        app:tint="@color/text" />
+
+    <TextView
+        android:id="@+id/noVideoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.8"
+        android:text="There is no videos"
+        android:textColor="@color/text"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@id/noVideoImageView"
+        app:layout_constraintStart_toStartOf="@id/noVideoImageView"
+        app:layout_constraintTop_toBottomOf="@id/noVideoImageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
