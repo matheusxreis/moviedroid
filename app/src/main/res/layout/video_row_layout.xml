@@ -12,36 +12,40 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:background="@color/backgroundColor"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        xmlns:tools="http://schemas.android.com/tools">
 
         <TextView
             android:id="@+id/titleVideoTv"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:ellipsize="end"
             android:maxLines="1"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="@id/youtubePlayerView"
-            app:layout_constraintEnd_toEndOf="@id/youtubePlayerView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/frameVideoImageView"
             android:textStyle="bold"
             android:textSize="16sp"
             android:text="@{video.title}"
             app:layout_constraintHorizontal_bias="0"
             android:textColor="@color/text"
+            tools:text="Trailer #01"
+            />
+        <ImageView
+            setVideoId="@{video.key}"
+            tools:src="@drawable/i_care_a_lot"
+            android:scaleType="centerCrop"
+            android:id="@+id/frameVideoImageView"
+            android:layout_width="400dp"
+            android:layout_height="200dp"
+            app:layout_constraintTop_toBottomOf="@id/titleVideoTv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="6dp"
             />
 
-        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-            android:id="@+id/youtubePlayerView"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_marginHorizontal="42dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/titleVideoTv"
-            app:layout_constraintEnd_toEndOf="parent"
-            setVideoId="@{video.key}"
-            android:layout_marginBottom="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:autoPlay="false" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

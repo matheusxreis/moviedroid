@@ -10,14 +10,17 @@
     <com.todkars.shimmer.ShimmerRecyclerView
         android:id="@+id/videosRecyclerView"
         app:shimmer_recycler_item_count="3"
-        app:shimmer_recycler_layout="@layout/video_row_layout"
+        app:shimmer_recycler_layout="@layout/video_row_placeholder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/video_row_layout"
         android:layout_marginHorizontal="12dp"
         android:layout_marginTop="60dp"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

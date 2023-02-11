@@ -1,10 +1,12 @@
 package com.matheusxreis.moviedroid.bindingadapters
 
+import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import coil.load
+import com.facebook.shimmer.Shimmer
+import com.facebook.shimmer.ShimmerDrawable
+import com.matheusxreis.moviedroid.R
 
 class VideoRowBinding {
 
@@ -12,59 +14,24 @@ class VideoRowBinding {
 
         @BindingAdapter("setVideoId")
         @JvmStatic
-        fun setVideoId(youTubePlayerView: YouTubePlayerView, videoKey: String) {
-            youTubePlayerView.addYouTubePlayerListener(object : YouTubePlayerListener {
+        fun setVideoId(imageView: ImageView, videoKey: String) {
+            val shimmer = Shimmer.ColorHighlightBuilder()
+                .setBaseColor(ContextCompat.getColor(imageView.context, R.color.placeholder))
+                .setDuration(700)
+                .setHighlightAlpha(0.6f) // the shimmer alpha amount
+                .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
+                .setAutoStart(true)
+                .build()
+            val shimmerDrawable = ShimmerDrawable().apply {
+                setShimmer(shimmer)
+            }
 
-                // using
+            val url = "https://i.ytimg.com/vi/${videoKey}/maxresdefault.jpg"
+            imageView.load(url) {
 
-                override fun onReady(youTubePlayer: YouTubePlayer) {
-                    youTubePlayer.cueVideo(videoKey, 0f)
-                }
-
-                // not using yet
-                override fun onApiChange(youTubePlayer: YouTubePlayer) {
-                }
-
-                override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) {
-                }
-
-                override fun onError(
-                    youTubePlayer: YouTubePlayer,
-                    error: PlayerConstants.PlayerError
-                ) {
-                }
-
-                override fun onPlaybackQualityChange(
-                    youTubePlayer: YouTubePlayer,
-                    playbackQuality: PlayerConstants.PlaybackQuality
-                ) {
-                }
-
-                override fun onPlaybackRateChange(
-                    youTubePlayer: YouTubePlayer,
-                    playbackRate: PlayerConstants.PlaybackRate
-                ) {
-                }
-
-                override fun onStateChange(
-                    youTubePlayer: YouTubePlayer,
-                    state: PlayerConstants.PlayerState
-                ) {
-                }
-
-                override fun onVideoDuration(youTubePlayer: YouTubePlayer, duration: Float) {
-                }
-
-                override fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String) {
-                }
-
-                override fun onVideoLoadedFraction(
-                    youTubePlayer: YouTubePlayer,
-                    loadedFraction: Float
-                ) {
-                }
-
-            })
+                error(R.drawable.no_result)
+                placeholder(shimmerDrawable)
+            }
         }
 
     }
