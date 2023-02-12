@@ -12,6 +12,6 @@ interface ItemDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFavoriteItem(favoriteEntity: FavoriteEntity)
 
-    @Query("SELECT * FROM favorites_table ORDER BY id")
+    @Query("SELECT * FROM favorites_table ORDER BY itemId")
     fun readFavoriteItem(): Flow<List<FavoriteEntity>>
 }
