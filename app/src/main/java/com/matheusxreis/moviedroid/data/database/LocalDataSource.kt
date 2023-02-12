@@ -7,6 +7,6 @@ class LocalDataSource @Inject constructor(
 ){
 
     suspend fun insertFavorite(favoriteEntity: FavoriteEntity) = itemDao.insertFavoriteItem(favoriteEntity)
-    suspend fun readFavorite() = itemDao.readFavoriteItem()
+    fun readFavorite() = itemDao.readFavoriteItem()
 
 }
