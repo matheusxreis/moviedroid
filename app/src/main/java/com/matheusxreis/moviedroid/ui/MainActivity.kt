@@ -8,12 +8,14 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.gson.Gson
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.models.MoviePoster
 import com.matheusxreis.moviedroid.ui.fragments.home.HomeFragment
 import com.matheusxreis.moviedroid.ui.fragments.home.HomeFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -30,9 +32,11 @@ class MainActivity : AppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.homeFragment
+                R.id.homeFragment,
+                R.id.myListsFragments2
             )
         )
+        bottomBar.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         val value = intent.getStringExtra("key")

@@ -46,10 +46,5 @@
             android:name="movieId"
             app:argType="string" />
     </fragment>
-    <fragment
-        android:id="@+id/myListsFragments"
-        android:name="com.matheusxreis.moviedroid.ui.fragments.mylists.MyListsFragments"
-        android:label="My Lists"
-        tools:layout="@layout/fragment_my_lists_fragments" />
 
 </navigation>
