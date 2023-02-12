@@ -132,7 +132,7 @@ class DetailsFragment : Fragment(), MenuProvider {
         }
     }
 
-    private fun saveInFavorites(){
+    private fun saveInFavorites(undo:Boolean = false){
         var mediaType = "tv"
 
         val movieDetails = detailsViewModel.details.value?.data
@@ -146,18 +146,26 @@ class DetailsFragment : Fragment(), MenuProvider {
             type = mediaType
         )
 
-        Snackbar.make(binding.root, "Save in favorites", Snackbar.LENGTH_SHORT)
-            .setAction("Okay", {})
-            .show()
+        if(!undo){
+            Snackbar.make(binding.root, "Save in favorites", Snackbar.LENGTH_SHORT)
+                .setAction("Undo", {deleteFromFavorites(true)})
+                //  .setAction("Okay", {})
+                .show()
+        }
+
     }
 
-    private fun deleteFromFavorites(){
+    private fun deleteFromFavorites(undo: Boolean = false){
         val itemId = detailsViewModel.details.value?.data!!.id
         detailsViewModel.deleteFromFavorite(itemId = itemId.toString())
 
-        Snackbar.make(binding.root, "Delete from favorites", Snackbar.LENGTH_SHORT)
-            .setAction("Okay", {})
-            .show()
+        if(!undo){
+            Snackbar.make(binding.root, "Delete from favorites", Snackbar.LENGTH_SHORT)
+                .setAction("Undo", {saveInFavorites(true)})
+                // .setAction("Okay", {})
+                .show()
+        }
+
     }
 
     private fun setUpAndPopulateViewPager() {
