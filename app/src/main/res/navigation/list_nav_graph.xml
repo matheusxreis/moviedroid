@@ -8,6 +8,6 @@
     <fragment
         android:id="@+id/myListsFragments2"
         android:name="com.matheusxreis.moviedroid.ui.fragments.mylists.MyListsFragments"
-        android:label="fragment_my_lists_fragments"
+        android:label="My Lists"
         tools:layout="@layout/fragment_my_lists_fragments" />
 </navigation>
