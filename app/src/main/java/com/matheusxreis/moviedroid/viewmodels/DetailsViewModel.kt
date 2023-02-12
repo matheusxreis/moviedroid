@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.matheusxreis.moviedroid.data.Repository
 import com.matheusxreis.moviedroid.data.database.FavoriteEntity
@@ -29,6 +30,8 @@ class DetailsViewModel @Inject constructor(
     val recommendations: MutableLiveData<NetworkResult<List<MoviePoster>>> = MutableLiveData()
 
     val videos: MutableLiveData<NetworkResult<List<Video>>> = MutableLiveData()
+
+    val readFavorites = repository.localDataSource.readFavorite().asLiveData()
 
     val networkListener = NetworkListener()
 

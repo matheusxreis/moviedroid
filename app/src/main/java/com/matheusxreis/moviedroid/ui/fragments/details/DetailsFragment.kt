@@ -14,6 +14,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.adapters.DetailsPagerAdapter
@@ -32,6 +33,9 @@ class DetailsFragment : Fragment(), MenuProvider {
     val args by navArgs<DetailsFragmentArgs>()
     private lateinit var binding: FragmentDetailsBinding
     private val detailsViewModel: DetailsViewModel by activityViewModels<DetailsViewModel>()
+    private var isOnFavorites = false
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -71,7 +75,14 @@ class DetailsFragment : Fragment(), MenuProvider {
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.menu_details_fragment, menu)
 
-        menu.forEach { setTintIconMenuItem(it) }
+        menu.forEach {
+            if (it.itemId == R.id.favorite_menu) {
+                setColorIfOnFavorites(args.movie.id, it)
+            } else {
+                setTintIconMenuItem(it)
+            }
+        }
+
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -82,7 +93,9 @@ class DetailsFragment : Fragment(), MenuProvider {
             R.id.videos_menu -> {
                 var mediaType = "tv"
                 args.movie.let {
-                    if(it.firstAirDate.isNullOrEmpty()) { mediaType="movie"}
+                    if (it.firstAirDate.isNullOrEmpty()) {
+                        mediaType = "movie"
+                    }
                 }
                 val action = DetailsFragmentDirections.actionDetailsFragmentToVideosFragment(
                     movieId = args.movie.id,
@@ -91,16 +104,10 @@ class DetailsFragment : Fragment(), MenuProvider {
                 findNavController().navigate(action)
             }
             R.id.favorite_menu -> {
-                var mediaType = "tv"
 
-                val movieDetails = detailsViewModel.details.value?.data
-                args.movie.let {
-                    if(it.firstAirDate.isNullOrEmpty()) { mediaType="movie"}
+                if (!isOnFavorites) {
+                    saveInFavorites()
                 }
-                detailsViewModel.saveInFavorites(
-                    movieDetails = movieDetails!!,
-                    type = mediaType
-                )
             }
         }
         return true
@@ -109,6 +116,38 @@ class DetailsFragment : Fragment(), MenuProvider {
 
     // CUSTOM FUNCTIONS
 
+    private fun setColorIfOnFavorites(id: String, menuItem: MenuItem) {
+        detailsViewModel.readFavorites.observe(viewLifecycleOwner) { favoriteList ->
+            val isOnFavorite = favoriteList.find { favorite -> favorite.itemId == id }
+
+            if (isOnFavorite != null) {
+                setTintIconMenuItem(menuItem, R.color.purple_200)
+                isOnFavorites = true
+            } else {
+                setTintIconMenuItem(menuItem)
+                isOnFavorites = false
+            }
+        }
+    }
+
+    private fun saveInFavorites(){
+        var mediaType = "tv"
+
+        val movieDetails = detailsViewModel.details.value?.data
+        args.movie.let {
+            if (it.firstAirDate.isNullOrEmpty()) {
+                mediaType = "movie"
+            }
+        }
+        detailsViewModel.saveInFavorites(
+            movieDetails = movieDetails!!,
+            type = mediaType
+        )
+
+        Snackbar.make(binding.root, "Save in favorites", Snackbar.LENGTH_SHORT)
+            .setAction("Okay", {})
+            .show()
+    }
     private fun setUpAndPopulateViewPager() {
 
         val fragments = ArrayList<Fragment>()
@@ -136,8 +175,8 @@ class DetailsFragment : Fragment(), MenuProvider {
 
     }
 
-    private fun setTintIconMenuItem(menuItem: MenuItem) {
-        menuItem.icon?.setTint(ContextCompat.getColor(requireActivity(), R.color.white))
+    private fun setTintIconMenuItem(menuItem: MenuItem, color: Int = R.color.white) {
+        menuItem.icon?.setTint(ContextCompat.getColor(requireActivity(), color))
     }
 
     private fun handleComeBack() {
@@ -149,23 +188,27 @@ class DetailsFragment : Fragment(), MenuProvider {
         }
     }
 
-    private fun fetchDetails(moviePoster: MoviePoster){
-       var mediaType = "tv"
+    private fun fetchDetails(moviePoster: MoviePoster) {
+        var mediaType = "tv"
         moviePoster.let {
-            if(it.firstAirDate.isNullOrEmpty()) { mediaType="movie"}
+            if (it.firstAirDate.isNullOrEmpty()) {
+                mediaType = "movie"
+            }
         }
         detailsViewModel.getDetails(id = moviePoster.id, mediaType = mediaType)
-        detailsViewModel.details.observe(viewLifecycleOwner){
-            if(it is NetworkResult.Success){
+        detailsViewModel.details.observe(viewLifecycleOwner) {
+            if (it is NetworkResult.Success) {
                 binding.movieDetails = it.data
             }
         }
     }
 
-    private fun fetchRecommendations(moviePoster: MoviePoster){
+    private fun fetchRecommendations(moviePoster: MoviePoster) {
         var mediaType = "tv"
         moviePoster.let {
-            if(it.firstAirDate.isNullOrEmpty()) { mediaType="movie"}
+            if (it.firstAirDate.isNullOrEmpty()) {
+                mediaType = "movie"
+            }
         }
         detailsViewModel.getRecommendations(
             id = moviePoster.id,
