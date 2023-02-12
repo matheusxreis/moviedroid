@@ -3,18 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/share_menu"
-        android:title="Share"
-        app:showAsAction="ifRoom"
-        android:iconTint="@color/white"
-        android:icon="@drawable/ic_share"
-        />
-    <item
         android:id="@+id/favorite_menu"
         android:title="Favorite"
         app:showAsAction="ifRoom"
         android:iconTint="@color/white"
         android:icon="@drawable/ic_star"
+        />
+
+    <item
+        android:id="@+id/share_menu"
+        android:title="Share"
+        app:showAsAction="never"
+        android:iconTint="@color/white"
+        android:icon="@drawable/ic_share"
         />
     <item
         android:id="@+id/videos_menu"
