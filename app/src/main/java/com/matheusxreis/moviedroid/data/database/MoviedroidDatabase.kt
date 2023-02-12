@@ -3,9 +3,10 @@ package com.matheusxreis.moviedroid.data.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.matheusxreis.moviedroid.data.database.entities.FavoriteEntity
+import com.matheusxreis.moviedroid.data.database.entities.ListEntity
 
 @Database(
-    entities = [FavoriteEntity::class],
+    entities = [FavoriteEntity::class, ListEntity::class],
     version = 1,
     exportSchema = true
 )

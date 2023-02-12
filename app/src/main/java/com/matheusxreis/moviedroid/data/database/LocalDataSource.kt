@@ -1,6 +1,7 @@
 package com.matheusxreis.moviedroid.data.database
 
 import com.matheusxreis.moviedroid.data.database.entities.FavoriteEntity
+import com.matheusxreis.moviedroid.data.database.entities.ListEntity
 import javax.inject.Inject
 
 class LocalDataSource @Inject constructor(
@@ -10,4 +11,8 @@ class LocalDataSource @Inject constructor(
     suspend fun insertFavorite(favoriteEntity: FavoriteEntity) = itemDao.insertFavoriteItem(favoriteEntity)
     fun readFavorite() = itemDao.readFavoriteItem()
     fun deleteFavorite(itemId:String) = itemDao.deleteFavoriteItem(itemId)
+
+
+    suspend fun insertList(listEntity: ListEntity) = itemDao.insertList(listEntity)
+    fun readLists() = itemDao.readLists()
 }
