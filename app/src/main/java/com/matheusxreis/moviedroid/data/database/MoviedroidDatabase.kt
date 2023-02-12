@@ -2,6 +2,7 @@ package com.matheusxreis.moviedroid.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.matheusxreis.moviedroid.data.database.entities.FavoriteEntity
 
 @Database(
     entities = [FavoriteEntity::class],

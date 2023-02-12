@@ -1,5 +1,6 @@
 package com.matheusxreis.moviedroid.data.database
 
+import com.matheusxreis.moviedroid.data.database.entities.FavoriteEntity
 import javax.inject.Inject
 
 class LocalDataSource @Inject constructor(

@@ -1,4 +1,4 @@
-package com.matheusxreis.moviedroid.data.database
+package com.matheusxreis.moviedroid.data.database.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

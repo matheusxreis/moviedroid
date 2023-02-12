@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.matheusxreis.moviedroid.data.Repository
-import com.matheusxreis.moviedroid.data.database.FavoriteEntity
+import com.matheusxreis.moviedroid.data.database.entities.FavoriteEntity
 import com.matheusxreis.moviedroid.models.MovieDetails
 import com.matheusxreis.moviedroid.models.MoviePoster
 import com.matheusxreis.moviedroid.models.Video
