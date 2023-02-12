@@ -13,4 +13,8 @@
     <string name="cast2">Cast:</string>
     <string name="crew">Crew:</string>
     <string name="recommend_description">Because you are interested in this, you might like:</string>
+
+    <string name="search_label"></string>
+    <string name="search_hint"></string>
+
 </resources>
