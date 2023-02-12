@@ -107,6 +107,8 @@ class DetailsFragment : Fragment(), MenuProvider {
 
                 if (!isOnFavorites) {
                     saveInFavorites()
+                }else {
+                    deleteFromFavorites()
                 }
             }
         }
@@ -148,6 +150,16 @@ class DetailsFragment : Fragment(), MenuProvider {
             .setAction("Okay", {})
             .show()
     }
+
+    private fun deleteFromFavorites(){
+        val itemId = detailsViewModel.details.value?.data!!.id
+        detailsViewModel.deleteFromFavorite(itemId = itemId.toString())
+
+        Snackbar.make(binding.root, "Delete from favorites", Snackbar.LENGTH_SHORT)
+            .setAction("Okay", {})
+            .show()
+    }
+
     private fun setUpAndPopulateViewPager() {
 
         val fragments = ArrayList<Fragment>()

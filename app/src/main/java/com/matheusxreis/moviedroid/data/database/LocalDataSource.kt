@@ -8,5 +8,5 @@ class LocalDataSource @Inject constructor(
 
     suspend fun insertFavorite(favoriteEntity: FavoriteEntity) = itemDao.insertFavoriteItem(favoriteEntity)
     fun readFavorite() = itemDao.readFavoriteItem()
-
+    fun deleteFavorite(itemId:String) = itemDao.deleteFavoriteItem(itemId)
 }

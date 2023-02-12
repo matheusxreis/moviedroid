@@ -15,6 +15,7 @@ import com.matheusxreis.moviedroid.utils.Constants
 import com.matheusxreis.moviedroid.utils.NetworkListener
 import com.matheusxreis.moviedroid.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -116,6 +117,9 @@ class DetailsViewModel @Inject constructor(
             type=type
         )
         repository.localDataSource.insertFavorite(favorite)
+    }
+    fun deleteFromFavorite(itemId:String)= viewModelScope.launch(Dispatchers.IO) {
+        repository.localDataSource.deleteFavorite(itemId)
     }
 
 

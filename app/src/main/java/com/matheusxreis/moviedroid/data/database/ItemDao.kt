@@ -14,4 +14,7 @@ interface ItemDao {
 
     @Query("SELECT * FROM favorites_table ORDER BY itemId")
     fun readFavoriteItem(): Flow<List<FavoriteEntity>>
+
+    @Query("DELETE FROM favorites_table WHERE itemId==:itemId")
+    fun deleteFavoriteItem(itemId:String)
 }
