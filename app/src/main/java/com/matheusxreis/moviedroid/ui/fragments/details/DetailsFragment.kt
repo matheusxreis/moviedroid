@@ -90,6 +90,18 @@ class DetailsFragment : Fragment(), MenuProvider {
                 )
                 findNavController().navigate(action)
             }
+            R.id.favorite_menu -> {
+                var mediaType = "tv"
+
+                val movieDetails = detailsViewModel.details.value?.data
+                args.movie.let {
+                    if(it.firstAirDate.isNullOrEmpty()) { mediaType="movie"}
+                }
+                detailsViewModel.saveInFavorites(
+                    movieDetails = movieDetails!!,
+                    type = mediaType
+                )
+            }
         }
         return true
     }
