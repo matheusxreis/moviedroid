@@ -11,6 +11,11 @@ class Constants {
         const val YOUTUBE_BASE_URL="https://www.youtube.com/watch?v="
         val API_KEY= BuildConfig.apiKey
 
+        // ROOM
+
+        const val DATABASE_NAME="moviedroid_db"
+        const val TABLE_FAVORITES_NAME="favorites_table"
+
     }
 
 }
