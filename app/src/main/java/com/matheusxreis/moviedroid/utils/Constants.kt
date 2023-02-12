@@ -16,6 +16,7 @@ class Constants {
         const val DATABASE_NAME="moviedroid_db"
         const val TABLE_FAVORITES_NAME="favorites_table"
         const val TABLE_LISTS_NAME="lists_table"
+        const val TABLE_ITEMS_LIST_NAME="items_List_table"
 
     }
 
