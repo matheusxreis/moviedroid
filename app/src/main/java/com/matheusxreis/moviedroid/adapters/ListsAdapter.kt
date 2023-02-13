@@ -19,7 +19,7 @@ class ListsAdapter : RecyclerView.Adapter<ListsAdapter.MyViewModel>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewModel {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = ListRowLayoutBinding.inflate(layoutInflater)
+        val binding = ListRowLayoutBinding.inflate(layoutInflater, parent, false)
         return MyViewModel(binding)
     }
 
