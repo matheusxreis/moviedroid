@@ -8,4 +8,12 @@
         app:showAsAction="ifRoom"
         app:tint="@color/white"
         />
+        <item
+        android:id="@+id/contextual_edit_list_menu"
+        android:title="Edit"
+        android:icon="@drawable/ic_edit"
+        app:showAsAction="ifRoom"
+        app:tint="@color/white"
+        />
+
 </menu>
