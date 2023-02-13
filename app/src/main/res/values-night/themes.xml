@@ -15,10 +15,29 @@
         <item name="actionBarStyle">@style/Custom.ActionBarStyle</item>
         <item name="windowActionBarOverlay">true</item>
 
+        <item name="android:actionModeBackground">@color/contextualActionModeBackground</item>
     </style>
 
 
     <style name="Custom.ActionBarStyle" parent="Widget.MaterialComponents.ActionBar.Primary">
         <item name="background">@color/actionBar</item>
     </style>
+
+    <style name="Custom.TabLayoutStyle" parent="Widget.Design.TabLayout">
+        <item name="background">@color/darker</item>
+        <item name="tabIndicatorColor">@color/white</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabSelectedTextColor">@color/white</item>
+    </style>
+
+    <style name="Custom.TabTextStyle" parent="TextAppearance.Design.Tab">
+        <item name="android:textColor">@color/placeholder</item>
+    </style>
+
+
+    <style name="CustomTextInputLayout" >
+        <item name="colorControlActivated">@color/purple_200</item>
+        <item name="boxStrokeColor">@color/purple_200</item>
+    </style>
+
 </resources>
