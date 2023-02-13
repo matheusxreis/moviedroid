@@ -11,5 +11,6 @@ data class ListEntity (
     val id:Int = 0,
     val name:String = "",
     val createdAt: Long = Date().time,
-    val coverUrl: String
+    val coverUrl: String,
+    val amountItems:Int = 0
     )
