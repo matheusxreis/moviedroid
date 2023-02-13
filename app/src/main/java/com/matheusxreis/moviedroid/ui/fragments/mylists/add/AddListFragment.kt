@@ -15,9 +15,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.matheusxreis.moviedroid.R
+import com.matheusxreis.moviedroid.data.database.entities.ListEntity
 import com.matheusxreis.moviedroid.viewmodels.ListsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_add_list.*
+import kotlinx.android.synthetic.main.video_row_layout.*
 
 @AndroidEntryPoint
 class AddListFragment : Fragment() {
@@ -91,14 +93,20 @@ class AddListFragment : Fragment() {
                 textInputLayout.error = ""
                 return;
             }
-
-            myListsViewModel.addList(name = name)
-            Snackbar.make(
-                mView,
-                "The list $name was added", Snackbar.LENGTH_SHORT
-            )
-                .setAction("Okay", {})
-                .show()
+            if(args.list == null){
+                myListsViewModel.addList(name = name)
+            }else {
+                val list = args.list
+                val listUpdated = ListEntity(
+                    id = list!!.id,
+                    name = name,
+                    createdAt = list.createdAt,
+                    coverUrl = list.coverUrl,
+                    amountItems = list.amountItems
+                )
+                myListsViewModel.updateListName(listUpdated)
+            }
+            showSnackbar(name)
             findNavController().popBackStack()
         }
     }
@@ -130,8 +138,31 @@ class AddListFragment : Fragment() {
     private fun isEditAction(){
         if(args.list != null){
             textInput.setText(args.list!!.name)
+            addButton.text="Edit"
+            labelNewListTv.text="Rename your list"
         }
     }
+
+    private fun showSnackbar(name: String){
+
+        val text = when(args.list){
+             null -> {
+                "The list $name was added"
+            }
+            else -> {
+                "The list $name was updated"
+            }
+        }
+        Snackbar.make(
+            mView,
+            text,
+            Snackbar.LENGTH_SHORT
+        )
+            .setAction("Okay", {})
+            .show()
+
+    }
+
 }
 
 

@@ -36,4 +36,7 @@ class ListsViewModel @Inject constructor(
         repository.localDataSource.deleteList(id)
     }
 
+    fun updateListName(listEntity: ListEntity) = viewModelScope.launch (Dispatchers.IO){
+        repository.localDataSource.updateNameList(listEntity)
+    }
 }

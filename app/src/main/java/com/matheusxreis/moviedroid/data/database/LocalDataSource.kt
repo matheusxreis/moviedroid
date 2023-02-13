@@ -17,4 +17,5 @@ class LocalDataSource @Inject constructor(
     fun readLists() = itemDao.readLists()
     fun deleteList(id:String) = itemDao.deleteList(id)
     fun deleteAllLists() = itemDao.deleteAllLists()
+    fun updateNameList(listEntity: ListEntity) = itemDao.updateNameList(listEntity)
 }

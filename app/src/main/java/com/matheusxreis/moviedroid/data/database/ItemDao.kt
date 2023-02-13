@@ -1,9 +1,6 @@
 package com.matheusxreis.moviedroid.data.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.matheusxreis.moviedroid.data.database.entities.FavoriteEntity
 import com.matheusxreis.moviedroid.data.database.entities.ListEntity
 import com.matheusxreis.moviedroid.data.database.entities.ListItemEntity
@@ -34,6 +31,9 @@ interface ItemDao {
 
     @Query("DELETE FROM lists_table WHERE name!='Favorites'")
     fun deleteAllLists()
+
+    @Update
+    fun updateNameList(listEntity: ListEntity)
 
     //list item
 
