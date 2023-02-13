@@ -29,6 +29,12 @@ interface ItemDao {
     @Query("SELECT * FROM lists_table ORDER BY id")
     fun readLists():Flow<List<ListEntity>>
 
+    @Query("DELETE FROM lists_table WHERE id==:id")
+    fun deleteList(id:String)
+
+    @Query("DELETE FROM lists_table WHERE name!='Favorites'")
+    fun deleteAllLists()
+
     //list item
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -33,6 +33,6 @@ class ListsAdapter : RecyclerView.Adapter<ListsAdapter.MyViewModel>() {
 
     fun setData(newUserList:List<ListEntity>){
         userLists = newUserList
-        notifyItemInserted(itemCount)
+        notifyDataSetChanged()
     }
 }

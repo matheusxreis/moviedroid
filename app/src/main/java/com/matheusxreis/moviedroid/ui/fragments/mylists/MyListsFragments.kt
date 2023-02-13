@@ -12,6 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.adapters.ListsAdapter
 import com.matheusxreis.moviedroid.viewmodels.ListsViewModel
@@ -21,6 +22,7 @@ import kotlinx.android.synthetic.main.fragment_my_lists_fragments.*
 @AndroidEntryPoint
 class MyListsFragments : Fragment(), MenuProvider {
 
+    private lateinit var mView:View
     private val mAdapter by lazy {
         ListsAdapter()
     }
@@ -38,7 +40,8 @@ class MyListsFragments : Fragment(), MenuProvider {
         // Inflate the layout for this fragment
 
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
-        return inflater.inflate(R.layout.fragment_my_lists_fragments, container, false)
+        mView = inflater.inflate(R.layout.fragment_my_lists_fragments, container, false)
+        return mView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,6 +67,15 @@ class MyListsFragments : Fragment(), MenuProvider {
             R.id.add_list_menu -> {
                 val action = MyListsFragmentsDirections.actionMyListsFragments2ToAddListFragment()
                 findNavController().navigate(action)
+            }
+            R.id.delete_all_lists -> {
+                myListsViewModel.deleteAllLists()
+                Snackbar.make(
+                    mView,
+                    "Deleted all lists", Snackbar.LENGTH_SHORT
+                )
+                    .setAction("Okay", {})
+                    .show()
             }
         }
        return true
