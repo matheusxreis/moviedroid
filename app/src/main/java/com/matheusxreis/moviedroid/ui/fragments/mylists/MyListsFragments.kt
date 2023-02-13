@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.core.view.MenuProvider
 import androidx.core.view.forEach
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
@@ -23,7 +24,7 @@ class MyListsFragments : Fragment(), MenuProvider {
     private val mAdapter by lazy {
         ListsAdapter()
     }
-    private val myListsViewModel:ListsViewModel by viewModels<ListsViewModel>()
+    private val myListsViewModel:ListsViewModel by activityViewModels<ListsViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
