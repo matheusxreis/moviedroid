@@ -12,7 +12,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-       >
+        android:background="@color/backgroundColor"
+        >
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardViewList"
@@ -28,11 +29,27 @@
             android:layout_marginVertical="2dp"
             android:layout_height="80dp">
 
+
             <androidx.constraintlayout.widget.ConstraintLayout android:background="@color/backgroundSecondaryColor"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 xmlns:tools="http://schemas.android.com/tools">
 
+                <ImageView
+                    displayFavoriteIcon="@{list.id}"
+                    android:visibility="invisible"
+                    android:layout_marginEnd="12dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_star"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="1"
+                    app:layout_constraintVertical_bias="0.5"
+                    app:tint="@color/purple_200"
+                    />
 
                 <ImageView
                     loadCover="@{list.coverUrl}"
@@ -84,5 +101,6 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,7 +1,10 @@
 package com.matheusxreis.moviedroid.bindingadapters
 
+import android.app.ActionBar.LayoutParams
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import coil.load
@@ -9,6 +12,7 @@ import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.utils.Constants
+
 
 class MyListRowBinding {
 
@@ -55,5 +59,17 @@ class MyListRowBinding {
                 imageView.setImageDrawable(ContextCompat.getDrawable(imageView.context, R.drawable.ic_no_image))
             }
         }
+
+
+        @BindingAdapter("displayFavoriteIcon")
+        @JvmStatic
+        fun displayFavoriteIcon(imageView: ImageView, id:Int){
+            if(id == 1){
+                imageView.visibility = View.VISIBLE
+            }else {
+                imageView.visibility = View.INVISIBLE
+            }
+        }
+
     }
 }
