@@ -34,4 +34,10 @@
         <item name="android:textColor">@color/placeholder</item>
     </style>
 
+
+    <style name="CustomTextInputLayout" >
+        <item name="colorControlActivated">@color/purple_200</item>
+        <item name="boxStrokeColor">@color/purple_200</item>
+    </style>
+
 </resources>
