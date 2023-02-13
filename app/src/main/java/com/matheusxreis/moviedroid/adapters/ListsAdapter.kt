@@ -62,7 +62,7 @@ class ListsAdapter(
         myActionMode = actionMode!!
         myActionMode?.menuInflater?.inflate(R.menu.contextual_menu_action_mode, menu)
 
-        applyStatusBarColor(R.color.purple_200)
+        applyStatusBarColor(R.color.purple_700)
         menu?.findItem(R.id.contextual_delete_list_menu)?.icon?.setTint(
             ContextCompat.getColor(
                 requireActivity.applicationContext,

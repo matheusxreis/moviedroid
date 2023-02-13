@@ -26,4 +26,6 @@
     <color name="statusBar">@color/dark</color>
     <color name="actionBar">@color/transparentDark</color>
 
+    <color name="contextualActionModeBackground">@color/purple_200</color>
+
 </resources>
