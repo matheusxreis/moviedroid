@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp">
+       >
 
         <com.google.android.material.card.MaterialCardView
             app:layout_constraintStart_toStartOf="parent"
@@ -22,6 +22,7 @@
             android:layout_width="355dp"
             app:cardCornerRadius="7dp"
             android:elevation="2dp"
+            android:layout_marginBottom="6dp"
             android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout android:background="@color/backgroundSecondaryColor"
@@ -36,7 +37,7 @@
                     android:id="@+id/imageListRow"
                     android:layout_width="100dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/i_care_a_lot"
+                    tools:src="@drawable/i_care_a_lot"
                     android:scaleType="centerCrop"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
