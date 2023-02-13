@@ -9,5 +9,14 @@
         android:id="@+id/myListsFragments2"
         android:name="com.matheusxreis.moviedroid.ui.fragments.mylists.MyListsFragments"
         android:label="My Lists"
-        tools:layout="@layout/fragment_my_lists_fragments" />
+        tools:layout="@layout/fragment_my_lists_fragments" >
+        <action
+            android:id="@+id/action_myListsFragments2_to_addListFragment"
+            app:destination="@id/addListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addListFragment"
+        android:name="com.matheusxreis.moviedroid.ui.fragments.mylists.add.AddListFragment"
+        android:label="Add a list"
+        tools:layout="@layout/fragment_add_list" />
 </navigation>

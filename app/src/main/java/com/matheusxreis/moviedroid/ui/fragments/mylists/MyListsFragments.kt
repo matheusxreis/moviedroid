@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.core.view.MenuProvider
 import androidx.core.view.forEach
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.findNavController
 import com.matheusxreis.moviedroid.R
 
 class MyListsFragments : Fragment(), MenuProvider {
@@ -35,6 +36,13 @@ class MyListsFragments : Fragment(), MenuProvider {
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+
+        when(menuItem.itemId){
+            R.id.add_list_menu -> {
+                val action = MyListsFragmentsDirections.actionMyListsFragments2ToAddListFragment()
+                findNavController().navigate(action)
+            }
+        }
        return true
     }
 
