@@ -115,12 +115,12 @@ class AddListFragment : Fragment() {
     }
 
     private fun nameAlreadyExist(name: String): Boolean {
-        val exist = myListsViewModel.lists.value?.find { it.name == name }
+        val exist = myListsViewModel.lists.value?.find { it.name.trim() == name.trim() }
         return exist != null
     }
 
     private fun nameIsFavorite(name: String): Boolean {
-        if (name.uppercase() == "favorites".uppercase()) {
+        if (name.uppercase().trim() == "favorites".uppercase().trim()) {
             return true
         }
         return false
