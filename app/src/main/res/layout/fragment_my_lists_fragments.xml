@@ -8,6 +8,7 @@
     tools:context=".ui.fragments.mylists.MyListsFragments">
 
     <com.todkars.shimmer.ShimmerRecyclerView
+        android:id="@+id/myListsRecyclerView"
         android:layout_marginTop="64dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

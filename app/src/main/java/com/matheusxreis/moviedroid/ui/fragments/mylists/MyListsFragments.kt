@@ -6,11 +6,24 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.core.view.MenuProvider
 import androidx.core.view.forEach
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.matheusxreis.moviedroid.R
+import com.matheusxreis.moviedroid.adapters.ListsAdapter
+import com.matheusxreis.moviedroid.viewmodels.ListsViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_my_lists_fragments.*
 
+@AndroidEntryPoint
 class MyListsFragments : Fragment(), MenuProvider {
+
+    private val mAdapter by lazy {
+        ListsAdapter()
+    }
+    private val myListsViewModel:ListsViewModel by viewModels<ListsViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +39,15 @@ class MyListsFragments : Fragment(), MenuProvider {
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         return inflater.inflate(R.layout.fragment_my_lists_fragments, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setUpRecyclerView()
+        populateRecyclerView()
+    }
+
+    // MENU PROVIDER
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.menu_my_list_fragment, menu)
@@ -51,6 +73,26 @@ class MyListsFragments : Fragment(), MenuProvider {
 
     private fun setTintIconMenuItem(menuItem: MenuItem, color: Int = R.color.white) {
         menuItem.icon?.setTint(ContextCompat.getColor(requireActivity(), color))
+    }
+
+    private fun setUpRecyclerView(){
+        myListsRecyclerView.adapter = mAdapter
+        myListsRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+    }
+    private fun populateRecyclerView(){
+        myListsViewModel.lists.observe(viewLifecycleOwner){
+           if(!it.isNullOrEmpty()){
+               mAdapter.setData(it)
+           }else {
+               createFavorites()
+           }
+        }
+    }
+
+    private fun createFavorites(){
+        myListsViewModel.addList(
+            "Favorites"
+        )
     }
 
 }
