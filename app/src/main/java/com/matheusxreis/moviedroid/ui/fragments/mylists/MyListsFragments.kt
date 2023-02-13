@@ -24,7 +24,9 @@ class MyListsFragments : Fragment(), MenuProvider {
 
     private lateinit var mView:View
     private val mAdapter by lazy {
-        ListsAdapter()
+        ListsAdapter(
+            requireActivity = requireActivity()
+        )
     }
     private val myListsViewModel:ListsViewModel by activityViewModels<ListsViewModel>()
 
