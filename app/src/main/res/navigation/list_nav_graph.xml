@@ -18,5 +18,10 @@
         android:id="@+id/addListFragment"
         android:name="com.matheusxreis.moviedroid.ui.fragments.mylists.add.AddListFragment"
         android:label="Add a list"
-        tools:layout="@layout/fragment_add_list" />
+        tools:layout="@layout/fragment_add_list" >
+        <argument
+            android:name="list"
+            app:nullable="true"
+            app:argType="com.matheusxreis.moviedroid.data.database.entities.ListEntity" />
+    </fragment>
 </navigation>
