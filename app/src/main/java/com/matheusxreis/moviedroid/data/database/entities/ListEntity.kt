@@ -10,5 +10,6 @@ data class ListEntity (
     @PrimaryKey(autoGenerate = true)
     val id:Int = 0,
     val name:String = "",
-    val createdAt: Long = Date().time
+    val createdAt: Long = Date().time,
+    val coverUrl: String
     )
