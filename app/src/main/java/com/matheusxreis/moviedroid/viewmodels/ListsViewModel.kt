@@ -32,5 +32,8 @@ class ListsViewModel @Inject constructor(
     fun deleteAllLists() = viewModelScope.launch (Dispatchers.IO){
         repository.localDataSource.deleteAllLists()
     }
+    fun deleteList(id:String) = viewModelScope.launch (Dispatchers.IO) {
+        repository.localDataSource.deleteList(id)
+    }
 
 }

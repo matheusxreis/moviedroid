@@ -23,13 +23,14 @@ import kotlinx.android.synthetic.main.fragment_my_lists_fragments.*
 class MyListsFragments : Fragment(), MenuProvider {
 
     private lateinit var mView:View
+
+    private val myListsViewModel:ListsViewModel by activityViewModels<ListsViewModel>()
     private val mAdapter by lazy {
         ListsAdapter(
-            requireActivity = requireActivity()
+            requireActivity = requireActivity(),
+            myListViewModel = myListsViewModel
         )
     }
-    private val myListsViewModel:ListsViewModel by activityViewModels<ListsViewModel>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

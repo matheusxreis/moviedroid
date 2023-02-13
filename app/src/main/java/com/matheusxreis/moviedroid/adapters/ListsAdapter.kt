@@ -5,13 +5,17 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.snackbar.Snackbar
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.data.database.entities.ListEntity
 import com.matheusxreis.moviedroid.databinding.ListRowLayoutBinding
+import com.matheusxreis.moviedroid.viewmodels.ListsViewModel
+import kotlinx.android.synthetic.main.list_row_layout.*
 import kotlinx.android.synthetic.main.list_row_layout.view.*
 
 class ListsAdapter(
-    private val requireActivity: FragmentActivity
+    private val requireActivity: FragmentActivity,
+    private val myListViewModel: ListsViewModel
 ) : RecyclerView.Adapter<ListsAdapter.MyViewHolder>(), ActionMode.Callback {
 
     private var contextualSelectedLists: ArrayList<ListEntity> = arrayListOf()
@@ -80,7 +84,9 @@ class ListsAdapter(
     override fun onActionItemClicked(p0: ActionMode?, menuItem: MenuItem?): Boolean {
 
         when (menuItem?.itemId) {
-
+            R.id.contextual_delete_list_menu -> {
+                deleteItems()
+            }
         }
         return true
     }
@@ -171,8 +177,24 @@ class ListsAdapter(
         requireActivity.window.statusBarColor = ContextCompat.getColor(requireActivity, color)
     }
 
-    fun clearContextualAction(){
-        if(this::myActionMode.isInitialized){
+    private fun deleteItems() {
+        contextualSelectedLists.forEach {
+            myListViewModel.deleteList(it.id.toString())
+        }
+
+        Snackbar.make(
+            requireActivity.cardViewList,
+            "${contextualSelectedLists.size} ${ if(contextualSelectedLists.size> 1) "lists" else "list"} deleted",
+            Snackbar.LENGTH_SHORT
+        )
+            .setAction("Okay", {})
+            .show()
+        contextualSelectedLists.clear()
+        clearContextualAction()
+        }
+
+    fun clearContextualAction() {
+        if (this::myActionMode.isInitialized) {
             myActionMode.finish()
         }
     }
