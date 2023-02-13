@@ -53,6 +53,11 @@ class MyListsFragments : Fragment(), MenuProvider {
         populateRecyclerView()
     }
 
+    override fun onDestroy() {
+        mAdapter.clearContextualAction()
+        super.onDestroy()
+    }
+
     // MENU PROVIDER
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
