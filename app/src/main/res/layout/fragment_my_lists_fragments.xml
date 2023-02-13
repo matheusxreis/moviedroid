@@ -3,13 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/backgroundColor"
     tools:context=".ui.fragments.mylists.MyListsFragments">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.todkars.shimmer.ShimmerRecyclerView
+        android:layout_marginTop="64dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/list_row_layout"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
