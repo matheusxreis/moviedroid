@@ -10,7 +10,7 @@ import com.facebook.shimmer.ShimmerDrawable
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.utils.Constants
 
-class MyListBinding {
+class MyListRowBinding {
 
     companion object {
 
