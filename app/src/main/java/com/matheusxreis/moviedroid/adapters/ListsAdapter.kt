@@ -2,26 +2,31 @@ package com.matheusxreis.moviedroid.adapters
 
 import android.view.*
 import androidx.core.content.ContextCompat
+import androidx.core.view.forEach
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.snackbar.Snackbar
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.data.database.entities.ListEntity
 import com.matheusxreis.moviedroid.databinding.ListRowLayoutBinding
+import com.matheusxreis.moviedroid.ui.fragments.mylists.MyListsFragmentsDirections
 import com.matheusxreis.moviedroid.viewmodels.ListsViewModel
 import kotlinx.android.synthetic.main.list_row_layout.*
 import kotlinx.android.synthetic.main.list_row_layout.view.*
 
 class ListsAdapter(
     private val requireActivity: FragmentActivity,
-    private val myListViewModel: ListsViewModel
+    private val myListViewModel: ListsViewModel,
+    private val navController: NavController
 ) : RecyclerView.Adapter<ListsAdapter.MyViewHolder>(), ActionMode.Callback {
 
     private var contextualSelectedLists: ArrayList<ListEntity> = arrayListOf()
     private var userLists: List<ListEntity> = listOf()
     private lateinit var myActionMode: ActionMode
     private var myViewHolders: ArrayList<MyViewHolder> = arrayListOf()
+    private lateinit var editMenuItem: MenuItem
 
     class MyViewHolder(private val binding: ListRowLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -67,13 +72,19 @@ class ListsAdapter(
         myActionMode?.menuInflater?.inflate(R.menu.contextual_menu_action_mode, menu)
 
         applyStatusBarColor(R.color.purple_700)
-        menu?.findItem(R.id.contextual_delete_list_menu)?.icon?.setTint(
-            ContextCompat.getColor(
-                requireActivity.applicationContext,
-                R.color.white
+        menu?.forEach {
+            it?.icon?.setTint(
+                ContextCompat.getColor(
+                    requireActivity.applicationContext,
+                    R.color.white
+                )
             )
-        )
+            if (it.itemId == R.id.contextual_edit_list_menu) {
+                editMenuItem = it
+            }
+        }
         return true
+
     }
 
     override fun onPrepareActionMode(p0: ActionMode?, p1: Menu?): Boolean {
@@ -85,7 +96,11 @@ class ListsAdapter(
 
         when (menuItem?.itemId) {
             R.id.contextual_delete_list_menu -> {
-                deleteItems()
+                removeAllItems()
+            }
+            R.id.contextual_edit_list_menu -> {
+                editItem(contextualSelectedLists[0])
+                clearContextualAction()
             }
         }
         return true
@@ -126,6 +141,7 @@ class ListsAdapter(
             if (isOnContextualActionMode) {
 
                 val isInList = contextualSelectedLists.contains(currentItem)
+
                 if (isInList) {
                     removeItem(currentItem)
                     removeSelectedStyle(it as MaterialCardView)
@@ -135,12 +151,16 @@ class ListsAdapter(
 
                 }
                 defineActionModeTitle()
+            } else {
+                ///
             }
         }
     }
 
     private fun addItem(item: ListEntity) {
+
         contextualSelectedLists.add(item)
+        changeEditMenuVisible()
     }
 
     private fun removeItem(item: ListEntity) {
@@ -148,6 +168,25 @@ class ListsAdapter(
 
         if (contextualSelectedLists.size == 0) {
             clearContextualAction()
+        }
+        changeEditMenuVisible()
+    }
+
+    private fun editItem(item: ListEntity) {
+        val action = MyListsFragmentsDirections.actionMyListsFragments2ToAddListFragment(
+            list = item
+        )
+        navController.navigate(action)
+    }
+
+    private fun changeEditMenuVisible(){
+
+        if (contextualSelectedLists.size != 1) {
+            editMenuItem.isVisible = false
+            editMenuItem.isEnabled = false
+        }else {
+            editMenuItem.isVisible = true
+            editMenuItem.isEnabled = true
         }
     }
 
@@ -177,21 +216,21 @@ class ListsAdapter(
         requireActivity.window.statusBarColor = ContextCompat.getColor(requireActivity, color)
     }
 
-    private fun deleteItems() {
+    private fun removeAllItems() {
         contextualSelectedLists.forEach {
             myListViewModel.deleteList(it.id.toString())
         }
 
         Snackbar.make(
             requireActivity.cardViewList,
-            "${contextualSelectedLists.size} ${ if(contextualSelectedLists.size> 1) "lists" else "list"} deleted",
+            "${contextualSelectedLists.size} ${if (contextualSelectedLists.size > 1) "lists" else "list"} deleted",
             Snackbar.LENGTH_SHORT
         )
             .setAction("Okay", {})
             .show()
         contextualSelectedLists.clear()
         clearContextualAction()
-        }
+    }
 
     fun clearContextualAction() {
         if (this::myActionMode.isInitialized) {

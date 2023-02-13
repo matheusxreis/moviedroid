@@ -28,7 +28,8 @@ class MyListsFragments : Fragment(), MenuProvider {
     private val mAdapter by lazy {
         ListsAdapter(
             requireActivity = requireActivity(),
-            myListViewModel = myListsViewModel
+            myListViewModel = myListsViewModel,
+            navController = findNavController()
         )
     }
     override fun onCreate(savedInstanceState: Bundle?) {

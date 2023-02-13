@@ -11,8 +11,8 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.viewmodels.ListsViewModel
@@ -23,7 +23,8 @@ import kotlinx.android.synthetic.main.fragment_add_list.*
 class AddListFragment : Fragment() {
 
     private val myListsViewModel by activityViewModels<ListsViewModel>()
-    private lateinit var mView: View;
+    private lateinit var mView: View
+    private val args by navArgs<AddListFragmentArgs>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +50,7 @@ class AddListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         desablingButton()
-
+        isEditAction()
         textInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
@@ -124,6 +125,12 @@ class AddListFragment : Fragment() {
             return true
         }
         return false
+    }
+
+    private fun isEditAction(){
+        if(args.list != null){
+            textInput.setText(args.list!!.name)
+        }
     }
 }
 
