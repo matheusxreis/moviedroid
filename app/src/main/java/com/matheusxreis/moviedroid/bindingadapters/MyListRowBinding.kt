@@ -14,13 +14,19 @@ class MyListRowBinding {
 
     companion object {
 
-        @BindingAdapter("defineMyListTitle", "defineMyListAmount", requireAll = true)
+        @BindingAdapter("defineMyListTitle")
         @JvmStatic
-        fun defineMyListTitle(textView: TextView, title:String, amount:Int){
+        fun defineMyListTitle(textView: TextView, title:String){
+            textView.text="$title"
+        }
+
+        @BindingAdapter("defineMyListAmount")
+        @JvmStatic
+        fun defineMyListAmount(textView: TextView, amount: Int){
             if(amount == 1){
-                textView.text = "$title · $amount item"
+                textView.text = "$amount item"
             }else {
-                textView.text = "$title · $amount items"
+                textView.text = "$amount items"
             }
         }
 
