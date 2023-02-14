@@ -31,7 +31,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class DetailsFragment : Fragment(), MenuProvider {
 
     val args by navArgs<DetailsFragmentArgs>()
-    private lateinit var binding: FragmentDetailsBinding
+    private var _binding: FragmentDetailsBinding? = null
+    private val binding get() = _binding!!
     private val detailsViewModel: DetailsViewModel by activityViewModels<DetailsViewModel>()
     private var isOnFavorites = false
 
@@ -55,8 +56,8 @@ class DetailsFragment : Fragment(), MenuProvider {
 
 
         val layoutInflater = LayoutInflater.from(requireContext())
-        binding = FragmentDetailsBinding.inflate(layoutInflater)
-
+        _binding = FragmentDetailsBinding.inflate(layoutInflater)
+        binding.lifecycleOwner = this
         binding.detailsViewModel = detailsViewModel
         binding.movie = args.movie
 
@@ -68,6 +69,11 @@ class DetailsFragment : Fragment(), MenuProvider {
         fetchRecommendations(args.movie)
 
         return binding.root
+    }
+
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
     }
 
     // MENU PROVIDER

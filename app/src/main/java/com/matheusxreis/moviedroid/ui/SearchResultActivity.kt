@@ -27,7 +27,8 @@ import kotlinx.android.synthetic.main.activity_search_result.*
 class SearchResultActivity : AppCompatActivity() {
 
     private val homeViewModel: HomeViewModel by viewModels<HomeViewModel>()
-    private lateinit var binding: ActivitySearchResultBinding
+    private var _binding: ActivitySearchResultBinding? = null
+    private val binding get() = _binding!!
     private val resultSearchAdapter: MoviesAdapter by lazy {
         MoviesAdapter()
     }
@@ -38,8 +39,9 @@ class SearchResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivitySearchResultBinding.inflate(layoutInflater)
+        _binding = ActivitySearchResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.lifecycleOwner = this
         binding.homeViewModel = homeViewModel
 
 
@@ -50,6 +52,11 @@ class SearchResultActivity : AppCompatActivity() {
         handleIntent()
         setUpRecyclerView()
         populateRecyclerView()
+    }
+
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

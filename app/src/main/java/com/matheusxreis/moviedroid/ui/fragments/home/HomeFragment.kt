@@ -37,7 +37,8 @@ import com.matheusxreis.moviedroid.databinding.FragmentHomeBinding
 @AndroidEntryPoint
 class HomeFragment : Fragment(), MenuProvider {
 
-    private lateinit var binding: FragmentHomeBinding
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by activityViewModels<HomeViewModel>()
     private val moviesAdapter: MoviesAdapter by lazy {
         MoviesAdapter()
@@ -66,7 +67,8 @@ class HomeFragment : Fragment(), MenuProvider {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentHomeBinding.inflate(inflater)
+        _binding = FragmentHomeBinding.inflate(inflater)
+        binding.lifecycleOwner = this
         binding.homeViewModel = homeViewModel
 
         return binding.root
@@ -91,6 +93,10 @@ class HomeFragment : Fragment(), MenuProvider {
 
     }
 
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
+    }
     // MENU PROVIDER
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.menu_home_fragment, menu)

@@ -24,7 +24,8 @@ import kotlinx.android.synthetic.main.movies_row_layout.view.*
 class AboutFragment : Fragment() {
 
     private val detailsViewModel: DetailsViewModel by activityViewModels<DetailsViewModel>()
-    private lateinit var binding:FragmentAboutBinding
+    private var _binding:FragmentAboutBinding? = null
+    private val binding get() = _binding!!
     private val castAdapter:CreditsAdapter by lazy {
         CreditsAdapter()
     }
@@ -41,10 +42,11 @@ class AboutFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentAboutBinding.inflate(inflater)
+        _binding = FragmentAboutBinding.inflate(inflater)
+        binding.lifecycleOwner = this
 
-        binding.detailsViewModel = detailsViewModel
-        return binding.root
+        binding?.detailsViewModel = detailsViewModel
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,6 +59,10 @@ class AboutFragment : Fragment() {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 
     // CUSTOM FUNCTIONS
 
@@ -65,7 +71,7 @@ class AboutFragment : Fragment() {
             when(it){
                 is NetworkResult.Success -> {
                     //overviewTv.text = it.data?.overview
-                    binding.movieDetails = it.data
+                    binding?.movieDetails = it.data
                     castAdapter.setData(it.data?.credits?.cast!!)
                     crewAdapter.setData(it.data?.credits?.crew!!)
                 }
@@ -77,18 +83,18 @@ class AboutFragment : Fragment() {
     }
     private fun setUpRecyclerView(){
 
-        binding.castRecyclerView.adapter = castAdapter
-        binding.crewRecyclerView.adapter = crewAdapter
+        binding?.castRecyclerView?.adapter = castAdapter
+        binding?.crewRecyclerView?.adapter = crewAdapter
 
-        binding.castRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.crewRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding?.castRecyclerView?.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding?.crewRecyclerView?.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
     private fun disablingTabWhenRvScroll(){
         val touchListener = object: RecyclerView.OnItemTouchListener {
             override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-                binding.castRecyclerView.parent.requestDisallowInterceptTouchEvent(true)
-                binding.crewRecyclerView.parent.requestDisallowInterceptTouchEvent(true)
+                binding?.castRecyclerView?.parent?.requestDisallowInterceptTouchEvent(true)
+                binding?.crewRecyclerView?.parent?.requestDisallowInterceptTouchEvent(true)
                 return false
             }
 
@@ -99,8 +105,8 @@ class AboutFragment : Fragment() {
             }
 
         }
-        binding.castRecyclerView.addOnItemTouchListener(touchListener)
-        binding.crewRecyclerView.addOnItemTouchListener(touchListener)
+        binding?.castRecyclerView?.addOnItemTouchListener(touchListener)
+        binding?.crewRecyclerView?.addOnItemTouchListener(touchListener)
 
     }
 

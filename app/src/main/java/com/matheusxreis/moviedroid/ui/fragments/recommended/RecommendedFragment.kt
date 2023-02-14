@@ -16,7 +16,8 @@ import com.matheusxreis.moviedroid.viewmodels.DetailsViewModel
 
 class RecommendedFragment : Fragment() {
 
-    private lateinit var binding: FragmentRecommendedBinding
+    private var _binding: FragmentRecommendedBinding? = null
+    private val binding get() = _binding!!
     private val detailsViewModel: DetailsViewModel by activityViewModels<DetailsViewModel>()
     private val movieAdapter: MoviesAdapter by lazy {
         MoviesAdapter()
@@ -37,14 +38,19 @@ class RecommendedFragment : Fragment() {
         // Inflate the layout for this fragment
         // return inflater.inflate(R.layout.fragment_recommended, container, false)
 
-        binding = FragmentRecommendedBinding.inflate(inflater)
-
+        _binding = FragmentRecommendedBinding.inflate(inflater)
+        binding.lifecycleOwner = this
         setUpRecyclerView()
         populateRecyclerView()
 
         return binding.root
     }
 
+    override fun onDestroy() {
+
+        _binding = null
+        super.onDestroy()
+    }
 
     // CUSTOM FUNCTIONS
 
