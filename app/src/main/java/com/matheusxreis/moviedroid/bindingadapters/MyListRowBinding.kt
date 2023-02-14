@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.lifecycle.viewModelScope
 import coil.load
 import com.facebook.shimmer.Shimmer
@@ -26,10 +27,11 @@ class MyListRowBinding {
             textView.text="$title"
         }
 
-        @BindingAdapter("defineMyListAmount")
+        @BindingAdapter("defineMyListAmountFavorite", "listIdFav", requireAll = true)
         @JvmStatic
-        fun defineMyListAmount(textView: TextView, myListsViewModel: ListsViewModel){
+        fun defineMyListAmountFavorite(textView: TextView, myListsViewModel: ListsViewModel, id: Int){
 
+            if(id!=1) { return; }
             myListsViewModel.viewModelScope.launch {
                 myListsViewModel.favorites.collect { it ->
                     val values = myListsViewModel.lists.value?.find { it.id == 1 }
@@ -71,6 +73,24 @@ class MyListRowBinding {
                     }
                 }
             }
+        }
+
+        @BindingAdapter("defineMyListAmount", "listId", requireAll = true)
+        @JvmStatic
+        fun defineMyListAmount(textView: TextView, myListsViewModel: ListsViewModel, id: Int){
+            if(id == 1 ){ return; }
+            myListsViewModel.lists.observe(textView.findViewTreeLifecycleOwner()!!) {
+
+                val currentList = it.find { it.id == id }
+                val currentAmount = currentList?.amountItems ?: 0
+                if(currentAmount!=1){
+                    textView.text = "$currentAmount items"
+                }else {
+                    textView.text = "1 item"
+                }
+
+            }
+
         }
 
         @BindingAdapter("loadCover", "hasCover", requireAll = true)

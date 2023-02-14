@@ -88,7 +88,10 @@
                     app:layout_constraintHorizontal_bias="0"
                     android:layout_marginStart="24dp" />
                 <TextView
+                    defineMyListAmountFavorite="@{myListViewModel}"
                     defineMyListAmount="@{myListViewModel}"
+                    listId="@{list.id}"
+                    listIdFav="@{list.id}"
                     android:text="24 items"
                     android:textSize="14dp"
                     android:textStyle="italic"
