@@ -1,5 +1,6 @@
 package com.matheusxreis.moviedroid.di
 
+import com.google.gson.GsonBuilder
 import com.matheusxreis.moviedroid.data.network.MovieAPI
 import com.matheusxreis.moviedroid.utils.Constants
 import dagger.Module
@@ -21,7 +22,13 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideGsonConverterFactory():GsonConverterFactory {
-        return GsonConverterFactory.create()
+
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
+
+        return GsonConverterFactory
+            .create(gson)
     }
 
     @Provides
