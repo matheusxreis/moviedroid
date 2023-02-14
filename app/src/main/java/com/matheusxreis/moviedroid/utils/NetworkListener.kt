@@ -10,6 +10,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 class NetworkListener private constructor(private val context: Context):ConnectivityManager.NetworkCallback() {
 
+    private var isRegistered = false
+
     companion object {
         private var INSTANCE:NetworkListener? = null
 
@@ -29,7 +31,10 @@ class NetworkListener private constructor(private val context: Context):Connecti
             Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager
 
-        connectivityManager.registerDefaultNetworkCallback(this)
+        if(!isRegistered){
+            connectivityManager.registerDefaultNetworkCallback(this)
+            isRegistered = true
+        }
 
         var isConnected = false
 
