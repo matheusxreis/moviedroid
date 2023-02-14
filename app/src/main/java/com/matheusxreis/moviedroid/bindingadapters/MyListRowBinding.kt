@@ -55,6 +55,19 @@ class MyListRowBinding {
                         }
                     }else {
                         textView.text = "0 items"
+
+                        if(values!=null){
+                            val favoriteList = ListEntity(
+                                id = values!!.id,
+                                name = values!!.name,
+                                amountItems = it.size,
+                                coverUrl =  "",
+                                createdAt = values!!.createdAt
+                            )
+                            myListsViewModel.updateFavoritesValues(
+                                favoriteList = favoriteList
+                            )
+                        }
                     }
                 }
             }
