@@ -162,15 +162,18 @@ class DetailsFragment : Fragment(), MenuProvider {
     }
 
     private fun deleteFromFavorites(undo: Boolean = false){
-        val itemId = detailsViewModel.details.value?.data!!.id
-        detailsViewModel.deleteFromFavorite(itemId = itemId.toString())
+        val itemId = detailsViewModel.details.value?.data?.id
+        if(itemId != null){
+            detailsViewModel.deleteFromFavorite(itemId = itemId.toString())
 
-        if(!undo){
-            Snackbar.make(binding.root, "Delete from favorites", Snackbar.LENGTH_SHORT)
-                .setAction("Undo", {saveInFavorites(true)})
-                // .setAction("Okay", {})
-                .show()
+            if(!undo){
+                Snackbar.make(binding.root, "Delete from favorites", Snackbar.LENGTH_SHORT)
+                    .setAction("Undo", {saveInFavorites(true)})
+                    // .setAction("Okay", {})
+                    .show()
+            }
         }
+
 
     }
 
