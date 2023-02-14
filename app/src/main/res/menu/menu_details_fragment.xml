@@ -23,6 +23,12 @@
         app:showAsAction="never"
         android:iconTint="@color/white"
         />
+    <item
+        android:id="@+id/add_in_list"
+        android:title="Add in list"
+        app:showAsAction="never"
+        android:iconTint="@color/white"
+        />
 
 
 </menu>
