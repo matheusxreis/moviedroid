@@ -31,8 +31,9 @@ class MyListRowBinding {
         fun defineMyListAmount(textView: TextView, myListsViewModel: ListsViewModel){
 
             myListsViewModel.viewModelScope.launch {
+                val values = myListsViewModel.lists.value?.find { it.id == 1 }
+
                 myListsViewModel.favorites.collect { it ->
-                    val values = myListsViewModel.lists.value?.find { it.id == 1 }
 
                     if(values != null && it.isNotEmpty()) {
                         val last = it.sortedBy { favorite -> favorite.id }.last()
@@ -44,9 +45,12 @@ class MyListRowBinding {
                             coverUrl =  last.imageUrl,
                             createdAt = values!!.createdAt
                         )
-                        myListsViewModel.updateFavoritesValues(
-                            favoriteList = favoriteList
-                        )
+
+                        if(favoriteList != values){
+                            myListsViewModel.updateFavoritesValues(
+                                favoriteList = favoriteList
+                            )
+                        }
 
                         if (favoriteList.amountItems != 1) {
                             textView.text = "${favoriteList.amountItems} items"
