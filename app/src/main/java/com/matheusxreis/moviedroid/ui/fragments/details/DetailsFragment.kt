@@ -113,8 +113,11 @@ class DetailsFragment : Fragment(), MenuProvider {
 
                 if (!isOnFavorites) {
                     saveInFavorites()
+                    setTintIconMenuItem(menuItem, R.color.purple_200)
                 }else {
                     deleteFromFavorites()
+                    setTintIconMenuItem(menuItem, R.color.white)
+
                 }
             }
         }
@@ -147,6 +150,7 @@ class DetailsFragment : Fragment(), MenuProvider {
                 mediaType = "movie"
             }
         }
+
         detailsViewModel.saveInFavorites(
             movieDetails = movieDetails!!,
             type = mediaType
