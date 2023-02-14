@@ -31,13 +31,10 @@ class MyListRowBinding {
         fun defineMyListAmount(textView: TextView, myListsViewModel: ListsViewModel){
 
             myListsViewModel.viewModelScope.launch {
-                val values = myListsViewModel.lists.value?.find { it.id == 1 }
-
                 myListsViewModel.favorites.collect { it ->
-
+                    val values = myListsViewModel.lists.value?.find { it.id == 1 }
                     if(values != null && it.isNotEmpty()) {
                         val last = it.sortedBy { favorite -> favorite.id }.last()
-
                         val favoriteList = ListEntity(
                             id = values!!.id,
                             name = values!!.name,
@@ -45,13 +42,11 @@ class MyListRowBinding {
                             coverUrl =  last.imageUrl,
                             createdAt = values!!.createdAt
                         )
-
                         if(favoriteList != values){
                             myListsViewModel.updateFavoritesValues(
                                 favoriteList = favoriteList
                             )
                         }
-
                         if (favoriteList.amountItems != 1) {
                             textView.text = "${favoriteList.amountItems} items"
                         } else {
@@ -59,7 +54,6 @@ class MyListRowBinding {
                         }
                     }else {
                         textView.text = "0 items"
-
                         if(values!=null){
                             val favoriteList = ListEntity(
                                 id = values!!.id,
@@ -68,9 +62,11 @@ class MyListRowBinding {
                                 coverUrl =  "",
                                 createdAt = values!!.createdAt
                             )
-                            myListsViewModel.updateFavoritesValues(
-                                favoriteList = favoriteList
-                            )
+                            if(favoriteList != values) {
+                                myListsViewModel.updateFavoritesValues(
+                                    favoriteList = favoriteList
+                                )
+                            }
                         }
                     }
                 }
