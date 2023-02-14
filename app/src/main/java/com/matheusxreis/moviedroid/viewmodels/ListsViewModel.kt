@@ -17,6 +17,7 @@ class ListsViewModel @Inject constructor(
 
 
     val lists = repository.localDataSource.readLists().asLiveData()
+    val favorites = repository.localDataSource.readFavorite()
 
 
     fun addList(name:String) = viewModelScope.launch(Dispatchers.IO){
@@ -28,15 +29,22 @@ class ListsViewModel @Inject constructor(
 
         repository.localDataSource.insertList(newList)
     }
-
     fun deleteAllLists() = viewModelScope.launch (Dispatchers.IO){
         repository.localDataSource.deleteAllLists()
     }
     fun deleteList(id:String) = viewModelScope.launch (Dispatchers.IO) {
         repository.localDataSource.deleteList(id)
     }
-
     fun updateListName(listEntity: ListEntity) = viewModelScope.launch (Dispatchers.IO){
         repository.localDataSource.updateNameList(listEntity)
     }
+
+
+    fun updateFavoritesValues(favoriteList:ListEntity) = viewModelScope.launch (Dispatchers.IO){
+                repository.localDataSource.updateAmmountAndCover(
+                    listEntity = favoriteList
+                )
+
+    }
+
 }

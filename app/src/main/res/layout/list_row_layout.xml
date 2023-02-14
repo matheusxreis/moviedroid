@@ -5,6 +5,9 @@
 
     <data>
         <variable
+            name="myListViewModel"
+            type="com.matheusxreis.moviedroid.viewmodels.ListsViewModel" />
+        <variable
             name="list"
             type="com.matheusxreis.moviedroid.data.database.entities.ListEntity" />
     </data>
@@ -85,7 +88,7 @@
                     app:layout_constraintHorizontal_bias="0"
                     android:layout_marginStart="24dp" />
                 <TextView
-                    defineMyListAmount="@{list.amountItems}"
+                    defineMyListAmount="@{myListViewModel}"
                     android:text="24 items"
                     android:textSize="14dp"
                     android:textStyle="italic"

@@ -35,6 +35,9 @@ interface ItemDao {
     @Update
     fun updateNameList(listEntity: ListEntity)
 
+    @Update
+    fun updateAmountAndCover(listEntity: ListEntity)
+
     //list item
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

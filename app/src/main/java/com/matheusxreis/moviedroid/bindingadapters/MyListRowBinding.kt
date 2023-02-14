@@ -1,17 +1,19 @@
 package com.matheusxreis.moviedroid.bindingadapters
 
-import android.app.ActionBar.LayoutParams
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.viewModelScope
 import coil.load
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
 import com.matheusxreis.moviedroid.R
+import com.matheusxreis.moviedroid.data.database.entities.ListEntity
 import com.matheusxreis.moviedroid.utils.Constants
+import com.matheusxreis.moviedroid.viewmodels.ListsViewModel
+import kotlinx.coroutines.launch
 
 
 class MyListRowBinding {
@@ -26,11 +28,35 @@ class MyListRowBinding {
 
         @BindingAdapter("defineMyListAmount")
         @JvmStatic
-        fun defineMyListAmount(textView: TextView, amount: Int){
-            if(amount == 1){
-                textView.text = "$amount item"
-            }else {
-                textView.text = "$amount items"
+        fun defineMyListAmount(textView: TextView, myListsViewModel: ListsViewModel){
+
+            myListsViewModel.viewModelScope.launch {
+                myListsViewModel.favorites.collect { it ->
+                    val values = myListsViewModel.lists.value?.find { it.id == 1 }
+
+                    if(values != null && it.isNotEmpty()) {
+                        val last = it.sortedBy { favorite -> favorite.id }.last()
+
+                        val favoriteList = ListEntity(
+                            id = values!!.id,
+                            name = values!!.name,
+                            amountItems = it.size,
+                            coverUrl =  last.imageUrl,
+                            createdAt = values!!.createdAt
+                        )
+                        myListsViewModel.updateFavoritesValues(
+                            favoriteList = favoriteList
+                        )
+
+                        if (favoriteList.amountItems != 1) {
+                            textView.text = "${favoriteList.amountItems} items"
+                        } else {
+                            textView.text = "1 item"
+                        }
+                    }else {
+                        textView.text = "0 items"
+                    }
+                }
             }
         }
 

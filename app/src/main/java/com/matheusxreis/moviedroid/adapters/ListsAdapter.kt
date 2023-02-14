@@ -28,12 +28,13 @@ class ListsAdapter(
     private var myViewHolders: ArrayList<MyViewHolder> = arrayListOf()
     private lateinit var editMenuItem: MenuItem
 
-    class MyViewHolder(private val binding: ListRowLayoutBinding) :
+    class MyViewHolder(private val binding: ListRowLayoutBinding, private val myListViewModel: ListsViewModel) :
         RecyclerView.ViewHolder(binding.root) {
 
 
         fun bind(myList: ListEntity) {
             binding.list = myList
+            binding.myListViewModel = myListViewModel
 
         }
     }
@@ -41,7 +42,7 @@ class ListsAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ListRowLayoutBinding.inflate(layoutInflater, parent, false)
-        return MyViewHolder(binding)
+        return MyViewHolder(binding, myListViewModel)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {

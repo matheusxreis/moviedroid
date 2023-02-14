@@ -18,4 +18,5 @@ class LocalDataSource @Inject constructor(
     fun deleteList(id:String) = itemDao.deleteList(id)
     fun deleteAllLists() = itemDao.deleteAllLists()
     fun updateNameList(listEntity: ListEntity) = itemDao.updateNameList(listEntity)
+    fun updateAmmountAndCover(listEntity: ListEntity) = itemDao.updateAmountAndCover(listEntity)
 }
