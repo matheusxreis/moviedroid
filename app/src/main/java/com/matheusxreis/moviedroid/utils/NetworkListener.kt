@@ -8,11 +8,23 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import kotlinx.coroutines.flow.MutableStateFlow
 
-class NetworkListener:ConnectivityManager.NetworkCallback() {
+class NetworkListener private constructor(private val context: Context):ConnectivityManager.NetworkCallback() {
+
+    companion object {
+        private var INSTANCE:NetworkListener? = null
+
+        fun getInstance(context: Context): NetworkListener{
+            if(INSTANCE == null){
+                INSTANCE = NetworkListener(context)
+            }
+            return INSTANCE as NetworkListener
+        }
+    }
+
 
     private val isNetworkAvailable = MutableStateFlow(false)
 
-    fun checkNetworkavailability(context: Context):MutableStateFlow<Boolean> {
+    fun checkNetworkavailability():MutableStateFlow<Boolean> {
         val connectivityManager = context.getSystemService(
             Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager

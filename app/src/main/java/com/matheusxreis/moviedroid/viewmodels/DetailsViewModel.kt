@@ -34,7 +34,7 @@ class DetailsViewModel @Inject constructor(
 
     val readFavorites = repository.localDataSource.readFavorite().asLiveData()
 
-    val networkListener = NetworkListener()
+    val networkListener = NetworkListener.getInstance(application.applicationContext)
 
 
     fun getDetails(

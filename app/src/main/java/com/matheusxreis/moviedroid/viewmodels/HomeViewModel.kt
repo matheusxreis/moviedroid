@@ -29,14 +29,13 @@ class HomeViewModel @Inject constructor(
     val popularSeries: MutableLiveData<NetworkResult<List<MoviePoster>>> = MutableLiveData()
     val searchedResult: MutableLiveData<NetworkResult<List<MoviePoster>>> = MutableLiveData()
 
-    val networkListener = NetworkListener()
+    val networkListener = NetworkListener.getInstance(application.applicationContext)
 
     var hasDesconnected = false
 
     private var pageMovie = 1
     private val pageSerie = 1
 
-    val context = application.applicationContext
 
     fun getTrendingSeries() = viewModelScope.launch {
 

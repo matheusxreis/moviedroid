@@ -296,7 +296,7 @@ class HomeFragment : Fragment(), MenuProvider {
 
     private fun monitoringNetwork() =  lifecycleScope.launchWhenStarted {
 
-        val connection = homeViewModel.networkListener.checkNetworkavailability(requireContext())
+        val connection = homeViewModel.networkListener.checkNetworkavailability()
         connection.collect {
             if (!it) {
                 Toast.makeText(

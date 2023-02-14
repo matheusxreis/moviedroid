@@ -22,7 +22,7 @@ class HomeBinding {
 
 
           homeViewModel.viewModelScope.launch {
-              homeViewModel.networkListener.checkNetworkavailability(view.context).collect {
+              homeViewModel.networkListener.checkNetworkavailability().collect {
 
                  Log.d("isnotview", isNotNetView.toString())
                   if(isNotNetView){

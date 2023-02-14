@@ -157,7 +157,7 @@ class SearchResultActivity : AppCompatActivity() {
 
     private fun monitoringNetwork() =  lifecycleScope.launchWhenStarted {
 
-        val connection = homeViewModel.networkListener.checkNetworkavailability(applicationContext)
+        val connection = homeViewModel.networkListener.checkNetworkavailability()
         connection.collect {
             if (!it) {
                 Toast.makeText(
