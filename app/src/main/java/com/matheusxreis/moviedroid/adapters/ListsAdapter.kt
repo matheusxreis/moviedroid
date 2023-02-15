@@ -52,13 +52,15 @@ class ListsAdapter(
         myViewHolders.add(holder)
         val currentItem = userLists[position]
 
-        if (currentItem.name != "Favorites") {
+
             holder.itemView.cardViewList.setOnLongClickListener {
+
+
                 if (contextualSelectedLists.size == 0) {
-                    requireActivity.startActionMode(this)
                     applySelection(
                         holder = holder,
-                        currentItem = currentItem
+                        currentItem = currentItem,
+                        startActionMode = {  requireActivity.startActionMode(this) }
                     )
                 }
                 true
@@ -74,8 +76,11 @@ class ListsAdapter(
                     ///
                 }
             }
-        }
 
+        bindSelection(
+            holder = holder,
+            currentItem = currentItem
+        )
         holder.bind(currentItem)
     }
 
@@ -87,7 +92,11 @@ class ListsAdapter(
         notifyDataSetChanged()
     }
 
-    fun applySelection(holder:MyViewHolder, currentItem: ListEntity){
+    fun applySelection(holder:MyViewHolder, currentItem: ListEntity, startActionMode: ()->Unit = {}){
+
+        if(currentItem.name == "Favorites") { return; }
+
+        startActionMode()
         if(contextualSelectedLists.contains(currentItem)){
             contextualSelectedLists.remove(currentItem)
             removeSelectedStyle(holder.itemView.cardViewList as MaterialCardView)
@@ -102,6 +111,18 @@ class ListsAdapter(
             defineActionModeTitle()
             changeEditMenuVisible()
         }
+    }
+
+    fun bindSelection(holder: MyViewHolder, currentItem: ListEntity){
+        // called inside bind of view holder to apply correct styles in the card view
+        // bcs rv behavior recycles the items
+        if(contextualSelectedLists.contains(currentItem)){
+            applySelectedStyle(holder.itemView.cardViewList as MaterialCardView)
+
+        }else {
+            removeSelectedStyle(holder.itemView.cardViewList as MaterialCardView)
+        }
+
     }
 
     // ACTION MODE
