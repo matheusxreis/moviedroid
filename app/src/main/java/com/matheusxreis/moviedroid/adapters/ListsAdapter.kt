@@ -28,7 +28,10 @@ class ListsAdapter(
     private var myViewHolders: ArrayList<MyViewHolder> = arrayListOf()
     private lateinit var editMenuItem: MenuItem
 
-    class MyViewHolder(private val binding: ListRowLayoutBinding, private val myListViewModel: ListsViewModel) :
+    class MyViewHolder(
+        private val binding: ListRowLayoutBinding,
+        private val myListViewModel: ListsViewModel
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
 
@@ -112,10 +115,14 @@ class ListsAdapter(
         myViewHolders.forEach {
             removeSelectedStyle(it.itemView.cardViewList as MaterialCardView)
         }
+        hideCheckbox()
         applyStatusBarColor(R.color.dark)
     }
 
+    // CUSTOM FUNCTIONS
 
+    //*****  ADD AND REMOVE ARRAY //
+    // dinamic title action mode
     private fun defineActionModeTitle() {
         myActionMode.title = when (contextualSelectedLists.size) {
             0 -> "No items selected"
@@ -125,6 +132,7 @@ class ListsAdapter(
 
     }
 
+    // clicks listeners
     private fun selectItem(holder: MyViewHolder, currentItem: ListEntity) {
         holder.itemView.cardViewList.setOnLongClickListener {
 
@@ -141,56 +149,65 @@ class ListsAdapter(
             val isOnContextualActionMode = contextualSelectedLists.size > 0
             if (isOnContextualActionMode) {
 
-                val isInList = contextualSelectedLists.contains(currentItem)
-
-                if (isInList) {
-                    removeItem(currentItem)
-                    removeSelectedStyle(it as MaterialCardView)
-                } else {
-                    addItem(currentItem)
-                    applySelectedStyle(it as MaterialCardView)
-
-                }
-                defineActionModeTitle()
+                handleItem(
+                    currentItem = currentItem,
+                    materialCardView = it.cardViewList as MaterialCardView
+                )
             } else {
                 ///
             }
         }
     }
 
+
+    // decide if add or remove from selected list
+    private fun handleItem(currentItem: ListEntity, materialCardView: MaterialCardView) {
+        val isInList = contextualSelectedLists.contains(currentItem)
+
+        if (isInList) {
+            removeItem(currentItem)
+            removeSelectedStyle(materialCardView)
+        } else {
+            addItem(currentItem)
+            applySelectedStyle(materialCardView)
+        }
+        defineActionModeTitle()
+
+    }
+
+    // add item in array selected list
     private fun addItem(item: ListEntity) {
 
         contextualSelectedLists.add(item)
         changeEditMenuVisible()
     }
 
+    // remove item from array selected list
     private fun removeItem(item: ListEntity) {
         contextualSelectedLists.remove(item)
 
         if (contextualSelectedLists.size == 0) {
             clearContextualAction()
+
         }
         changeEditMenuVisible()
     }
 
-    private fun editItem(item: ListEntity) {
-        val action = MyListsFragmentsDirections.actionMyListsFragments2ToAddListFragment(
-            list = item
-        )
-        navController.navigate(action)
-    }
+    //*****  STYLES //
 
-    private fun changeEditMenuVisible(){
+    // changing edit menu visible according with amount of selected items
+    private fun changeEditMenuVisible() {
 
         if (contextualSelectedLists.size != 1) {
             editMenuItem.isVisible = false
             editMenuItem.isEnabled = false
-        }else {
+        } else {
             editMenuItem.isVisible = true
             editMenuItem.isEnabled = true
         }
     }
 
+    // change styles when item is selected
     private fun applySelectedStyle(materialCardView: MaterialCardView) {
         materialCardView.strokeWidth = 2
         materialCardView.strokeColor =
@@ -201,8 +218,10 @@ class ListsAdapter(
                 R.color.text
             )
         )
+        applyCheckbox()
     }
 
+    // remove styles when item is not selected
     private fun removeSelectedStyle(materialCardView: MaterialCardView) {
         materialCardView.strokeWidth = 0
         materialCardView.setBackgroundColor(
@@ -211,15 +230,59 @@ class ListsAdapter(
                 R.color.text
             )
         )
+        applyCheckbox(applyVisibility = false)
     }
 
+
+    private fun applyCheckbox(
+        applyVisibility: Boolean = true,
+    ) {
+        myViewHolders.forEach { holder ->
+            val checkBox = holder.itemView.checkboxListSelected
+            if (applyVisibility && holder.layoutPosition != 0) {
+                checkBox.visibility = View.VISIBLE
+            }
+            if (holder.bindingAdapterPosition >= 0) {
+                checkBox.isChecked =
+                    contextualSelectedLists.contains(userLists[holder.bindingAdapterPosition])
+                checkBox.setOnClickListener {
+                    handleItem(
+                        currentItem = userLists[holder.bindingAdapterPosition],
+                        materialCardView = holder.itemView.cardViewList as MaterialCardView
+                    )
+                }
+            }
+        }
+    }
+
+    private fun hideCheckbox() {
+        myViewHolders.forEach {
+            it.itemView.checkboxListSelected.visibility = View.INVISIBLE
+        }
+    }
+
+    // change status bar color
     private fun applyStatusBarColor(color: Int) {
         requireActivity.window.statusBarColor = ContextCompat.getColor(requireActivity, color)
     }
 
+
+    // UPDATE/REMOVE ITEM FROM ROOM
+
+    // go to edit page
+    private fun editItem(item: ListEntity) {
+        val action = MyListsFragmentsDirections.actionMyListsFragments2ToAddListFragment(
+            list = item
+        )
+        contextualSelectedLists.clear()
+        navController.navigate(action)
+    }
+
+    // remove all items at once
     private fun removeAllItems() {
         contextualSelectedLists.forEach {
             myListViewModel.deleteList(it.id.toString())
+
         }
 
         Snackbar.make(
@@ -233,8 +296,10 @@ class ListsAdapter(
         clearContextualAction()
     }
 
+    // disable contextual action mode
     fun clearContextualAction() {
         if (this::myActionMode.isInitialized) {
+
             myActionMode.finish()
         }
     }
