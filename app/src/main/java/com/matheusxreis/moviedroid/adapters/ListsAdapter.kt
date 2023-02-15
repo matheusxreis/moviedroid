@@ -54,6 +54,9 @@ class ListsAdapter(
 
         if (currentItem.name != "Favorites") {
             selectItem(holder, currentItem)
+            if(contextualSelectedLists.size>0){
+                applyCheckbox(applyVisibility = true)
+            }
         }
 
         holder.bind(currentItem)
@@ -237,17 +240,21 @@ class ListsAdapter(
     private fun applyCheckbox(
         applyVisibility: Boolean = true,
     ) {
-        myViewHolders.forEach { holder ->
+        myViewHolders.forEach {  holder ->
             val checkBox = holder.itemView.checkboxListSelected
-            if (applyVisibility && holder.layoutPosition != 0) {
+
+            val isFavorite = holder.itemView.titleListTv.text.toString().uppercase() == "Favorites".uppercase()
+            if (applyVisibility && !isFavorite) {
                 checkBox.visibility = View.VISIBLE
             }
             if (holder.bindingAdapterPosition >= 0) {
+
+                val currentItem = userLists[holder.bindingAdapterPosition]
                 checkBox.isChecked =
-                    contextualSelectedLists.contains(userLists[holder.bindingAdapterPosition])
+                    contextualSelectedLists.contains(currentItem)
                 checkBox.setOnClickListener {
                     handleItem(
-                        currentItem = userLists[holder.bindingAdapterPosition],
+                        currentItem = currentItem,
                         materialCardView = holder.itemView.cardViewList as MaterialCardView
                     )
                 }
