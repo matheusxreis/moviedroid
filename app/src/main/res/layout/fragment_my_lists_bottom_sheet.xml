@@ -50,6 +50,7 @@
                 android:textColor="@color/text"
                 />
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/bottomSheetRecyclerView"
                 tools:listitem="@layout/list_bottomsheet_row_layout"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
