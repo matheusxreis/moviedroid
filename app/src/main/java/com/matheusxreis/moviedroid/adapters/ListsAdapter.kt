@@ -53,9 +53,26 @@ class ListsAdapter(
         val currentItem = userLists[position]
 
         if (currentItem.name != "Favorites") {
-            selectItem(holder, currentItem)
-            if(contextualSelectedLists.size>0){
-                applyCheckbox(applyVisibility = true)
+            holder.itemView.cardViewList.setOnLongClickListener {
+                if (contextualSelectedLists.size == 0) {
+                    requireActivity.startActionMode(this)
+                    applySelection(
+                        holder = holder,
+                        currentItem = currentItem
+                    )
+                }
+                true
+            }
+            holder.itemView.cardViewList.setOnClickListener {
+                val isOnContextualActionMode = contextualSelectedLists.size > 0
+                if (isOnContextualActionMode) {
+                    applySelection(
+                        holder = holder,
+                        currentItem = currentItem
+                    )
+                } else {
+                    ///
+                }
             }
         }
 
@@ -68,6 +85,23 @@ class ListsAdapter(
     fun setData(newUserList: List<ListEntity>) {
         userLists = newUserList
         notifyDataSetChanged()
+    }
+
+    fun applySelection(holder:MyViewHolder, currentItem: ListEntity){
+        if(contextualSelectedLists.contains(currentItem)){
+            contextualSelectedLists.remove(currentItem)
+            removeSelectedStyle(holder.itemView.cardViewList as MaterialCardView)
+            defineActionModeTitle()
+            changeEditMenuVisible()
+            if(contextualSelectedLists.size == 0){
+                this.clearContextualAction()
+            }
+        }else {
+            contextualSelectedLists.add(currentItem)
+            applySelectedStyle(holder.itemView.cardViewList as MaterialCardView)
+            defineActionModeTitle()
+            changeEditMenuVisible()
+        }
     }
 
     // ACTION MODE
@@ -136,65 +170,6 @@ class ListsAdapter(
     }
 
     // clicks listeners
-    private fun selectItem(holder: MyViewHolder, currentItem: ListEntity) {
-        holder.itemView.cardViewList.setOnLongClickListener {
-
-            if (contextualSelectedLists.size == 0) {
-                requireActivity.startActionMode(this)
-                addItem(currentItem)
-                applySelectedStyle(it as MaterialCardView)
-                defineActionModeTitle()
-            }
-
-            true
-        }
-        holder.itemView.cardViewList.setOnClickListener {
-            val isOnContextualActionMode = contextualSelectedLists.size > 0
-            if (isOnContextualActionMode) {
-
-                handleItem(
-                    currentItem = currentItem,
-                    materialCardView = it.cardViewList as MaterialCardView
-                )
-            } else {
-                ///
-            }
-        }
-    }
-
-
-    // decide if add or remove from selected list
-    private fun handleItem(currentItem: ListEntity, materialCardView: MaterialCardView) {
-        val isInList = contextualSelectedLists.contains(currentItem)
-
-        if (isInList) {
-            removeItem(currentItem)
-            removeSelectedStyle(materialCardView)
-        } else {
-            addItem(currentItem)
-            applySelectedStyle(materialCardView)
-        }
-        defineActionModeTitle()
-
-    }
-
-    // add item in array selected list
-    private fun addItem(item: ListEntity) {
-
-        contextualSelectedLists.add(item)
-        changeEditMenuVisible()
-    }
-
-    // remove item from array selected list
-    private fun removeItem(item: ListEntity) {
-        contextualSelectedLists.remove(item)
-
-        if (contextualSelectedLists.size == 0) {
-            clearContextualAction()
-
-        }
-        changeEditMenuVisible()
-    }
 
     //*****  STYLES //
 
@@ -221,7 +196,6 @@ class ListsAdapter(
                 R.color.text
             )
         )
-        applyCheckbox()
     }
 
     // remove styles when item is not selected
@@ -233,33 +207,6 @@ class ListsAdapter(
                 R.color.text
             )
         )
-        applyCheckbox(applyVisibility = false)
-    }
-
-
-    private fun applyCheckbox(
-        applyVisibility: Boolean = true,
-    ) {
-        myViewHolders.forEach {  holder ->
-            val checkBox = holder.itemView.checkboxListSelected
-
-            val isFavorite = holder.itemView.titleListTv.text.toString().uppercase() == "Favorites".uppercase()
-            if (applyVisibility && !isFavorite) {
-                checkBox.visibility = View.VISIBLE
-            }
-            if (holder.bindingAdapterPosition >= 0) {
-
-                val currentItem = userLists[holder.bindingAdapterPosition]
-                checkBox.isChecked =
-                    contextualSelectedLists.contains(currentItem)
-                checkBox.setOnClickListener {
-                    handleItem(
-                        currentItem = currentItem,
-                        materialCardView = holder.itemView.cardViewList as MaterialCardView
-                    )
-                }
-            }
-        }
     }
 
     private fun hideCheckbox() {
@@ -272,7 +219,6 @@ class ListsAdapter(
     private fun applyStatusBarColor(color: Int) {
         requireActivity.window.statusBarColor = ContextCompat.getColor(requireActivity, color)
     }
-
 
     // UPDATE/REMOVE ITEM FROM ROOM
 
