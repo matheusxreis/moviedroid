@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import coil.load
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
+import com.google.android.material.card.MaterialCardView
 import com.google.gson.Gson
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.models.MoviePoster
@@ -46,11 +47,12 @@ class MoviesRowBinding {
 
         @BindingAdapter("goToDetails")
         @JvmStatic
-        fun goToDetails(imageView: ImageView, moviePoster: MoviePoster) {
+        fun goToDetails(materialCardView: MaterialCardView, moviePoster: MoviePoster) {
 
-            imageView.setOnClickListener {
+            materialCardView.bringToFront()
+            materialCardView.setOnClickListener {
                 try {
-                    val isConnected = NetworkStatus().hasInternetConnection(imageView.context)
+                    val isConnected = NetworkStatus().hasInternetConnection(materialCardView.context)
 
                     if(isConnected) {
                         val action =
@@ -58,18 +60,18 @@ class MoviesRowBinding {
                                 movie = moviePoster,
                                 fromSearch = false
                             )
-                        imageView.findNavController().navigate(action)
+                        materialCardView.findNavController().navigate(action)
                     }else {
                         Toast.makeText(
-                            imageView.context,
+                            materialCardView.context,
                             "No internet connection",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 } catch (e: Exception) {
-                    val intent = Intent(imageView.context, MainActivity::class.java)
+                    val intent = Intent(materialCardView.context, MainActivity::class.java)
                     intent.putExtra("key", Gson().toJson(moviePoster))
-                    imageView.context.startActivity(intent)
+                    materialCardView.context.startActivity(intent)
                 }
 
             }
