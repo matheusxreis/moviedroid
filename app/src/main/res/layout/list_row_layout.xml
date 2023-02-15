@@ -98,7 +98,7 @@
                     android:textSize="20sp"
                     android:textStyle="italic"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/checkboxListSelected"
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toEndOf="@id/imageListRow"
                     app:layout_constraintTop_toTopOf="parent"
