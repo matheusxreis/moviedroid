@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="6dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:background="@color/backgroundSecondaryColor"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:button="@drawable/checkbox_drawable"
+                android:buttonTint="@color/checkbox_color"
+                android:checked="true"
+                android:id="@+id/checkboxBs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                />
+            <TextView
+                android:id="@+id/titleListBsTv"
+                app:layout_constraintVertical_bias="0"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/checkboxBs"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="My list"
+                android:layout_marginStart="24dp"
+                android:textStyle="italic"
+                android:textColor="@color/text"
+                android:textSize="20sp"
+                android:maxLines="1"
+                android:ellipsize="middle"
+                app:layout_constraintHorizontal_bias="0.35"
+                />
+            <TextView
+                android:id="@+id/amountListBsTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/titleListBsTv"
+                app:layout_constraintStart_toStartOf="@id/titleListBsTv"
+                app:layout_constraintEnd_toEndOf="@id/titleListBsTv"
+                android:text="24 items"
+                android:textStyle="italic"
+                android:textColor="@color/text"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:visibility="invisible"
+                android:id="@+id/alreadyIsBsTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="Already is in this list."
+                android:textStyle="italic"
+                android:textColor="@color/text"
+                android:textSize="14sp"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
