@@ -53,34 +53,44 @@ class ListsAdapter(
         val currentItem = userLists[position]
 
 
-            holder.itemView.cardViewList.setOnLongClickListener {
+        holder.itemView.cardViewList.setOnLongClickListener {
 
 
-                if (contextualSelectedLists.size == 0) {
-                    applySelection(
-                        holder = holder,
-                        currentItem = currentItem,
-                        startActionMode = {  requireActivity.startActionMode(this) }
-                    )
-                }
-                true
+            if (contextualSelectedLists.size == 0) {
+                applySelection(
+                    holder = holder,
+                    currentItem = currentItem,
+                    startActionMode = { requireActivity.startActionMode(this) }
+                )
+
             }
-            holder.itemView.cardViewList.setOnClickListener {
-                val isOnContextualActionMode = contextualSelectedLists.size > 0
-                if (isOnContextualActionMode) {
-                    applySelection(
-                        holder = holder,
-                        currentItem = currentItem
-                    )
-                } else {
-                    ///
-                }
+            true
+        }
+        holder.itemView.cardViewList.setOnClickListener {
+            val isOnContextualActionMode = contextualSelectedLists.size > 0
+            if (isOnContextualActionMode) {
+                applySelection(
+                    holder = holder,
+                    currentItem = currentItem
+                )
+            } else {
+                ///
             }
+        }
+        holder.itemView.checkboxListSelected.setOnClickListener {
+            applySelection(
+                holder = holder,
+                currentItem = currentItem
+            )
+
+        }
 
         bindSelection(
             holder = holder,
             currentItem = currentItem
         )
+
+
         holder.bind(currentItem)
     }
 
@@ -92,38 +102,87 @@ class ListsAdapter(
         notifyDataSetChanged()
     }
 
-    fun applySelection(holder:MyViewHolder, currentItem: ListEntity, startActionMode: ()->Unit = {}){
+    fun applySelection(
+        holder: MyViewHolder,
+        currentItem: ListEntity,
+        startActionMode: () -> Unit = {}
+    ) {
 
-        if(currentItem.name == "Favorites") { return; }
+        if (currentItem.name == "Favorites") {
+            return; }
 
         startActionMode()
-        if(contextualSelectedLists.contains(currentItem)){
+        if (contextualSelectedLists.contains(currentItem)) {
             contextualSelectedLists.remove(currentItem)
             removeSelectedStyle(holder.itemView.cardViewList as MaterialCardView)
             defineActionModeTitle()
             changeEditMenuVisible()
-            if(contextualSelectedLists.size == 0){
+
+            if (contextualSelectedLists.size == 0) {
                 this.clearContextualAction()
             }
-        }else {
+            else {
+                applyCheckbox(
+                    holder = holder,
+                    currentItem = currentItem
+                )
+            }
+        }
+        else {
             contextualSelectedLists.add(currentItem)
             applySelectedStyle(holder.itemView.cardViewList as MaterialCardView)
             defineActionModeTitle()
             changeEditMenuVisible()
+
+            myViewHolders.forEach {
+                if(it.itemView.titleListTv.text.toString().uppercase() != "Favorites".uppercase()){
+                    it.itemView.checkboxListSelected.visibility = View.VISIBLE
+                }
+            }
+            applyCheckbox(
+                holder = holder,
+                currentItem = currentItem
+            )
+
         }
+
     }
 
-    fun bindSelection(holder: MyViewHolder, currentItem: ListEntity){
+    fun bindSelection(holder: MyViewHolder, currentItem: ListEntity) {
         // called inside bind of view holder to apply correct styles in the card view
         // bcs rv behavior recycles the items
-        if(contextualSelectedLists.contains(currentItem)){
+        if (contextualSelectedLists.contains(currentItem)) {
             applySelectedStyle(holder.itemView.cardViewList as MaterialCardView)
 
-        }else {
+        } else {
             removeSelectedStyle(holder.itemView.cardViewList as MaterialCardView)
         }
+        applyCheckbox(
+            holder = holder,
+            currentItem = currentItem
+        )
 
     }
+
+    fun applyCheckbox(
+        holder: MyViewHolder,
+        currentItem: ListEntity
+    ) {
+        if (contextualSelectedLists.size > 0) {
+
+
+            val checkbox = holder.itemView.checkboxListSelected
+            checkbox.isChecked = contextualSelectedLists.contains(currentItem)
+
+            if(currentItem.name == "Favorites"){
+                checkbox.visibility = View.INVISIBLE
+            }else {
+                checkbox.visibility = View.VISIBLE
+            }
+        }
+    }
+
+
 
     // ACTION MODE
 
@@ -172,8 +231,9 @@ class ListsAdapter(
         contextualSelectedLists.clear()
         myViewHolders.forEach {
             removeSelectedStyle(it.itemView.cardViewList as MaterialCardView)
+            it.itemView.checkboxListSelected.isChecked = false
+            it.itemView.checkboxListSelected.visibility = View.INVISIBLE
         }
-        hideCheckbox()
         applyStatusBarColor(R.color.dark)
     }
 
