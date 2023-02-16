@@ -120,15 +120,5 @@ class MyListRowBinding {
         }
 
 
-        @BindingAdapter("displayFavoriteIcon")
-        @JvmStatic
-        fun displayFavoriteIcon(imageView: ImageView, id:Int){
-            if(id == 1){
-                imageView.visibility = View.VISIBLE
-            }else {
-                imageView.visibility = View.INVISIBLE
-            }
-        }
-
     }
 }
