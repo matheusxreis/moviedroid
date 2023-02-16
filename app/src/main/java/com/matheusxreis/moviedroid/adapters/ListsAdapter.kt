@@ -1,6 +1,7 @@
 package com.matheusxreis.moviedroid.adapters
 
 import android.view.*
+import android.widget.CheckBox
 import androidx.core.content.ContextCompat
 import androidx.core.view.forEach
 import androidx.fragment.app.FragmentActivity
@@ -49,9 +50,12 @@ class ListsAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        myViewHolders.add(holder)
+
         val currentItem = userLists[position]
 
+        if(currentItem.name != "Favorites"){
+            myViewHolders.add(holder)
+        }
 
         holder.itemView.cardViewList.setOnLongClickListener {
 
@@ -89,13 +93,10 @@ class ListsAdapter(
             holder = holder,
             currentItem = currentItem
         )
-
-
         holder.bind(currentItem)
     }
 
     override fun getItemCount(): Int = userLists.size
-
 
     fun setData(newUserList: List<ListEntity>) {
         userLists = newUserList
@@ -108,81 +109,62 @@ class ListsAdapter(
         startActionMode: () -> Unit = {}
     ) {
 
-        if (currentItem.name == "Favorites") {
-            return; }
+        if (currentItem.name == "Favorites") { return; }
 
         startActionMode()
         if (contextualSelectedLists.contains(currentItem)) {
             contextualSelectedLists.remove(currentItem)
-            removeSelectedStyle(holder.itemView.cardViewList as MaterialCardView)
+            removeSelectedStyle(
+                materialCardView = holder.itemView.cardViewList as MaterialCardView,
+                checkBox =  holder.itemView.checkboxListSelected)
             defineActionModeTitle()
             changeEditMenuVisible()
 
             if (contextualSelectedLists.size == 0) {
                 this.clearContextualAction()
             }
-            else {
-                applyCheckbox(
-                    holder = holder,
-                    currentItem = currentItem
-                )
-            }
+
         }
         else {
             contextualSelectedLists.add(currentItem)
-            applySelectedStyle(holder.itemView.cardViewList as MaterialCardView)
+            applySelectedStyle(
+                        materialCardView = holder.itemView.cardViewList as MaterialCardView,
+                        checkBox =  holder.itemView.checkboxListSelected)
             defineActionModeTitle()
             changeEditMenuVisible()
-
             myViewHolders.forEach {
-                if(it.itemView.titleListTv.text.toString().uppercase() != "Favorites".uppercase()){
                     it.itemView.checkboxListSelected.visibility = View.VISIBLE
-                }
             }
-            applyCheckbox(
-                holder = holder,
-                currentItem = currentItem
-            )
+
 
         }
 
     }
 
     fun bindSelection(holder: MyViewHolder, currentItem: ListEntity) {
+        if (currentItem.name == "Favorites") { return; }
+
         // called inside bind of view holder to apply correct styles in the card view
         // bcs rv behavior recycles the items
         if (contextualSelectedLists.contains(currentItem)) {
-            applySelectedStyle(holder.itemView.cardViewList as MaterialCardView)
+            applySelectedStyle(
+                materialCardView =  holder.itemView.cardViewList as MaterialCardView,
+                checkBox = holder.itemView.checkboxListSelected
+                )
 
         } else {
-            removeSelectedStyle(holder.itemView.cardViewList as MaterialCardView)
+            removeSelectedStyle(
+                materialCardView = holder.itemView.cardViewList as MaterialCardView,
+                checkBox = holder.itemView.checkboxListSelected)
         }
-        applyCheckbox(
-            holder = holder,
-            currentItem = currentItem
-        )
 
-    }
-
-    fun applyCheckbox(
-        holder: MyViewHolder,
-        currentItem: ListEntity
-    ) {
-        if (contextualSelectedLists.size > 0) {
-
-
-            val checkbox = holder.itemView.checkboxListSelected
-            checkbox.isChecked = contextualSelectedLists.contains(currentItem)
-
-            if(currentItem.name == "Favorites"){
-                checkbox.visibility = View.INVISIBLE
-            }else {
-                checkbox.visibility = View.VISIBLE
+        if(contextualSelectedLists.size>0){
+            myViewHolders.forEach {
+                    it.itemView.checkboxListSelected.visibility = View.VISIBLE
             }
         }
+
     }
-
-
 
     // ACTION MODE
 
@@ -230,8 +212,10 @@ class ListsAdapter(
     override fun onDestroyActionMode(p0: ActionMode?) {
         contextualSelectedLists.clear()
         myViewHolders.forEach {
-            removeSelectedStyle(it.itemView.cardViewList as MaterialCardView)
-            it.itemView.checkboxListSelected.isChecked = false
+            removeSelectedStyle(
+                materialCardView = it.itemView.cardViewList as MaterialCardView,
+                it.itemView.checkboxListSelected
+                )
             it.itemView.checkboxListSelected.visibility = View.INVISIBLE
         }
         applyStatusBarColor(R.color.dark)
@@ -239,7 +223,6 @@ class ListsAdapter(
 
     // CUSTOM FUNCTIONS
 
-    //*****  ADD AND REMOVE ARRAY //
     // dinamic title action mode
     private fun defineActionModeTitle() {
         myActionMode.title = when (contextualSelectedLists.size) {
@@ -250,11 +233,6 @@ class ListsAdapter(
 
     }
 
-    // clicks listeners
-
-    //*****  STYLES //
-
-    // changing edit menu visible according with amount of selected items
     private fun changeEditMenuVisible() {
 
         if (contextualSelectedLists.size != 1) {
@@ -266,8 +244,7 @@ class ListsAdapter(
         }
     }
 
-    // change styles when item is selected
-    private fun applySelectedStyle(materialCardView: MaterialCardView) {
+    private fun applySelectedStyle(materialCardView: MaterialCardView, checkBox: CheckBox) {
         materialCardView.strokeWidth = 2
         materialCardView.strokeColor =
             ContextCompat.getColor(requireActivity.applicationContext, R.color.purple_200)
@@ -277,10 +254,11 @@ class ListsAdapter(
                 R.color.text
             )
         )
+        checkBox.isChecked = true
+
     }
 
-    // remove styles when item is not selected
-    private fun removeSelectedStyle(materialCardView: MaterialCardView) {
+    private fun removeSelectedStyle(materialCardView: MaterialCardView, checkBox: CheckBox) {
         materialCardView.strokeWidth = 0
         materialCardView.setBackgroundColor(
             ContextCompat.getColor(
@@ -288,15 +266,9 @@ class ListsAdapter(
                 R.color.text
             )
         )
+        checkBox.isChecked = false
     }
 
-    private fun hideCheckbox() {
-        myViewHolders.forEach {
-            it.itemView.checkboxListSelected.visibility = View.INVISIBLE
-        }
-    }
-
-    // change status bar color
     private fun applyStatusBarColor(color: Int) {
         requireActivity.window.statusBarColor = ContextCompat.getColor(requireActivity, color)
     }
