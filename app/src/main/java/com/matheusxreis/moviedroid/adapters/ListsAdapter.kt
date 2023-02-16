@@ -7,6 +7,7 @@ import androidx.core.view.forEach
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.snackbar.Snackbar
 import com.matheusxreis.moviedroid.R
@@ -21,152 +22,132 @@ class ListsAdapter(
     private val requireActivity: FragmentActivity,
     private val myListViewModel: ListsViewModel,
     private val navController: NavController
-) : RecyclerView.Adapter<ListsAdapter.MyViewHolder>(), ActionMode.Callback {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), ActionMode.Callback {
 
     private var contextualSelectedLists: ArrayList<ListEntity> = arrayListOf()
     private var userLists: List<ListEntity> = listOf()
     private lateinit var myActionMode: ActionMode
-    private var myViewHolders: ArrayList<MyViewHolder> = arrayListOf()
+    private var myViewHolders: ArrayList<ViewHolder> = arrayListOf()
     private lateinit var editMenuItem: MenuItem
+
+
+    /* My view holders */
+
+    open class MyGenericViewHolder(
+        private val binding: ListRowLayoutBinding,
+        private val myListViewModel: ListsViewModel
+    ) :
+        RecyclerView.ViewHolder(binding.root) {
+        open fun bind(myList: ListEntity) {
+        }
+    }
 
     class MyViewHolder(
         private val binding: ListRowLayoutBinding,
         private val myListViewModel: ListsViewModel
     ) :
-        RecyclerView.ViewHolder(binding.root) {
-
-
-        fun bind(myList: ListEntity) {
+        MyGenericViewHolder(binding, myListViewModel) {
+        override fun bind(myList: ListEntity) {
             binding.list = myList
             binding.myListViewModel = myListViewModel
-
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = ListRowLayoutBinding.inflate(layoutInflater, parent, false)
-        return MyViewHolder(binding, myListViewModel)
+    class MyViewHolderFavorite(
+        private val binding: ListRowLayoutBinding,
+        private val myListViewModel: ListsViewModel
+    ) :
+        MyGenericViewHolder(binding, myListViewModel) {
+        override fun bind(myList: ListEntity) {
+            binding.list = myList
+            binding.myListViewModel = myListViewModel
+            binding.checkboxListSelected.visibility = View.INVISIBLE
+            binding.favoriteIcon.visibility = View.VISIBLE
+        }
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    /*  */
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = ListRowLayoutBinding.inflate(layoutInflater, parent, false)
+
+        return when (viewType) {
+            -1 -> {
+                MyViewHolder(binding, myListViewModel)
+            }
+            else -> {
+                MyViewHolderFavorite(binding, myListViewModel)
+            }
+        }
+
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val currentItem = userLists[position]
 
-        if(currentItem.name != "Favorites"){
-            myViewHolders.add(holder)
-        }
+        when (holder.itemViewType) {
+            -1 -> {
+                holder.itemView.cardViewList.setOnLongClickListener {
 
-        holder.itemView.cardViewList.setOnLongClickListener {
+                    if (contextualSelectedLists.size == 0) {
+                        requireActivity.startActionMode(this)
+                        applySelection(
+                            holder = holder,
+                            currentItem = currentItem
+                        )
 
+                    }
+                    true
+                }
+                holder.itemView.cardViewList.setOnClickListener {
+                    val isOnContextualActionMode = contextualSelectedLists.size > 0
+                    if (isOnContextualActionMode) {
+                        applySelection(
+                            holder = holder,
+                            currentItem = currentItem
+                        )
+                    } else {
+                        ///
+                    }
+                }
+                holder.itemView.checkboxListSelected.setOnClickListener {
+                    applySelection(
+                        holder = holder,
+                        currentItem = currentItem
+                    )
 
-            if (contextualSelectedLists.size == 0) {
-                applySelection(
-                    holder = holder,
-                    currentItem = currentItem,
-                    startActionMode = { requireActivity.startActionMode(this) }
-                )
-
-            }
-            true
-        }
-        holder.itemView.cardViewList.setOnClickListener {
-            val isOnContextualActionMode = contextualSelectedLists.size > 0
-            if (isOnContextualActionMode) {
-                applySelection(
+                }
+                myViewHolders.add(holder)
+                bindSelection(
                     holder = holder,
                     currentItem = currentItem
                 )
-            } else {
-                ///
             }
-        }
-        holder.itemView.checkboxListSelected.setOnClickListener {
-            applySelection(
-                holder = holder,
-                currentItem = currentItem
-            )
-
+            0 -> {}
         }
 
-        bindSelection(
-            holder = holder,
-            currentItem = currentItem
-        )
+        holder as MyGenericViewHolder
         holder.bind(currentItem)
     }
 
     override fun getItemCount(): Int = userLists.size
+    override fun getItemViewType(position: Int): Int {
+        return if (position == 0) {
+            0
+        } else {
+            -1
+        }
+
+    }
 
     fun setData(newUserList: List<ListEntity>) {
         userLists = newUserList
         notifyDataSetChanged()
     }
 
-    fun applySelection(
-        holder: MyViewHolder,
-        currentItem: ListEntity,
-        startActionMode: () -> Unit = {}
-    ) {
-
-        if (currentItem.name == "Favorites") { return; }
-
-        startActionMode()
-        if (contextualSelectedLists.contains(currentItem)) {
-            contextualSelectedLists.remove(currentItem)
-            removeSelectedStyle(
-                materialCardView = holder.itemView.cardViewList as MaterialCardView,
-                checkBox =  holder.itemView.checkboxListSelected)
-            defineActionModeTitle()
-            changeEditMenuVisible()
-
-            if (contextualSelectedLists.size == 0) {
-                this.clearContextualAction()
-            }
-
-        }
-        else {
-            contextualSelectedLists.add(currentItem)
-            applySelectedStyle(
-                        materialCardView = holder.itemView.cardViewList as MaterialCardView,
-                        checkBox =  holder.itemView.checkboxListSelected)
-            defineActionModeTitle()
-            changeEditMenuVisible()
-            myViewHolders.forEach {
-                    it.itemView.checkboxListSelected.visibility = View.VISIBLE
-            }
-
-
-        }
-
-    }
-
-    fun bindSelection(holder: MyViewHolder, currentItem: ListEntity) {
-        if (currentItem.name == "Favorites") { return; }
-
-        // called inside bind of view holder to apply correct styles in the card view
-        // bcs rv behavior recycles the items
-        if (contextualSelectedLists.contains(currentItem)) {
-            applySelectedStyle(
-                materialCardView =  holder.itemView.cardViewList as MaterialCardView,
-                checkBox = holder.itemView.checkboxListSelected
-                )
-
-        } else {
-            removeSelectedStyle(
-                materialCardView = holder.itemView.cardViewList as MaterialCardView,
-                checkBox = holder.itemView.checkboxListSelected)
-        }
-
-        if(contextualSelectedLists.size>0){
-            myViewHolders.forEach {
-                    it.itemView.checkboxListSelected.visibility = View.VISIBLE
-            }
-        }
-
-    }
-
-    // ACTION MODE
+    // Action mode
 
     override fun onCreateActionMode(actionMode: ActionMode?, menu: Menu?): Boolean {
         ///
@@ -189,17 +170,15 @@ class ListsAdapter(
         return true
 
     }
-
     override fun onPrepareActionMode(p0: ActionMode?, p1: Menu?): Boolean {
 
         return true
     }
-
     override fun onActionItemClicked(p0: ActionMode?, menuItem: MenuItem?): Boolean {
 
         when (menuItem?.itemId) {
             R.id.contextual_delete_list_menu -> {
-                removeAllItems()
+                removeAllSelectedItems()
             }
             R.id.contextual_edit_list_menu -> {
                 editItem(contextualSelectedLists[0])
@@ -208,22 +187,78 @@ class ListsAdapter(
         }
         return true
     }
-
     override fun onDestroyActionMode(p0: ActionMode?) {
         contextualSelectedLists.clear()
         myViewHolders.forEach {
             removeSelectedStyle(
                 materialCardView = it.itemView.cardViewList as MaterialCardView,
                 it.itemView.checkboxListSelected
-                )
+            )
             it.itemView.checkboxListSelected.visibility = View.INVISIBLE
         }
         applyStatusBarColor(R.color.dark)
     }
 
-    // CUSTOM FUNCTIONS
+    // Custom functions MyViewHolder
 
-    // dinamic title action mode
+    private fun applySelection(
+        holder: ViewHolder,
+        currentItem: ListEntity
+    ) {
+
+        when (contextualSelectedLists.contains(currentItem)) {
+            true -> {
+                contextualSelectedLists.remove(currentItem)
+                removeSelectedStyle(
+                    materialCardView = holder.itemView.cardViewList as MaterialCardView,
+                    checkBox = holder.itemView.checkboxListSelected
+                )
+                defineActionModeTitle()
+                changeEditMenuVisible()
+                if (contextualSelectedLists.size == 0) {
+                    this.clearContextualAction()
+                }
+            }
+            false -> {
+                contextualSelectedLists.add(currentItem)
+                applySelectedStyle(
+                    materialCardView = holder.itemView.cardViewList as MaterialCardView,
+                    checkBox = holder.itemView.checkboxListSelected
+                )
+                defineActionModeTitle()
+                changeEditMenuVisible()
+
+                if (contextualSelectedLists.size == 1) {
+                    myViewHolders.forEach {
+                        it.itemView.checkboxListSelected.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
+
+    }
+    private fun bindSelection(holder: ViewHolder, currentItem: ListEntity) {
+        // called inside bind of view holder to apply correct styles in the card view
+        // bcs rv behavior recycles the items
+        if (contextualSelectedLists.contains(currentItem)) {
+            applySelectedStyle(
+                materialCardView = holder.itemView.cardViewList as MaterialCardView,
+                checkBox = holder.itemView.checkboxListSelected
+            )
+
+        } else {
+            removeSelectedStyle(
+                materialCardView = holder.itemView.cardViewList as MaterialCardView,
+                checkBox = holder.itemView.checkboxListSelected
+            )
+        }
+
+        if (contextualSelectedLists.size > 0) {
+            holder.itemView.checkboxListSelected.visibility = View.VISIBLE
+        }
+
+    }
+
     private fun defineActionModeTitle() {
         myActionMode.title = when (contextualSelectedLists.size) {
             0 -> "No items selected"
@@ -232,7 +267,6 @@ class ListsAdapter(
         }
 
     }
-
     private fun changeEditMenuVisible() {
 
         if (contextualSelectedLists.size != 1) {
@@ -243,7 +277,6 @@ class ListsAdapter(
             editMenuItem.isEnabled = true
         }
     }
-
     private fun applySelectedStyle(materialCardView: MaterialCardView, checkBox: CheckBox) {
         materialCardView.strokeWidth = 2
         materialCardView.strokeColor =
@@ -257,7 +290,6 @@ class ListsAdapter(
         checkBox.isChecked = true
 
     }
-
     private fun removeSelectedStyle(materialCardView: MaterialCardView, checkBox: CheckBox) {
         materialCardView.strokeWidth = 0
         materialCardView.setBackgroundColor(
@@ -268,14 +300,12 @@ class ListsAdapter(
         )
         checkBox.isChecked = false
     }
-
     private fun applyStatusBarColor(color: Int) {
         requireActivity.window.statusBarColor = ContextCompat.getColor(requireActivity, color)
     }
 
-    // UPDATE/REMOVE ITEM FROM ROOM
 
-    // go to edit page
+    // Custom action bar menu functions
     private fun editItem(item: ListEntity) {
         val action = MyListsFragmentsDirections.actionMyListsFragments2ToAddListFragment(
             list = item
@@ -283,12 +313,9 @@ class ListsAdapter(
         contextualSelectedLists.clear()
         navController.navigate(action)
     }
-
-    // remove all items at once
-    private fun removeAllItems() {
+    private fun removeAllSelectedItems() {
         contextualSelectedLists.forEach {
             myListViewModel.deleteList(it.id.toString())
-
         }
 
         Snackbar.make(
@@ -302,10 +329,9 @@ class ListsAdapter(
         clearContextualAction()
     }
 
-    // disable contextual action mode
+    // Disabling action mode
     fun clearContextualAction() {
         if (this::myActionMode.isInitialized) {
-
             myActionMode.finish()
         }
     }
