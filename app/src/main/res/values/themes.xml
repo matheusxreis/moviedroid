@@ -52,6 +52,8 @@
     <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
         <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
         <item name="backgroundTint">@color/backgroundSecondaryColor</item>
+        <item name="behavior_peekHeight">700dp</item>
+
     </style>
 
     <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
