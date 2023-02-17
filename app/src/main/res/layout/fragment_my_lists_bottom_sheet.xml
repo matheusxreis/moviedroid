@@ -53,31 +53,45 @@
                 android:id="@+id/bottomSheetRecyclerView"
                 tools:listitem="@layout/list_bottomsheet_row_layout"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintHeight_max="400dp"
+                android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/bottomSheetSubtitleTv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintVertical_bias="0"
                 android:layout_marginTop="24dp"
                 android:layout_marginHorizontal="12dp"
-
+                app:layout_constraintBottom_toTopOf="@id/buttonLayout"
                 />
-            <Button
-                android:id="@+id/confirmButton"
+
+            <LinearLayout
+                android:id="@+id/buttonLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/backgroundSecondaryColor"
+                android:orientation="vertical"
+                app:layout_constraintVertical_bias="1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:backgroundTint="@color/purple_200"
-                android:layout_marginTop="24dp"
-                android:text="Add"
-                app:layout_constraintTop_toBottomOf="@id/bottomSheetRecyclerView"
-                app:layout_constraintVertical_bias="9"
-                android:textColor="@color/purple_500"
-                />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+                <Button
+                    android:id="@+id/confirmButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:backgroundTint="@color/purple_200"
+                    android:text="Add"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1"
+                    android:textColor="@color/purple_500"
+                    />
+
+            </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
