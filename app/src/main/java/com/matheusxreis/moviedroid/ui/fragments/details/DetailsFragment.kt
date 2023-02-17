@@ -121,9 +121,13 @@ class DetailsFragment : Fragment(), MenuProvider {
                 }
             }
             R.id.add_in_list -> {
-                val action = DetailsFragmentDirections.actionDetailsFragmentToMyListsBottomSheet()
-                findNavController().navigate(action)
-            }
+                    val action =
+                        DetailsFragmentDirections.actionDetailsFragmentToMyListsBottomSheet(
+                            item = args.movie
+                        )
+                    findNavController().navigate(action)
+                }
+
         }
         return true
     }

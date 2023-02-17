@@ -55,6 +55,9 @@
         android:label="fragment_my_lists_bottom_sheet"
         tools:layout="@layout/fragment_my_lists_bottom_sheet" >
 
+        <argument
+            android:name="item"
+            app:argType="com.matheusxreis.moviedroid.models.MoviePoster" />
     </dialog>
 
 </navigation>
