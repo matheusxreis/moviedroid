@@ -5,6 +5,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.matheusxreis.moviedroid.data.Repository
 import com.matheusxreis.moviedroid.data.database.entities.ListEntity
+import com.matheusxreis.moviedroid.data.database.entities.ListItemEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,7 +20,7 @@ class ListsViewModel @Inject constructor(
     val lists = repository.localDataSource.readLists().asLiveData()
     val favorites = repository.localDataSource.readFavorite()
 
-
+    // List
     fun addList(name:String) = viewModelScope.launch(Dispatchers.IO){
 
         val newList = ListEntity(
@@ -39,6 +40,12 @@ class ListsViewModel @Inject constructor(
         repository.localDataSource.updateNameList(listEntity)
     }
 
+
+    // List item
+
+    fun addListItem(listItemEntity: ListItemEntity) = viewModelScope.launch(Dispatchers.IO){
+        repository.localDataSource.insertItem(listItemEntity)
+    }
 
     fun updateFavoritesValues(favoriteList:ListEntity) = viewModelScope.launch (Dispatchers.IO){
                 repository.localDataSource.updateAmmountAndCover(

@@ -2,6 +2,7 @@ package com.matheusxreis.moviedroid.data.database
 
 import com.matheusxreis.moviedroid.data.database.entities.FavoriteEntity
 import com.matheusxreis.moviedroid.data.database.entities.ListEntity
+import com.matheusxreis.moviedroid.data.database.entities.ListItemEntity
 import javax.inject.Inject
 
 class LocalDataSource @Inject constructor(
@@ -19,4 +20,7 @@ class LocalDataSource @Inject constructor(
     fun deleteAllLists() = itemDao.deleteAllLists()
     fun updateNameList(listEntity: ListEntity) = itemDao.updateNameList(listEntity)
     fun updateAmmountAndCover(listEntity: ListEntity) = itemDao.updateAmountAndCover(listEntity)
+
+
+    suspend fun insertItem(listItemEntity: ListItemEntity) = itemDao.insertItem(listItemEntity)
 }
