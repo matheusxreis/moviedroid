@@ -162,8 +162,8 @@ class DetailsFragment : Fragment(), MenuProvider {
 
         if(!undo){
             Snackbar.make(binding.root, "Save in favorites", Snackbar.LENGTH_SHORT)
-                .setAction("Undo", {deleteFromFavorites(true)})
-                //  .setAction("Okay", {})
+                // .setAction("Undo", {deleteFromFavorites(true)})
+                .setAction("Okay", {})
                 .show()
         }
 
@@ -176,8 +176,8 @@ class DetailsFragment : Fragment(), MenuProvider {
 
             if(!undo){
                 Snackbar.make(binding.root, "Delete from favorites", Snackbar.LENGTH_SHORT)
-                    .setAction("Undo", {saveInFavorites(true)})
-                    // .setAction("Okay", {})
+                    // .setAction("Undo", {saveInFavorites(true)})
+                    .setAction("Okay", {})
                     .show()
             }
         }
