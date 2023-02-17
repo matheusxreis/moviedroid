@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="6dp">
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/listCardViewBs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -34,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:button="@drawable/checkbox_drawable"
                     android:buttonTint="@color/checkbox_color"
-                    android:checked="true"
+                    android:checked="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0"
@@ -86,7 +87,7 @@
                     app:layout_constraintEnd_toEndOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
