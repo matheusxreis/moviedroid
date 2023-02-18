@@ -1,5 +1,6 @@
 package com.matheusxreis.moviedroid.ui.fragments.details.mylistbottomsheet
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,19 +45,26 @@ class MyListsBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpRecyclerView()
-        populateRecyclerView()
-        addInList()
-
         val behavior: BottomSheetBehavior<*> = (dialog as BottomSheetDialog).behavior
         behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {}
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                buttonLayout.y = ((bottomSheet.parent as View).height - bottomSheet.top - buttonLayout.height).toFloat()
+
+            }
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 buttonLayout.y = ((bottomSheet.parent as View).height - bottomSheet.top - buttonLayout.height).toFloat()
             }
         }.apply {
-          view.post { onSlide(view.parent as View, 0f) }
+            view.post { onSlide(view.parent as View, 0f);
+                }
         })
+        behavior.state = BottomSheetBehavior.STATE_EXPANDED
+
+
+        setUpRecyclerView()
+        populateRecyclerView()
+        addInList()
+
 
     }
 
