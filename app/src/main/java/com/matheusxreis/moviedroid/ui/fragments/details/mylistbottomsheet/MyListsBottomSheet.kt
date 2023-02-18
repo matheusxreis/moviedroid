@@ -1,10 +1,12 @@
 package com.matheusxreis.moviedroid.ui.fragments.details.mylistbottomsheet
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.adapters.ListsBottomSheetAdapter
+import com.matheusxreis.moviedroid.data.database.entities.ListEntity
 import com.matheusxreis.moviedroid.data.database.entities.ListItemEntity
 import com.matheusxreis.moviedroid.viewmodels.ListsViewModel
 import kotlinx.android.synthetic.main.fragment_my_lists_bottom_sheet.*
@@ -69,6 +72,10 @@ class MyListsBottomSheet : BottomSheetDialogFragment() {
     }
 
 
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+
+    }
     // CUSTOM FUNCTIONS
 
     fun setUpRecyclerView(){
@@ -109,7 +116,26 @@ class MyListsBottomSheet : BottomSheetDialogFragment() {
                         )
                         myListsViewModel.addListItem(listItemEntity)
 
+                        val listEntity = ListEntity(
+                            id = list.id,
+                            name=list.name,
+                            createdAt = list.createdAt,
+                            coverUrl = item.imageUrl?:"",
+                            amountItems = list.amountItems+1
+                        )
+                        myListsViewModel.updateListValue(
+                            listEntity = listEntity
+                        )
                 }
+
+                Toast.makeText(
+                    requireContext(),
+                    "Added ${args.item.title} in ${mAdapter.selectedLists.size} lists",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+                this.dismiss()
+
             }
 
         }

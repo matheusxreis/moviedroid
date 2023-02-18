@@ -1,5 +1,6 @@
 package com.matheusxreis.moviedroid.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -37,6 +38,9 @@ class ListsViewModel @Inject constructor(
         repository.localDataSource.deleteList(id)
     }
     fun updateListName(listEntity: ListEntity) = viewModelScope.launch (Dispatchers.IO){
+        repository.localDataSource.updateNameList(listEntity)
+    }
+    fun updateListValue(listEntity: ListEntity) = viewModelScope.launch(Dispatchers.IO){
         repository.localDataSource.updateNameList(listEntity)
     }
 
