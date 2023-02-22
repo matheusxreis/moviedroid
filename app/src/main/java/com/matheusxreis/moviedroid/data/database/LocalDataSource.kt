@@ -23,4 +23,5 @@ class LocalDataSource @Inject constructor(
 
 
     suspend fun insertItem(listItemEntity: ListItemEntity) = itemDao.insertItem(listItemEntity)
+    fun readListItem(listCode:String) = itemDao.readListItem(listCode)
 }

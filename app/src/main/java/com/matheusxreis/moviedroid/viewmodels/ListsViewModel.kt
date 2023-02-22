@@ -1,6 +1,5 @@
 package com.matheusxreis.moviedroid.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -20,6 +19,7 @@ class ListsViewModel @Inject constructor(
 
     val lists = repository.localDataSource.readLists().asLiveData()
     val favorites = repository.localDataSource.readFavorite()
+    //val items = repository.localDataSource
 
     // List
     fun addList(name:String) = viewModelScope.launch(Dispatchers.IO){
@@ -50,6 +50,10 @@ class ListsViewModel @Inject constructor(
     fun addListItem(listItemEntity: ListItemEntity) = viewModelScope.launch(Dispatchers.IO){
         repository.localDataSource.insertItem(listItemEntity)
     }
+
+    fun readListItem(listCode:String) = repository.localDataSource.readListItem(listCode).asLiveData()
+
+
 
     fun updateFavoritesValues(favoriteList:ListEntity) = viewModelScope.launch (Dispatchers.IO){
                 repository.localDataSource.updateAmmountAndCover(

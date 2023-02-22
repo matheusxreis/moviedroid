@@ -5,24 +5,35 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.matheusxreis.moviedroid.data.database.entities.ListEntity
 import com.matheusxreis.moviedroid.databinding.ListBottomsheetRowLayoutBinding
+import com.matheusxreis.moviedroid.models.MoviePoster
+import com.matheusxreis.moviedroid.viewmodels.ListsViewModel
 import kotlinx.android.synthetic.main.list_bottomsheet_row_layout.view.*
 
-class ListsBottomSheetAdapter: RecyclerView.Adapter<ListsBottomSheetAdapter.MyViewHolder>() {
+class ListsBottomSheetAdapter(
+    private val movie: MoviePoster,
+    private val listsViewModel: ListsViewModel
+): RecyclerView.Adapter<ListsBottomSheetAdapter.MyViewHolder>() {
 
-    private var userLists:List<ListEntity> = listOf()
-    var selectedLists:ArrayList<ListEntity> = arrayListOf()
+    private var userLists: List<ListEntity> = listOf()
+    var selectedLists: ArrayList<ListEntity> = arrayListOf()
 
 
-    class MyViewHolder(private val binding:ListBottomsheetRowLayoutBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(userList:ListEntity){
+    class MyViewHolder(
+        private val binding: ListBottomsheetRowLayoutBinding,
+        private val movie: MoviePoster,
+        private val listsViewModel: ListsViewModel
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(userList: ListEntity) {
             binding.list = userList
+            binding.movie = movie
+            binding.listViewModel = listsViewModel
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ListBottomsheetRowLayoutBinding.inflate(layoutInflater, parent, false)
-        return MyViewHolder(binding)
+        return MyViewHolder(binding, movie, listsViewModel)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -41,7 +52,7 @@ class ListsBottomSheetAdapter: RecyclerView.Adapter<ListsBottomSheetAdapter.MyVi
 
     override fun getItemCount(): Int = userLists.size
 
-    fun setData(newUserLists:List<ListEntity>){
+    fun setData(newUserLists: List<ListEntity>) {
         userLists = newUserLists
         notifyItemInserted(itemCount)
     }
@@ -49,12 +60,12 @@ class ListsBottomSheetAdapter: RecyclerView.Adapter<ListsBottomSheetAdapter.MyVi
 
     // Cusotm functions
 
-    fun applySelection(holder: MyViewHolder, currentItem: ListEntity){
+    fun applySelection(holder: MyViewHolder, currentItem: ListEntity) {
 
-        if(selectedLists.contains(currentItem)){
+        if (selectedLists.contains(currentItem)) {
             holder.itemView.checkboxBs.isChecked = false
             selectedLists.remove(currentItem)
-        }else {
+        } else {
             holder.itemView.checkboxBs.isChecked = true
             selectedLists.add(currentItem)
         }

@@ -8,6 +8,12 @@
         <variable
             name="list"
             type="com.matheusxreis.moviedroid.data.database.entities.ListEntity" />
+        <variable
+            name="listViewModel"
+            type="com.matheusxreis.moviedroid.viewmodels.ListsViewModel" />
+        <variable
+            name="movie"
+            type="com.matheusxreis.moviedroid.models.MoviePoster" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -75,6 +81,9 @@
                     tools:text="24 items" />
 
                 <TextView
+                    getListViewModel="@{listViewModel}"
+                    getListEntity="@{list}"
+                    getMovie="@{movie}"
                     android:id="@+id/alreadyIsBsTv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

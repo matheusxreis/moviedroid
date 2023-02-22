@@ -24,10 +24,13 @@ import kotlinx.android.synthetic.main.fragment_my_lists_bottom_sheet.*
 class MyListsBottomSheet : BottomSheetDialogFragment() {
 
     private val args by navArgs<MyListsBottomSheetArgs>()
-    private val mAdapter: ListsBottomSheetAdapter by lazy {
-        ListsBottomSheetAdapter()
-    }
     private val myListsViewModel:ListsViewModel by activityViewModels<ListsViewModel>()
+    private val mAdapter: ListsBottomSheetAdapter by lazy {
+        ListsBottomSheetAdapter(
+            movie = args.item,
+            listsViewModel = myListsViewModel
+        )
+    }
     private lateinit var mView:View
 
     override fun onCreate(savedInstanceState: Bundle?) {
