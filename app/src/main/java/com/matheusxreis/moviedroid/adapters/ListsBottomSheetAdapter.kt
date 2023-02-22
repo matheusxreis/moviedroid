@@ -16,6 +16,7 @@ class ListsBottomSheetAdapter(
 
     private var userLists: List<ListEntity> = listOf()
     var selectedLists: ArrayList<ListEntity> = arrayListOf()
+    private var myViewHolders: ArrayList<MyViewHolder> = arrayListOf()
 
 
     class MyViewHolder(
@@ -48,9 +49,12 @@ class ListsBottomSheetAdapter(
         }
 
         holder.bind(currentList)
+        bindSelection(holder, currentList)
+
     }
 
     override fun getItemCount(): Int = userLists.size
+
 
     fun setData(newUserLists: List<ListEntity>) {
         userLists = newUserLists
@@ -58,10 +62,15 @@ class ListsBottomSheetAdapter(
     }
 
 
+
     // Cusotm functions
+    private fun bindSelection(holder:MyViewHolder, currentItem: ListEntity){
 
-    fun applySelection(holder: MyViewHolder, currentItem: ListEntity) {
+        holder.itemView.checkboxBs.isChecked = selectedLists.contains(currentItem)
+    }
+    private fun applySelection(holder: MyViewHolder, currentItem: ListEntity) {
 
+        if(!holder.itemView.checkboxBs.isEnabled){return;}
         if (selectedLists.contains(currentItem)) {
             holder.itemView.checkboxBs.isChecked = false
             selectedLists.remove(currentItem)
