@@ -36,6 +36,9 @@
                 android:background="@color/backgroundSecondaryColor">
 
                 <CheckBox
+                    getListViewModel="@{listViewModel}"
+                    getListEntity="@{list}"
+                    getMovie="@{movie}"
                     android:id="@+id/checkboxBs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
