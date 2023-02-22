@@ -23,28 +23,33 @@ class MyListRowBinding {
 
         @BindingAdapter("defineMyListTitle")
         @JvmStatic
-        fun defineMyListTitle(textView: TextView, title:String){
-            textView.text="$title"
+        fun defineMyListTitle(textView: TextView, title: String) {
+            textView.text = "$title"
         }
 
         @BindingAdapter("defineMyListAmountFavorite", "listIdFav", requireAll = true)
         @JvmStatic
-        fun defineMyListAmountFavorite(textView: TextView, myListsViewModel: ListsViewModel, id: Int){
+        fun defineMyListAmountFavorite(
+            textView: TextView,
+            myListsViewModel: ListsViewModel,
+            id: Int
+        ) {
 
-            if(id!=1) { return; }
+            if (id != 1) {
+                return; }
             myListsViewModel.viewModelScope.launch {
                 myListsViewModel.favorites.collect { it ->
                     val values = myListsViewModel.lists.value?.find { it.id == 1 }
-                    if(values != null && it.isNotEmpty()) {
+                    if (values != null && it.isNotEmpty()) {
                         val last = it.sortedBy { favorite -> favorite.id }.last()
                         val favoriteList = ListEntity(
                             id = values!!.id,
                             name = values!!.name,
                             amountItems = it.size,
-                            coverUrl =  last.imageUrl,
+                            coverUrl = last.imageUrl,
                             createdAt = values!!.createdAt
                         )
-                        if(favoriteList != values){
+                        if (favoriteList != values) {
                             myListsViewModel.updateFavoritesValues(
                                 favoriteList = favoriteList
                             )
@@ -54,17 +59,17 @@ class MyListRowBinding {
                         } else {
                             textView.text = "1 item"
                         }
-                    }else {
+                    } else {
                         textView.text = "0 items"
-                        if(values!=null){
+                        if (values != null) {
                             val favoriteList = ListEntity(
                                 id = values!!.id,
                                 name = values!!.name,
                                 amountItems = it.size,
-                                coverUrl =  "",
+                                coverUrl = "",
                                 createdAt = values!!.createdAt
                             )
-                            if(favoriteList != values) {
+                            if (favoriteList != values) {
                                 myListsViewModel.updateFavoritesValues(
                                     favoriteList = favoriteList
                                 )
@@ -77,15 +82,16 @@ class MyListRowBinding {
 
         @BindingAdapter("defineMyListAmount", "listId", requireAll = true)
         @JvmStatic
-        fun defineMyListAmount(textView: TextView, myListsViewModel: ListsViewModel, id: Int){
-            if(id == 1 ){ return; }
+        fun defineMyListAmount(textView: TextView, myListsViewModel: ListsViewModel, id: Int) {
+            if (id == 1) {
+                return; }
             myListsViewModel.lists.observe(textView.findViewTreeLifecycleOwner()!!) {
 
                 val currentList = it.find { it.id == id }
                 val currentAmount = currentList?.amountItems ?: 0
-                if(currentAmount!=1){
+                if (currentAmount != 1) {
                     textView.text = "$currentAmount items"
-                }else {
+                } else {
                     textView.text = "1 item"
                 }
 
@@ -95,9 +101,9 @@ class MyListRowBinding {
 
         @BindingAdapter("loadCover", "hasCover", requireAll = true)
         @JvmStatic
-        fun loadCover(imageView: ImageView, imageUrl:String, amount:Int){
+        fun loadCover(imageView: ImageView, imageUrl: String, amount: Int) {
 
-            if(amount>0) {
+            if (amount > 0) {
                 val shimmer = Shimmer.ColorHighlightBuilder()
                     .setBaseColor(ContextCompat.getColor(imageView.context, R.color.placeholder))
                     .setDuration(700)
@@ -114,8 +120,8 @@ class MyListRowBinding {
                     error(R.drawable.no_result)
                     placeholder(shimmerDrawable)
                 }
-            }else {
-                imageView.setImageDrawable(ContextCompat.getDrawable(imageView.context, R.drawable.ic_no_image))
+            } else {
+                imageView.load(ContextCompat.getDrawable(imageView.context, R.drawable.ic_no_image))
             }
         }
 
