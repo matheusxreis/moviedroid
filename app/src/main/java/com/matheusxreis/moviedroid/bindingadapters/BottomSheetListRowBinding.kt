@@ -39,13 +39,15 @@ class BottomSheetListRowBinding {
                 when (view) {
                     is CheckBox -> {
                         Log.d("oops", "i'm not a text view")
-                        view.isChecked = isOnList != null
-                        view.isEnabled = isOnList != null
-                        view.isClickable = isOnList != null
+                        view.isEnabled = isOnList == null
 
                         if (isOnList != null) {
                             view.buttonTintList =
                                 ContextCompat.getColorStateList(view.context, R.color.placeholder)
+                            view.isChecked = true
+                        }else {
+                            view.buttonTintList =
+                                ContextCompat.getColorStateList(view.context, R.color.checkbox_color)
                         }
 
                     }
