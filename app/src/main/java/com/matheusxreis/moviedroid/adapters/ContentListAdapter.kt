@@ -42,6 +42,7 @@ class ContentListAdapter
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = items[position]
 
+        myViewHolders.add(holder)
 
         holder.itemView.contentCardView.setOnLongClickListener {
             requireActivity.startActionMode(this)
@@ -63,6 +64,7 @@ class ContentListAdapter
             }
 
         }
+
         holder.bind(currentItem)
     }
 
@@ -76,6 +78,8 @@ class ContentListAdapter
     // Action Mode Callback
     override fun onCreateActionMode(p0: ActionMode?, p1: Menu?): Boolean {
         myActionMode = p0!!
+        applyStatusBarColor(R.color.purple_700)
+
         return true
     }
 
@@ -89,6 +93,15 @@ class ContentListAdapter
     }
 
     override fun onDestroyActionMode(p0: ActionMode?) {
+        contextualSelectedItems.clear()
+        myViewHolders.forEach {
+            removeSelectedStyle(
+                materialCardView = it.itemView.contentCardView as MaterialCardView,
+                it.itemView.checkboxContentSelected
+            )
+            it.itemView.checkboxContentSelected.visibility = View.INVISIBLE
+        }
+        applyStatusBarColor(R.color.dark)
     }
 
 
@@ -104,7 +117,7 @@ class ContentListAdapter
                 contextualSelectedItems.remove(currentItem)
                 removeSelectedStyle(
                     materialCardView = holder.itemView.contentCardView as MaterialCardView,
-                    checkBox = holder.itemView.checkboxListSelected
+                    checkBox = holder.itemView.checkboxContentSelected
                 )
                 defineActionModeTitle()
                 if (contextualSelectedItems.size == 0) {
@@ -115,13 +128,13 @@ class ContentListAdapter
                 contextualSelectedItems.add(currentItem)
                 applySelectedStyle(
                     materialCardView = holder.itemView.contentCardView as MaterialCardView,
-                    checkBox = null
+                    checkBox = holder.itemView.checkboxContentSelected
                 )
                 defineActionModeTitle()
 
                 if (contextualSelectedItems.size == 1) {
                     myViewHolders.forEach {
-                        it.itemView.checkboxListSelected.visibility = View.VISIBLE
+                        it.itemView.checkboxContentSelected.visibility = View.VISIBLE
                     }
                 }
             }
@@ -129,7 +142,7 @@ class ContentListAdapter
 
     }
 
-    private fun applySelectedStyle(materialCardView: MaterialCardView, checkBox: CheckBox?) {
+    private fun applySelectedStyle(materialCardView: MaterialCardView, checkBox: CheckBox) {
         materialCardView.strokeWidth = 2
         materialCardView.strokeColor =
             ContextCompat.getColor(requireActivity.applicationContext, R.color.purple_200)
@@ -139,10 +152,10 @@ class ContentListAdapter
                 R.color.text
             )
         )
-        //checkBox.isChecked = true
+        checkBox.isChecked = true
 
     }
-    private fun removeSelectedStyle(materialCardView: MaterialCardView, checkBox: CheckBox?) {
+    private fun removeSelectedStyle(materialCardView: MaterialCardView, checkBox: CheckBox) {
         materialCardView.strokeWidth = 0
         materialCardView.setBackgroundColor(
             ContextCompat.getColor(
@@ -150,7 +163,7 @@ class ContentListAdapter
                 R.color.text
             )
         )
-        //checkBox.isChecked = false
+        checkBox.isChecked = false
     }
 
     private fun defineActionModeTitle() {
@@ -161,7 +174,9 @@ class ContentListAdapter
         }
 
     }
-
+    private fun applyStatusBarColor(color: Int) {
+        requireActivity.window.statusBarColor = ContextCompat.getColor(requireActivity, color)
+    }
     // Disabling action mode
     fun clearContextualAction() {
         if (this::myActionMode.isInitialized) {

@@ -28,6 +28,23 @@
                 android:layout_height="wrap_content"
                 android:background="@color/backgroundSecondaryColor">
 
+                <CheckBox
+                    android:id="@+id/checkboxContentSelected"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="12dp"
+                    android:button="@drawable/checkbox_drawable"
+                    android:buttonTint="@color/checkbox_color"
+                    android:checked="false"
+                    android:src="@drawable/ic_star"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.5" />
+
                 <ImageView
                     loadImageUrl="@{item.imageUrl}"
                     android:id="@+id/coverImageView"
@@ -40,7 +57,6 @@
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
                 <TextView
                     android:text="@{item.title}"
                     android:id="@+id/itemTitleTv"
@@ -54,7 +70,7 @@
                     android:textSize="20sp"
                     android:textStyle="italic"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/checkboxContentSelected"
                     app:layout_constraintStart_toEndOf="@id/coverImageView"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.2"
