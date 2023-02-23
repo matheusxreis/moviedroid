@@ -78,5 +78,7 @@ class ListsBottomSheetAdapter(
             holder.itemView.checkboxBs.isChecked = true
             selectedLists.add(currentItem)
         }
+
+        listsViewModel.selectedAddLists.value = selectedLists
     }
 }

@@ -3,10 +3,12 @@ package com.matheusxreis.moviedroid.ui.fragments.details.mylistbottomsheet
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +20,7 @@ import com.matheusxreis.moviedroid.adapters.ListsBottomSheetAdapter
 import com.matheusxreis.moviedroid.data.database.entities.ListEntity
 import com.matheusxreis.moviedroid.data.database.entities.ListItemEntity
 import com.matheusxreis.moviedroid.viewmodels.ListsViewModel
+import kotlinx.android.synthetic.main.fragment_add_list.*
 import kotlinx.android.synthetic.main.fragment_my_lists_bottom_sheet.*
 
 
@@ -60,6 +63,14 @@ class MyListsBottomSheet : BottomSheetDialogFragment() {
                 bottomSheetSubtitleTv.text = bottomSheetSubtitleTv.text
             }
         }
+        desablingButton()
+        myListsViewModel.selectedAddLists.observe(viewLifecycleOwner){
+            if(it.isNullOrEmpty()){
+                desablingButton()
+            }else {
+                enablingButton()
+            }
+        }
         val behavior: BottomSheetBehavior<*> = (dialog as BottomSheetDialog).behavior
         behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -90,13 +101,13 @@ class MyListsBottomSheet : BottomSheetDialogFragment() {
     }
     // CUSTOM FUNCTIONS
 
-    fun setUpRecyclerView(){
+    private fun setUpRecyclerView(){
 
         bottomSheetRecyclerView.adapter = mAdapter
         bottomSheetRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
     }
-    fun populateRecyclerView(){
+    private fun populateRecyclerView(){
         myListsViewModel.lists.observe(viewLifecycleOwner){
            if(it.size>1) {
                val data = it.slice(1..it.lastIndex)
@@ -104,6 +115,19 @@ class MyListsBottomSheet : BottomSheetDialogFragment() {
            }
         }
     }
+
+    private fun desablingButton() {
+        confirmButton.isEnabled = false
+        confirmButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.placeholder))
+        confirmButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark))
+    }
+
+    private fun enablingButton() {
+        confirmButton.isEnabled = true
+        confirmButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.purple_200))
+        confirmButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.purple_500))
+    }
+
 
     private fun addInList(){
         confirmButton.setOnClickListener {
@@ -146,7 +170,11 @@ class MyListsBottomSheet : BottomSheetDialogFragment() {
                     Toast.LENGTH_SHORT
                 )
                     .show()
+
+                mAdapter.selectedLists.clear()
+
                 this.dismiss()
+
 
             }
 

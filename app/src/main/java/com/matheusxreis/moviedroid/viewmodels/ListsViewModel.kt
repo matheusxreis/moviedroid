@@ -1,5 +1,6 @@
 package com.matheusxreis.moviedroid.viewmodels
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -19,6 +20,7 @@ class ListsViewModel @Inject constructor(
 
     val lists = repository.localDataSource.readLists().asLiveData()
     val favorites = repository.localDataSource.readFavorite()
+    val selectedAddLists: MutableLiveData<ArrayList<ListEntity>> = MutableLiveData()
     //val items = repository.localDataSource
 
     // List
