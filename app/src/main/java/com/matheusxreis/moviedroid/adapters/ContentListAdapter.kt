@@ -11,7 +11,6 @@ import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.data.database.entities.ListItemEntity
 import com.matheusxreis.moviedroid.databinding.ContentListRowLayoutBinding
 import kotlinx.android.synthetic.main.content_list_row_layout.view.*
-import kotlinx.android.synthetic.main.list_row_layout.view.*
 
 class ContentListAdapter
     (private val requireActivity:FragmentActivity,
@@ -64,7 +63,10 @@ class ContentListAdapter
             }
 
         }
-
+        bindSelection(
+            holder = holder,
+            currentItem = currentItem
+        )
         holder.bind(currentItem)
     }
 
@@ -141,6 +143,27 @@ class ContentListAdapter
         }
 
     }
+    private fun bindSelection(holder: RecyclerView.ViewHolder, currentItem: ListItemEntity) {
+
+        if (contextualSelectedItems.contains(currentItem)) {
+            applySelectedStyle(
+                materialCardView = holder.itemView.contentCardView as MaterialCardView,
+                checkBox = holder.itemView.checkboxContentSelected
+            )
+
+        } else {
+            removeSelectedStyle(
+                materialCardView = holder.itemView.contentCardView as MaterialCardView,
+                checkBox = holder.itemView.checkboxContentSelected
+            )
+        }
+
+        if (contextualSelectedItems.size > 0) {
+            holder.itemView.checkboxContentSelected.visibility = View.VISIBLE
+        }
+
+    }
+
 
     private fun applySelectedStyle(materialCardView: MaterialCardView, checkBox: CheckBox) {
         materialCardView.strokeWidth = 2
