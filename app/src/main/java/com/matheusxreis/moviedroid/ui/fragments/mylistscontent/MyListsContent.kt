@@ -18,7 +18,10 @@ import kotlinx.android.synthetic.main.fragment_my_lists_content.*
 class MyListsContent : Fragment() {
 
     val mAdapter: ContentListAdapter by lazy {
-        ContentListAdapter()
+        ContentListAdapter(
+            requireActivity = requireActivity(),
+            navController = findNavController()
+        )
     }
     val myListsViewModel:ListsViewModel by activityViewModels<ListsViewModel>()
     val args by navArgs<MyListsContentArgs>()
@@ -26,6 +29,10 @@ class MyListsContent : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+    }
+    override fun onDestroy() {
+        mAdapter.clearContextualAction()
+        super.onDestroy()
     }
 
     override fun onCreateView(
