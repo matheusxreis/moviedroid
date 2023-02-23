@@ -46,4 +46,10 @@ interface ItemDao {
     @Query("SELECT * FROM items_List_table WHERE listCode == :listCode ORDER BY id")
     fun readListItem(listCode:String):Flow<List<ListItemEntity>>
 
+    @Query("DELETE FROM items_List_table WHERE id==:id")
+    fun deleteListItem(id: String)
+
+    @Query("DELETE FROM items_List_table WHERE listCode==:listCode")
+    fun deleteAllListItemsFromList(listCode: String)
+
 }

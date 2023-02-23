@@ -17,13 +17,15 @@ import kotlinx.android.synthetic.main.fragment_my_lists_content.*
 
 class MyListsContent : Fragment() {
 
+
+    val myListsViewModel:ListsViewModel by activityViewModels<ListsViewModel>()
     val mAdapter: ContentListAdapter by lazy {
         ContentListAdapter(
             requireActivity = requireActivity(),
+            myListsViewModel = myListsViewModel,
             navController = findNavController()
         )
     }
-    val myListsViewModel:ListsViewModel by activityViewModels<ListsViewModel>()
     val args by navArgs<MyListsContentArgs>()
 
     override fun onCreate(savedInstanceState: Bundle?) {

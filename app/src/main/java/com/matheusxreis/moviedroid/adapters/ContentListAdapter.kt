@@ -9,14 +9,19 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.snackbar.Snackbar
 import com.matheusxreis.moviedroid.R
+import com.matheusxreis.moviedroid.data.database.entities.ListEntity
 import com.matheusxreis.moviedroid.data.database.entities.ListItemEntity
 import com.matheusxreis.moviedroid.databinding.ContentListRowLayoutBinding
+import com.matheusxreis.moviedroid.viewmodels.ListsViewModel
+import kotlinx.android.synthetic.main.content_list_row_layout.*
 import kotlinx.android.synthetic.main.content_list_row_layout.view.*
 
 class ContentListAdapter
     (private val requireActivity:FragmentActivity,
-    private val navController: NavController): RecyclerView.Adapter<ContentListAdapter.MyViewHolder>(),
+     private val myListsViewModel: ListsViewModel,
+     private val navController: NavController): RecyclerView.Adapter<ContentListAdapter.MyViewHolder>(),
     ActionMode.Callback {
 
     var items: List<ListItemEntity> = listOf()
@@ -76,7 +81,7 @@ class ContentListAdapter
 
     fun setData(newItems: List<ListItemEntity>) {
         items = newItems
-        notifyItemInserted(itemCount)
+        notifyDataSetChanged()
     }
 
     // Action Mode Callback
@@ -105,7 +110,7 @@ class ContentListAdapter
 
         when(menuItem?.itemId){
             R.id.contextual_delete_content_menu -> {
-                Log.d("removing", "removing item")
+                removeItems()
             }
         }
         return true
@@ -125,6 +130,45 @@ class ContentListAdapter
 
 
     //Custom functions
+
+    private fun removeItems(){
+        contextualSelectedItems.forEach {
+            myListsViewModel.deleteListItem(id=it.id.toString())
+        }
+        Snackbar.make(
+            requireActivity.contentCardView,
+            "${contextualSelectedItems.size} ${if (contextualSelectedItems.size > 1) "lists" else "list"} deleted",
+            Snackbar.LENGTH_SHORT
+        )
+            .setAction("Okay", {})
+            .show()
+
+        val currentList = myListsViewModel.lists.value?.find {
+            it.id.toString() == items[0].listCode.toString()
+        }
+        var amount = 0
+        var coverUrl=""
+        if(currentList?.amountItems!! > 1) {
+             amount = currentList!!.amountItems - contextualSelectedItems.size
+            coverUrl = items[items.lastIndex - contextualSelectedItems.size].imageUrl
+
+        }else {
+            this.notifyItemRemoved(0)
+            setData(listOf())
+
+        }
+        myListsViewModel.updateListValue(
+            ListEntity(
+                id = currentList!!.id,
+                name = currentList!!.name,
+                createdAt = currentList!!.createdAt,
+                coverUrl = coverUrl,
+                amountItems = amount
+            )
+        )
+
+        this.clearContextualAction()
+    }
 
     private fun applySelection(
         holder: RecyclerView.ViewHolder,

@@ -52,11 +52,12 @@ class ListsViewModel @Inject constructor(
     fun addListItem(listItemEntity: ListItemEntity) = viewModelScope.launch(Dispatchers.IO){
         repository.localDataSource.insertItem(listItemEntity)
     }
-
     fun readListItem(listCode:String) = repository.localDataSource.readListItem(listCode).asLiveData()
 
+    fun deleteListItem(id: String) = viewModelScope.launch(Dispatchers.IO){  repository.localDataSource.deleteListItem(id = id) }
+    fun deleteAllListItemsFromList(listCode:String) = viewModelScope.launch(Dispatchers.IO){ repository.localDataSource.deleteAllListItemsFromList(listCode = listCode) }
 
-
+    // Favorites
     fun updateFavoritesValues(favoriteList:ListEntity) = viewModelScope.launch (Dispatchers.IO){
                 repository.localDataSource.updateAmmountAndCover(
                     listEntity = favoriteList
