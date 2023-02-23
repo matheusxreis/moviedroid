@@ -25,4 +25,9 @@
             android:defaultValue="@null"
             app:argType="com.matheusxreis.moviedroid.data.database.entities.ListEntity" />
     </fragment>
+    <fragment
+        android:id="@+id/myListsContent"
+        android:name="com.matheusxreis.moviedroid.ui.fragments.mylistscontent.MyListsContent"
+        android:label="My Lists"
+        tools:layout="@layout/fragment_my_lists_content" />
 </navigation>
