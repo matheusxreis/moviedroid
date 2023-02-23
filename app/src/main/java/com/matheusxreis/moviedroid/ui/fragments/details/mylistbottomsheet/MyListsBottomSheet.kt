@@ -51,6 +51,15 @@ class MyListsBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        myListsViewModel.lists.observe(viewLifecycleOwner){
+            if(it.size==1){
+                noListImageView.visibility = View.VISIBLE
+                bottomSheetSubtitleTv.text = "Looks like as you don't have any list"
+            }else {
+                noListImageView.visibility = View.INVISIBLE
+                bottomSheetSubtitleTv.text = bottomSheetSubtitleTv.text
+            }
+        }
         val behavior: BottomSheetBehavior<*> = (dialog as BottomSheetDialog).behavior
         behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
