@@ -107,7 +107,7 @@ class MyListsBottomSheet : BottomSheetDialogFragment() {
                     }
                 }
                 mAdapter.selectedLists.forEach { list ->
-                    val type = item.firstAirDate ?: "serie"
+                    val type = type
                         val listItemEntity = ListItemEntity(
                             title = item.title,
                             itemId = item.id,
