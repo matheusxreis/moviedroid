@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.forEach
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.android.material.card.MaterialCardView
@@ -109,7 +110,10 @@ class ListsAdapter(
                             currentItem = currentItem
                         )
                     } else {
-                        ///
+                        val action = MyListsFragmentsDirections.actionMyListsFragments2ToMyListsContent(
+                            listId = currentItem.id.toString()
+                        )
+                       navController.navigate(action)
                     }
                 }
                 holder.itemView.checkboxListSelected.setOnClickListener {

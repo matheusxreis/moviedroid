@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_myListsFragments2_to_addListFragment"
             app:destination="@id/addListFragment" />
+        <action
+            android:id="@+id/action_myListsFragments2_to_myListsContent"
+            app:destination="@id/myListsContent" />
     </fragment>
     <fragment
         android:id="@+id/addListFragment"
@@ -29,5 +32,11 @@
         android:id="@+id/myListsContent"
         android:name="com.matheusxreis.moviedroid.ui.fragments.mylistscontent.MyListsContent"
         android:label="My Lists"
-        tools:layout="@layout/fragment_my_lists_content" />
+        tools:layout="@layout/fragment_my_lists_content" >
+        <argument
+            android:name="listId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="null" />
+    </fragment>
 </navigation>
