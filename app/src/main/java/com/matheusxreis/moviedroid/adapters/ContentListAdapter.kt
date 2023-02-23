@@ -1,8 +1,10 @@
 package com.matheusxreis.moviedroid.adapters
 
+import android.util.Log
 import android.view.*
 import android.widget.CheckBox
 import androidx.core.content.ContextCompat
+import androidx.core.view.forEach
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
@@ -78,10 +80,19 @@ class ContentListAdapter
     }
 
     // Action Mode Callback
-    override fun onCreateActionMode(p0: ActionMode?, p1: Menu?): Boolean {
-        myActionMode = p0!!
+    override fun onCreateActionMode(actionMode: ActionMode?, menu: Menu?): Boolean {
+        myActionMode = actionMode!!
         applyStatusBarColor(R.color.purple_700)
 
+        myActionMode.menuInflater.inflate(R.menu.contextual_menu_action_mode_content, menu)
+        menu?.forEach {
+            it?.icon?.setTint(
+                ContextCompat.getColor(
+                    requireActivity.applicationContext,
+                    R.color.white
+                )
+            )
+        }
         return true
     }
 
@@ -90,7 +101,13 @@ class ContentListAdapter
         return true
     }
 
-    override fun onActionItemClicked(p0: ActionMode?, p1: MenuItem?): Boolean {
+    override fun onActionItemClicked(p0: ActionMode?, menuItem: MenuItem?): Boolean {
+
+        when(menuItem?.itemId){
+            R.id.contextual_delete_content_menu -> {
+                Log.d("removing", "removing item")
+            }
+        }
         return true
     }
 
