@@ -31,12 +31,17 @@
     <fragment
         android:id="@+id/myListsContent"
         android:name="com.matheusxreis.moviedroid.ui.fragments.mylistscontent.MyListsContent"
-        android:label="My Lists"
+        android:label="{listName}"
         tools:layout="@layout/fragment_my_lists_content" >
         <argument
             android:name="listId"
             app:argType="string"
             app:nullable="true"
             android:defaultValue="null" />
+        <argument
+            android:name="listName"
+            app:argType="string"
+            app:nullable="false"
+            />
     </fragment>
 </navigation>

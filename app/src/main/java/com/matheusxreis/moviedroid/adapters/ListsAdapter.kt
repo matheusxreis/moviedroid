@@ -111,7 +111,8 @@ class ListsAdapter(
                         )
                     } else {
                         val action = MyListsFragmentsDirections.actionMyListsFragments2ToMyListsContent(
-                            listId = currentItem.id.toString()
+                            listId = currentItem.id.toString(),
+                            listName = currentItem.name
                         )
                        navController.navigate(action)
                     }
