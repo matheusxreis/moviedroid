@@ -21,9 +21,9 @@ data class ListItemEntity (
     val title: String,
     val itemId: String,
     val imageUrl:String,
-    val overview: String,
+    val voteAverage: Float,
+    val voteCount: Int,
     val type: String,
     val rating:Float,
-
     val listCode: String
 )

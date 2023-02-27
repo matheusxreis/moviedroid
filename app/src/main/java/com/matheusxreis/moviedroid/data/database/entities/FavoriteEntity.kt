@@ -2,6 +2,7 @@ package com.matheusxreis.moviedroid.data.database.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 import com.matheusxreis.moviedroid.utils.Constants
 
 
@@ -13,9 +14,9 @@ data class FavoriteEntity(
     val title: String,
     val itemId: String,
     val imageUrl:String,
-    val overview: String,
     val type: String,
     val rating:Float,
-
+    val voteAverage: Float,
+    val voteCount: Int,
     val listCode: String = "favorites"
 )

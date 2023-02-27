@@ -145,7 +145,8 @@ class MyListsBottomSheet : BottomSheetDialogFragment() {
                             title = item.title,
                             itemId = item.id,
                             imageUrl = item.imageUrl.toString(),
-                            overview = "",
+                            voteAverage = item.voteAverage,
+                            voteCount = item.vouteCount.toInt(),
                             type = type,
                             rating = item.voteAverage / 2,
                             listCode = list.id.toString()

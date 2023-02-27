@@ -110,7 +110,8 @@ class DetailsViewModel @Inject constructor(
 
         val favorite = FavoriteEntity(
             title = movieDetails.title,
-            overview =  movieDetails.overview,
+            voteAverage =  movieDetails.voteAverage,
+            voteCount = movieDetails.vouteCount.toInt(),
             imageUrl = movieDetails.imageUrl.toString(),
             itemId = movieDetails.id.toString(),
             rating = movieDetails.voteAverage,
