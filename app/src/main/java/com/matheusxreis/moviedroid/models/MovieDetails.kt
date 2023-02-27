@@ -34,6 +34,8 @@ data class MovieDetails(
     @SerializedName("number_of_episodes")
     val amountEpisodes: Int,
     @SerializedName("type")
-    val type: String
+    val type: String,
+    @SerializedName("external_ids")
+    val externalIds: ExternalIds
 
 )
