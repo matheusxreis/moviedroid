@@ -43,5 +43,21 @@
             app:argType="string"
             app:nullable="false"
             />
+        <action
+            android:id="@+id/action_myListsContent_to_detailsFragment2"
+            app:destination="@id/detailsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment2"
+        android:name="com.matheusxreis.moviedroid.ui.fragments.details.DetailsFragment"
+        android:label="DetailsFragment">
+
+        <argument
+            android:name="movie"
+            app:argType="com.matheusxreis.moviedroid.models.MoviePoster" />
+        <argument
+            android:name="fromSearch"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 </navigation>
