@@ -106,7 +106,7 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    fun saveInFavorites(movieDetails: MovieDetails, type:String) = viewModelScope.launch {
+    fun saveInFavorites(movieDetails: MovieDetails, type:String, firstAirDate:String?) = viewModelScope.launch {
 
         val favorite = FavoriteEntity(
             title = movieDetails.title,
@@ -116,7 +116,7 @@ class DetailsViewModel @Inject constructor(
             itemId = movieDetails.id.toString(),
             rating = movieDetails.voteAverage,
             type=type,
-            firstAirDate = movieDetails.realeasedAt
+            firstAirDate = firstAirDate
         )
         repository.localDataSource.insertFavorite(favorite)
     }

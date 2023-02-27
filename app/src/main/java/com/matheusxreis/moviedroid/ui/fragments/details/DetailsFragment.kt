@@ -1,5 +1,6 @@
 package com.matheusxreis.moviedroid.ui.fragments.details
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -128,6 +129,7 @@ class DetailsFragment : Fragment(), MenuProvider {
                     findNavController().navigate(action)
                 }
 
+
         }
         return true
     }
@@ -161,7 +163,8 @@ class DetailsFragment : Fragment(), MenuProvider {
 
         detailsViewModel.saveInFavorites(
             movieDetails = movieDetails!!,
-            type = mediaType
+            type = mediaType,
+            firstAirDate = args.movie.firstAirDate
         )
 
         if(!undo){
