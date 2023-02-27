@@ -2,6 +2,7 @@ package com.matheusxreis.moviedroid.ui.fragments.details
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.activity.OnBackPressedCallback
@@ -128,7 +129,30 @@ class DetailsFragment : Fragment(), MenuProvider {
                         )
                     findNavController().navigate(action)
                 }
+            R.id.share_menu -> {
+                detailsViewModel.details.observe(viewLifecycleOwner){
+                    when(it){
+                        is NetworkResult.Success -> {
+                               Log.d("OOOOi, it-s me", it.data?.imdbId.toString())
+                               Log.d("OOOOi, it-s me", it.data.toString())
 
+                                val shareIntent = Intent().apply {
+                                this.action = Intent.ACTION_SEND
+                                this.putExtra(Intent.EXTRA_TEXT,"https://www.imdb.com/title/${it.data!!.externalIds.imdbId}/")
+                                this.putExtra(Intent.EXTRA_TITLE, args.movie.title)
+                                this.type = "text/plain"
+                            }
+                            startActivity(shareIntent)
+
+                        }
+                        else -> {
+
+                        }
+                    }
+
+
+                }
+            }
 
         }
         return true
