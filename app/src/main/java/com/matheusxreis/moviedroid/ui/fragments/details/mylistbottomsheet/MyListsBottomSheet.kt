@@ -149,7 +149,8 @@ class MyListsBottomSheet : BottomSheetDialogFragment() {
                             voteCount = item.vouteCount.toInt(),
                             type = type,
                             rating = item.voteAverage / 2,
-                            listCode = list.id.toString()
+                            listCode = list.id.toString(),
+                            firstAirDate = item.firstAirDate
                         )
                         myListsViewModel.addListItem(listItemEntity)
 

@@ -25,5 +25,6 @@ data class ListItemEntity (
     val voteCount: Int,
     val type: String,
     val rating:Float,
-    val listCode: String
+    val listCode: String,
+    val firstAirDate:String?
 )

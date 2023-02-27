@@ -18,5 +18,6 @@ data class FavoriteEntity(
     val rating:Float,
     val voteAverage: Float,
     val voteCount: Int,
+    val firstAirDate:String?,
     val listCode: String = "favorites"
 )

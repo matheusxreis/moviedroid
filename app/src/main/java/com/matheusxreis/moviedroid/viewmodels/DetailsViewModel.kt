@@ -115,7 +115,8 @@ class DetailsViewModel @Inject constructor(
             imageUrl = movieDetails.imageUrl.toString(),
             itemId = movieDetails.id.toString(),
             rating = movieDetails.voteAverage,
-            type=type
+            type=type,
+            firstAirDate = movieDetails.realeasedAt
         )
         repository.localDataSource.insertFavorite(favorite)
     }
