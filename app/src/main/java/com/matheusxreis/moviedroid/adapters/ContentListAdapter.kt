@@ -14,6 +14,8 @@ import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.data.database.entities.ListEntity
 import com.matheusxreis.moviedroid.data.database.entities.ListItemEntity
 import com.matheusxreis.moviedroid.databinding.ContentListRowLayoutBinding
+import com.matheusxreis.moviedroid.models.MoviePoster
+import com.matheusxreis.moviedroid.ui.fragments.mylistscontent.MyListsContentDirections
 import com.matheusxreis.moviedroid.viewmodels.ListsViewModel
 import kotlinx.android.synthetic.main.content_list_row_layout.*
 import kotlinx.android.synthetic.main.content_list_row_layout.view.*
@@ -66,7 +68,20 @@ class ContentListAdapter
                     currentItem = currentItem
                 )
             }else {
-                //
+
+               val action = MyListsContentDirections.actionMyListsContentToDetailsFragment2(
+                   fromSearch = false,
+                   movie = MoviePoster(
+                       imageUrl = currentItem.imageUrl,
+                       title = currentItem.title,
+                       id = currentItem.itemId,
+                       voteAverage = currentItem.voteAverage,
+                       vouteCount = currentItem.voteCount,
+                       firstAirDate = currentItem.firstAirDate
+                   )
+               )
+             navController.navigate(action)
+
             }
 
         }
