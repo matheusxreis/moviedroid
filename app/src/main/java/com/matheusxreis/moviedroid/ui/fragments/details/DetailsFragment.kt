@@ -28,6 +28,7 @@ import com.matheusxreis.moviedroid.utils.NetworkResult
 import com.matheusxreis.moviedroid.viewmodels.DetailsViewModel
 import com.matheusxreis.moviedroid.viewmodels.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class DetailsFragment : Fragment(), MenuProvider {
@@ -63,6 +64,8 @@ class DetailsFragment : Fragment(), MenuProvider {
         binding.detailsViewModel = detailsViewModel
         binding.movie = args.movie
 
+        requireActivity().bottomBar.visibility = View.GONE
+
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         setUpAndPopulateViewPager()
 
@@ -75,6 +78,8 @@ class DetailsFragment : Fragment(), MenuProvider {
 
     override fun onDestroy() {
         _binding = null
+        requireActivity().bottomBar.visibility = View.VISIBLE
+
         super.onDestroy()
     }
 
@@ -133,8 +138,6 @@ class DetailsFragment : Fragment(), MenuProvider {
                 detailsViewModel.details.observe(viewLifecycleOwner){
                     when(it){
                         is NetworkResult.Success -> {
-                               Log.d("OOOOi, it-s me", it.data?.imdbId.toString())
-                               Log.d("OOOOi, it-s me", it.data.toString())
 
                                 val shareIntent = Intent().apply {
                                 this.action = Intent.ACTION_SEND
