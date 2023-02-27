@@ -110,11 +110,12 @@ class ListsAdapter(
                             currentItem = currentItem
                         )
                     } else {
-                        val action = MyListsFragmentsDirections.actionMyListsFragments2ToMyListsContent(
-                            listId = currentItem.id.toString(),
-                            listName = currentItem.name
-                        )
-                       navController.navigate(action)
+                        val action =
+                            MyListsFragmentsDirections.actionMyListsFragments2ToMyListsContent(
+                                listId = currentItem.id.toString(),
+                                listName = currentItem.name
+                            )
+                        navController.navigate(action)
                     }
                 }
                 holder.itemView.checkboxListSelected.setOnClickListener {
@@ -130,7 +131,18 @@ class ListsAdapter(
                     currentItem = currentItem
                 )
             }
-            0 -> {}
+            0 -> {
+
+                holder.itemView.cardViewList.setOnClickListener {
+                    val action =
+                        MyListsFragmentsDirections.actionMyListsFragments2ToMyListsContent(
+                            listId = currentItem.id.toString(),
+                            listName = currentItem.name
+                        )
+                    navController.navigate(action)
+                }
+
+            }
         }
 
         holder as MyGenericViewHolder
@@ -175,10 +187,12 @@ class ListsAdapter(
         return true
 
     }
+
     override fun onPrepareActionMode(p0: ActionMode?, p1: Menu?): Boolean {
 
         return true
     }
+
     override fun onActionItemClicked(p0: ActionMode?, menuItem: MenuItem?): Boolean {
 
         when (menuItem?.itemId) {
@@ -192,6 +206,7 @@ class ListsAdapter(
         }
         return true
     }
+
     override fun onDestroyActionMode(p0: ActionMode?) {
         contextualSelectedLists.clear()
         myViewHolders.forEach {
@@ -242,6 +257,7 @@ class ListsAdapter(
         }
 
     }
+
     private fun bindSelection(holder: ViewHolder, currentItem: ListEntity) {
         // called inside bind of view holder to apply correct styles in the card view
         // bcs rv behavior recycles the items
@@ -272,6 +288,7 @@ class ListsAdapter(
         }
 
     }
+
     private fun changeEditMenuVisible() {
 
         if (contextualSelectedLists.size != 1) {
@@ -282,6 +299,7 @@ class ListsAdapter(
             editMenuItem.isEnabled = true
         }
     }
+
     private fun applySelectedStyle(materialCardView: MaterialCardView, checkBox: CheckBox) {
         materialCardView.strokeWidth = 2
         materialCardView.strokeColor =
@@ -295,6 +313,7 @@ class ListsAdapter(
         checkBox.isChecked = true
 
     }
+
     private fun removeSelectedStyle(materialCardView: MaterialCardView, checkBox: CheckBox) {
         materialCardView.strokeWidth = 0
         materialCardView.setBackgroundColor(
@@ -305,6 +324,7 @@ class ListsAdapter(
         )
         checkBox.isChecked = false
     }
+
     private fun applyStatusBarColor(color: Int) {
         requireActivity.window.statusBarColor = ContextCompat.getColor(requireActivity, color)
     }
@@ -318,6 +338,7 @@ class ListsAdapter(
         contextualSelectedLists.clear()
         navController.navigate(action)
     }
+
     private fun removeAllSelectedItems() {
         contextualSelectedLists.forEach {
             myListViewModel.deleteList(it.id.toString())

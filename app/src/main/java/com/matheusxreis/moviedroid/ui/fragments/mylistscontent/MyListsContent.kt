@@ -1,17 +1,20 @@
 package com.matheusxreis.moviedroid.ui.fragments.mylistscontent
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.matheusxreis.moviedroid.R
 import com.matheusxreis.moviedroid.adapters.ContentListAdapter
+import com.matheusxreis.moviedroid.data.database.entities.toListEntity
 import com.matheusxreis.moviedroid.viewmodels.ListsViewModel
 import kotlinx.android.synthetic.main.fragment_my_lists_content.*
 
@@ -65,9 +68,17 @@ class MyListsContent : Fragment() {
         contentListRecyclerView.adapter = mAdapter
     }
     private fun populateRecyclerView(){
-        myListsViewModel.readListItem(args.listId.toString()).observe(viewLifecycleOwner){
-            if(!it.isNullOrEmpty()){
-                mAdapter.setData(it)
+        if(args.listId== 1.toString()){
+            myListsViewModel.favorites.asLiveData().observe(viewLifecycleOwner){
+                if (!it.isNullOrEmpty()) {
+                    mAdapter.setData(it.map { favorite -> favorite.toListEntity() })
+                }
+            }
+        }else {
+            myListsViewModel.readListItem(args.listId.toString()).observe(viewLifecycleOwner) {
+                if (!it.isNullOrEmpty()) {
+                    mAdapter.setData(it)
+                }
             }
         }
     }
