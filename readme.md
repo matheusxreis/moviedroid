@@ -6,7 +6,9 @@
 <img align="center" alt="androidstudio" height="40" width="50" src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/androidstudio/androidstudio-original.svg" />
 </div>
 
-<img style="width:1000px;margin-top:20px" src="/readmeimages/readmeimage.png" />
+###
+
+<img style="width:1000px" src="/readmeimages/readmeimage.png" />
 
 ### About
 
