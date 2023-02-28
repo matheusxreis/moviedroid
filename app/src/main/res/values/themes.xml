@@ -18,6 +18,7 @@
 
         <item name="android:actionModeBackground">@color/contextualActionModeBackground</item>
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
+        <item name="android:windowBackground">@color/backgroundColor</item>
     </style>
     <style name="BottomsheetBackground">
         <item name="android:background">@color/purple_200</item>
