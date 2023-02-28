@@ -40,6 +40,7 @@ class SearchResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         _binding = ActivitySearchResultBinding.inflate(layoutInflater)
+        setTheme(R.style.Theme_Moviedroid)
         setContentView(binding.root)
         binding.lifecycleOwner = this
         binding.homeViewModel = homeViewModel

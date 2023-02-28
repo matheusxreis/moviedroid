@@ -19,6 +19,7 @@
         <item name="android:actionModeBackground">@color/contextualActionModeBackground</item>
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
         <item name="android:windowBackground">@color/backgroundColor</item>
+
     </style>
     <style name="BottomsheetBackground">
         <item name="android:background">@color/purple_200</item>
@@ -64,6 +65,12 @@
         <item name="cornerSizeBottomLeft">0dp</item>
         <item name="backgroundColor">@color/purple_200</item>
 
+    </style>
+
+    <style name="SplashScreenTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowBackground">@color/backgroundSecondaryColor</item>
     </style>
 
 </resources>

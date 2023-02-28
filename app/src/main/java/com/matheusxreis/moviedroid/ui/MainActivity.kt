@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_Moviedroid)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 

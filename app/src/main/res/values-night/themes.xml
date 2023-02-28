@@ -65,5 +65,9 @@
         <item name="cornerSizeBottomLeft">0dp</item>
 
     </style>
-
+    <style name="SplashScreenTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowBackground">@color/backgroundSecondaryColor</item>
+    </style>
 </resources>
